@@ -1,0 +1,56 @@
+.formulaire{
+
+width:50%;
+
+padding-left:20%;
+
+padding-top: 5%;
+
+padding-bottom: 5%;
+
+background-color:rgba(206, 207, 200, 0.897);
+
+color:black;
+
+margin:auto;
+
+
+
+}
+
+
+#aligner-button{
+
+margin-left: 27%;
+
+border-radius: 20px;
+
+}
+
+@media screen and (min-width:0px) and (max-width:1023px){
+
+
+    .formulaire{
+
+        width:80%;
+        
+        padding-left:20%;
+        
+        padding-top: 5%;
+        
+        padding-bottom: 5%;
+        
+        background-color:rgba(206, 207, 200, 0.897);
+        
+        color:black;
+        
+        margin:auto;
+        
+        
+        
+        }
+
+    
+
+
+}

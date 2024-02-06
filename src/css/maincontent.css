@@ -1,0 +1,116 @@
+
+.container{
+
+  color: black;   
+          
+  width:100%; 
+
+  display:flex; /*  aligne les elements de container */
+
+  justify-content: space-around;
+
+  flex-wrap: wrap;
+
+  margin-top:23%;
+   
+
+        
+             
+
+}
+
+.element{
+
+  padding: 8px 16px;
+  border-radius: 45px;
+  border: 4px solid black;
+  background-color:rgba(199, 216, 67, 0.699);;
+
+
+}
+
+  
+
+@media screen and (min-width:0px) and (max-width:1023px){
+  
+
+.container{
+
+  color: black;
+
+  width:100%; 
+
+  display:flex; /*  aligne les elements de container */
+
+  justify-content: space-around;
+
+  flex-wrap: wrap;
+
+
+
+
+
+}
+
+.element{
+
+  padding: 8px 16px;
+  border-radius: 45px;
+  border: 4px solid black;
+  background-color:rgba(199, 216, 67, 0.699);;
+
+  
+}
+  
+/*
+
+@media screen and (min-width:0px) and (max-width:1023px){
+  
+
+
+
+}
+
+
+*/
+
+
+/*AJOUT */ 
+
+  
+a{ 
+
+     
+
+  text-decoration: none;
+
+  color:black;  
+}
+
+
+
+
+
+
+
+}
+
+
+
+
+
+/*AJOUT */ 
+
+  
+a{ 
+
+     
+
+  text-decoration: none;
+
+  color:black;  
+}
+
+
+
+
