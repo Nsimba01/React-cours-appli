@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 import React, { useState } from "react";
 import '../css/connexion.css';
 
@@ -25,6 +26,11 @@ function Connexion() {
       };
 
 
+=======
+import '../css/connexion.css';
+
+function Connexion() {
+>>>>>>> f2b20866f54867d42cb1a4e4d6f2bb247fef0687
     return (
 
         <>
@@ -35,16 +41,26 @@ function Connexion() {
         <p> Veuillez vous connecter  ! </p>
 
 
+<<<<<<< HEAD
             <form  onSubmit={handleSubmit}>
+=======
+            <form>
+>>>>>>> f2b20866f54867d42cb1a4e4d6f2bb247fef0687
 
        
                 <div>
 
                     <pre>
 
+<<<<<<< HEAD
                          <label> Pseudo :       <input type="text" name="username"  value={formData.username} onChange={handleChange}/>   </label> <br/>
     
                          <label> Mot de passe : <input type="password" name="password"  value={formData.password}  onChange={handleChange}/> </label> <br/>
+=======
+                         <label> Pseudo :       <input type="text" name="username" />   </label> <br/>
+    
+                         <label> Mot de passe : <input type="password" name="password"  /> </label> <br/>
+>>>>>>> f2b20866f54867d42cb1a4e4d6f2bb247fef0687
       
                      </pre>
 
