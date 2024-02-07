@@ -1,0 +1,176 @@
+.row {
+    display: flex;
+    justify-content: space-between;
+
+
+    width:100%;
+
+    border:1px solid black;
+
+    margin-bottom:3%;
+
+    background-color:#CC9900;
+  } 
+  
+
+    
+
+  .presentation{
+
+
+    justify-content: space-between;
+
+    background-color:rgba(199, 216, 67, 0.699);
+
+   
+
+    margin:auto;
+
+    color:black;
+
+ 
+    border:1px solid white;
+
+    margin-bottom:3%;
+
+    border-radius: 23px 23px 23px 23px   ;
+
+
+    margin-top:-3%;
+
+    padding: 46px;
+  
+    width: 100%;
+    height: 300px;
+  
+
+
+
+  }
+  .row:before,
+  .row:after {
+    content: '';
+    flex: 0.5;
+  }
+  
+  .col {
+    text-align: center;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .col:nth-child(1) {
+    order: -1
+  }
+  
+  .col:nth-child(3) {
+    order: 1;
+}  
+
+@media screen and (max-width:700px) {
+  .row {
+    flex-direction: column;
+ 
+    margin: auto;
+
+
+    width:100%;
+  
+    
+    background-color:#CC9900;
+  }
+
+
+  .presentation{
+
+    margin-top:-0.1%;
+    width: 100%;
+    height: 600px;
+
+
+  }
+}
+ 
+
+.button_espace{
+  flex: 1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  color: black;
+
+  padding: 8px 16px;
+  border-radius: 45px;
+  border: 4px solid black;
+
+  background:#CC9900;
+
+  text-decoration: none;
+  margin-top:3%;
+  margin-bottom:3%;
+}
+
+
+
+
+
+
+
+.titre{
+
+    flex: 1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family: verdana;
+    font-weight: bold;
+    color:black;
+    font-size: calc(8px + 0.5vw);
+    padding: 8px 16px;
+    text-decoration: none;
+    margin-top:3%;
+    margin-bottom:3%;
+
+
+
+}
+
+
+.bloc_titre_logo{ 
+	width:170px;
+	clip-path:ellipse(33% 50%);
+}
+
+  
+.row,.presentation{
+
+
+   color:black;
+
+
+}
+
+.presentation img{
+
+	float:left;
+	shape-outside:margin-box;
+	margin:10px;
+	width:500px;
+
+
+}
+
+.presentation P{
+  
+  padding:10px;
+	text-align:justify;
+	overflow-wrap:break-word;
+
+}
+
+.bloc_titre_boutonespace_image{
+	width:30px;
+	margin-right:5px;
+}    
