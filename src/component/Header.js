@@ -10,8 +10,20 @@ import MainContent from './MainContent.js';
 
 import Connexion from './Connexion.js';
 
+import LoginHover from './LoginHover.js';
+
+
+
+
+
+
 
 function Header() {
+
+
+
+
+
     return (
   
 
@@ -24,9 +36,54 @@ function Header() {
       
         <div className=" col" id="button2"><h1 className="titre"> Titre principal </h1></div>
       
-        <div className=" col"><Link to="/connexion"> <div  className="button_espace"><img class="bloc_titre_boutonespace_image" src={img_btn_espace} alt="bouton-space"/> Bouton Espace </div></Link></div>
+       
+
+         <div className=" col">
+          
+          
+         
+
+                <div className="dropdown">
+
+                  <Link to="/connexion"> 
+              
+                    <div  className="button_espace">
+
+
+        
+                 
+                      
+                          <img className="bloc_titre_boutonespace_image" src={img_btn_espace} alt="bouton-space"/> 
+                          
+                                    Bouton Espace 
+                                    
+                      </div>
+
+                      </Link> 
+
+                      <div class="dropdown-content">
+
+
+                          <LoginHover/>
+  
+                      
+  
+                      </div>
+
+                  </div>
+                      
+             
+              
+              
+          </div>
     
+
+       
+        
       </div>
+
+ 
+
 
     
 
@@ -54,3 +111,12 @@ function Header() {
    
   export default Header;
 
+     /*
+
+      {isHovering && (
+          
+
+          <ConnexionHover/>
+
+
+       )}  */

@@ -1,0 +1,44 @@
+.form-login{
+
+
+width:100px;
+
+height: 200px;
+
+display:flex;
+
+flex-direction: column;
+
+padding-left:25%;
+
+background-color:#CC9900;
+
+
+
+}
+
+#button-place{
+
+    padding-left:37%;
+
+
+
+}
+@media screen and (max-width:700px) {
+
+    .form-login{
+
+
+        width:100px;
+        
+        display:flex;
+        
+        flex-direction: column;
+
+        justify-content: center;
+        
+        
+        }
+        
+
+}
