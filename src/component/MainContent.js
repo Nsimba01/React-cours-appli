@@ -21,22 +21,29 @@ function MainContent() {
 
      <div className="presentation" >
 
+
+  
+
+
+
         <img src={presentation_img} alt="L'arbre du savoir"  />
 
-        <p>
+      
+
+          <p>
 
              Bienvenue dans <strong>"L'Arbre du Savoir"</strong>. <br/><br/>
-             Ici, tu trouveras l'ensemble des connaissances, méthodes et outils<br/> qui te serviront tout au long de ta vie. <br/><br/>
-             Toutefois, garde toujours à l'esprit que la discipline est la clé <br/> de l'accomplissement de toute grande chose. <br/>t Sois donc patient, et surtout régulier dans ton apprentissage. <br/><br/>
+             Ici, tu trouveras l'ensemble des connaissances, méthodes et outils<br/><br/>
+             qui te serviront tout au long de ta vie. <br/><br/>
+             Toutefois, garde toujours à l'esprit que la discipline est la clé <br/><br/> de l'accomplissement de toute grande chose.
+             <br/><br/> Sois donc patient, et surtout régulier dans ton apprentissage. <br/><br/>
              Je te souhaite toute la réussite que tu mérites.  <br/><br/>
 
-
-
-        </p>
+          </p>
 
      </div>      
 
-     <div className='container'>
+   <div className='container'>
 
 
           <div className='element'>
@@ -66,6 +73,8 @@ function MainContent() {
 
       
       </div>
+
+     
         
        
 

@@ -5,21 +5,29 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;    
+  overflow-x: hidden;
+
 
 
 }
-  
 
+
+  
+@media screen and (min-width:400px)  and (max-width:800px) {
+
+  body {
+
+  overflow-x: hidden;
+
+  }
+
+}
   
 html{
 
   height: 100%; 
   margin: 0;
-  background: url(./images/arbredusavoir.jpg) no-repeat center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+
 }
 
 
@@ -30,3 +38,38 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+
+
+
+video{
+
+
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -1;
+  object-fit: cover;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  position: fixed;
+  
+
+
+
+
+  
+  }
+
+  .content{
+
+  
+ z-index:1;
+   
+
+ 
+  }
+
+  

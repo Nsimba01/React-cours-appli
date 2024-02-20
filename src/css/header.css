@@ -1,13 +1,13 @@
 .row {
     display: flex;
+   
     justify-content: space-between;
-
 
     width:100%;
 
     border:1px solid black;
 
-    margin-bottom:3%;
+    margin-bottom:3%; 
 
     background-color:#CC9900;
   } 
@@ -33,7 +33,7 @@
 
     margin-bottom:3%;
 
-    border-radius: 23px 23px 23px 23px   ;
+ 
 
 
     margin-top:-3%;
@@ -42,6 +42,17 @@
   
     width: 100%;
     height: 300px;
+
+    /* upadate */
+
+    display:flex; 
+    
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+
+ 
   
 
 
@@ -68,7 +79,73 @@
     order: 1;
 }  
 
-@media screen and (max-width:700px) {
+
+
+@media screen and (min-width:300px) and  (max-width:900px) {
+
+  .presentation img{
+
+    float:left;
+    /* shape-outside:margin-box;*/
+
+    margin-left:7%;
+
+    width:40%;
+
+    height:40%;
+
+    margin-left:-80%;
+  
+  
+  }
+
+  .presentation{
+
+    margin-top:-0.1%;
+    width: 100%;
+    height: 800px;
+
+    /* update */
+
+    display:flex;
+    
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    font-size: 13px;
+
+
+
+
+
+  }
+
+  .bloc_titre_logo{ 
+   
+    clip-path:ellipse(33% 50%);
+   
+  
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color:#CC9900;
+    width: 960px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+
+    justify-content:center;
+    z-index: 1;
+  }
+  
+  
+
+}
+
+
+@media screen and (max-width:1023px){
   .row {
     flex-direction: column;
  
@@ -76,6 +153,7 @@
 
 
     width:100%;
+
   
     
     background-color:#CC9900;
@@ -86,9 +164,42 @@
 
     margin-top:-0.1%;
     width: 100%;
-    height: 600px;
+    height: 800px;
+
+    /* update */
+
+    display:flex;
+    
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    font-size: 13px;
 
 
+
+
+  }
+
+  
+
+  /* end update */
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color:#CC9900;
+    width: 960px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+
+    justify-content:center;
+    z-index: 1;
+  }
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+    background-color:#CC9900;
   }
 }
  
@@ -101,7 +212,7 @@
 
   color: black;
 
-  padding: 8px 16px;
+  padding: 26px 26px;
   border-radius: 45px;
   border: 4px solid black;
 
@@ -110,6 +221,8 @@
   text-decoration: none;
   margin-top:3%;
   margin-bottom:3%;
+ 
+ 
 }
 
 
@@ -140,7 +253,10 @@
 
 .bloc_titre_logo{ 
 	width:170px;
+
 	clip-path:ellipse(33% 50%);
+
+
 }
 
   
@@ -152,15 +268,21 @@
 
 }
 
+
 .presentation img{
 
 	float:left;
 	shape-outside:margin-box;
 	margin:10px;
-	width:500px;
+  width:280px;
+
+
+
 
 
 }
+
+
 
 .presentation P{
   
@@ -173,4 +295,24 @@
 .bloc_titre_boutonespace_image{
 	width:30px;
 	margin-right:5px;
+
 }    
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color:#CC9900;
+  min-width: 260px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+  z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
