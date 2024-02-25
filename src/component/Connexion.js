@@ -1,10 +1,6 @@
 
 import React, { useState } from "react";
-<<<<<<< HEAD
 
-
-=======
->>>>>>> 91ecae31d1c67c43943c06350b6fc4f734c6fced
 import '../css/connexion.css';
 
 

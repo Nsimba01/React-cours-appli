@@ -29,6 +29,8 @@ function Header() {
 
     <Router> 
 
+   
+
      <div className="row">
 
       
@@ -62,19 +64,12 @@ function Header() {
                       </Link> 
 
                       <div class="dropdown-content">
-
-<<<<<<< HEAD
-                    
+      
 
 
                           <LoginHover/>
 
                          
-=======
-
-                          <LoginHover/>
->>>>>>> 91ecae31d1c67c43943c06350b6fc4f734c6fced
-  
                       
   
                       </div>
@@ -91,6 +86,8 @@ function Header() {
         
       </div>
 
+
+ 
  
 
 

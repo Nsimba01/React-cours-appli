@@ -12,6 +12,10 @@ import '../css/header.css';
 
 import presentation_img from '../images/arbredusavoir.jpg';
 
+import img_scolaire from '../images/maviescolaire.jpg';
+
+import log_euro from '../images/logo_euro.png';
+
 // <img alt="Salle de classe" src={scolaire} className="scolarite"  />
 function MainContent() {
     return (
@@ -50,6 +54,9 @@ function MainContent() {
 
               <h1> scolarité </h1>
 
+              <img src={img_scolaire} alt="scolaire" />
+
+
           </div>
 
 
@@ -57,6 +64,10 @@ function MainContent() {
 
 
               <h1> Finance </h1>
+
+              <img src={log_euro} alt="logo euro" />
+
+            
 
             
           </div>
