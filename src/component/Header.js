@@ -20,8 +20,23 @@ import LoginHover from './LoginHover.js';
 
 function Header() {
 
+/*
+  function handleWindowResize() {
+    // Get the width and height of the window
+    var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    
 
+    // Display the width and height
 
+    alert("Window width: " + width);
+   
+   
+}
+
+// Add event listener for window resize
+window.addEventListener("resize", handleWindowResize);
+
+*/
 
 
     return (

@@ -37,20 +37,21 @@ function LoginHover() {
        
                 <div>
 
-                    <center> 
-
+                 
      
-                         <label> Pseudo :        <input type="text" name="username"  width="28" value={formData.username} onChange={handleChange}/>   </label> <br/>
+                         <label> Pseudo :        <input type="text" name="username"   value={formData.username} onChange={handleChange}/>   </label> <br/>
     
-                         <label> Mot de passe : <input type="password" name="password" width="28"  value={formData.password}  onChange={handleChange}/> </label> <br/>
+                         <label> Mot de passe : <input type="password" name="password" value={formData.password}  onChange={handleChange}/> </label> <br/>
       
 
-                          <div id="button-place"> 
+                          <div> 
                              
-                             <input type="submit" value="connexion"  /> <b>sinon créer un compte ! </b>
+                             <input type="submit" value="connexion"  /> <br/> <br/>
+                             
+                              <b>sinon créer un compte ! </b>
 
                           </div>
-                    </center>
+                    
 
                 </div>
 

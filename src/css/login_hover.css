@@ -1,7 +1,18 @@
 .form-login{
 
 
-width:100px;
+    
+    width: 60%;
+    max-width: 600px;
+    margin: 0 auto;
+    background-color:#CC9900;
+
+
+   
+
+
+/*
+width:300px;
 
 height: 200px;
 
@@ -9,9 +20,9 @@ display:flex;
 
 flex-direction: column;
 
-padding-left:25%;
 
-background-color:#CC9900;
+
+background-color:greenyellow;
 
 
 
@@ -19,11 +30,52 @@ justify-content:center;
 
 color: black;
 
+*/
+
 
 
 
 
 }
+
+
+/* add */
+
+.form-login label{
+
+    display: block;
+    margin-bottom: 10px;
+
+
+}
+
+/* add */
+
+.form-login input[type="text"], .form-login input[type="password"]{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+
+
+  /* add */
+
+  .form-login input[type="submit"] {
+    padding: 10px 20px;
+    background-color: #000;
+    color: #fff;
+  }
+
+
+/* add */
+
+@media (max-width: 600px) {
+    .form-login input[type="text"], .form-login input[type="password"]{
+      font-size: 14px;
+    }
+  }
+
+/*
 
 #button-place{
 
@@ -32,8 +84,119 @@ color: black;
 
 
 }
-@media screen and (max-width:700px) {
 
+*/
+
+
+/*  ON VA APPLIQUER DU RESPONSIVE AUX DIFFERENTES TAILLES DES ECRANS LO
+RSQUE L'ECRAN EST REDUIT */
+
+
+/* IL YA UNE FONCTION JS DANS Header.js QUI AFFICHE
+LA TAILLE DE L'ECRAN A L'INSTANT T */
+
+@media screen and (min-width:500px) and (max-width:620px)  {
+   
+    .form-login{
+
+        width: 100%;
+
+
+        background-color:#CC9900;
+
+         margin-left:-7%;
+
+         
+
+       
+
+        
+        
+        
+        }
+
+        .form-login input[type="text"], .form-login input[type="password"]{
+            width: 30%;
+          
+          }
+        
+
+          
+    
+ 
+  
+}
+
+
+@media screen and (min-width:620px) and (max-width:639px)  {
+   
+    .form-login{
+
+        width: 100%;
+
+
+        background-color:#CC9900;
+
+         margin-left:0.3%;
+
+         
+
+       
+
+        
+        
+        
+        }
+
+        .form-login input[type="text"], .form-login input[type="password"]{
+            width: 50%;
+          
+          }
+        
+
+          
+    
+ 
+  
+}
+
+
+
+
+@media screen and (min-width:639px) and (max-width:778px)  {
+   
+    .form-login{
+
+        width: 100%;
+
+
+        background-color:#CC9900;
+
+         margin-left:3%;
+  
+
+       
+
+        
+        
+        
+        }
+
+        .form-login input[type="text"], .form-login input[type="password"]{
+            font-size: 24px;
+          
+          }
+        
+
+          
+    
+ 
+  
+}
+
+
+@media screen and (min-width:778px) and (max-width: 856px) {
+   
     .form-login{
 
 
@@ -44,9 +207,35 @@ color: black;
         flex-direction: column;
 
         justify-content: center;
+
+        margin-left: 37%;
         
         
         }
-        
-
 }
+
+
+
+@media screen and (min-width:856px) and  (max-width: 925px) {
+   
+    .form-login{
+
+
+        width:100px;
+        
+        display:flex;
+        
+        flex-direction: column;
+
+        justify-content: center;
+
+        margin-left: 38%;
+        
+        
+        }
+}
+
+
+
+
+

@@ -7,20 +7,185 @@
 
     border:1px solid black;
 
-    margin-bottom:3%; 
+    margin-bottom:0%; 
 
     background-color:#CC9900;
+   
+
+
+
   } 
 
+  
+  .presentation img{
 
+
+    width:200px;
+ 
+    height:100px;
+
+    padding-left: 4%;
+
+    padding-top:4%;
+
+
+ 
     
+   }
+
+
+   .presentation P{
+
+    font-size:13px;
+
+    margin-left:-13%;
+
+   }
+ 
+
+  @media screen and (min-width:200px) and (max-width:1000px)  {
+
+
+    .row {
+      flex-direction: column;
+   
+      margin: auto;
+  
+  
+      width:1000px;
+  
+    
+      
+      background-color:#CC9900;
+    }
+
+  }
+
+
+
+  /* Media Query pour cibler spécifiquement l'iPhone SE en mode portrait */
+@media only screen 
+and (min-device-width: 375px) 
+and (max-device-width: 667px) 
+and (-webkit-device-pixel-ratio: 2) 
+and (orientation: portrait) {
+
+  .row {
+    flex-direction: column;
+ 
+    margin: auto;
+
+    width:1000px;
+
+ 
+    background-color:#CC9900;
+  }
+
+
+
+
+}
+
+
+/* Media Query pour cibler spécifiquement l'iPad Mini */
+@media only screen 
+  and (device-width: 768px) 
+  and (device-height: 1024px) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+
+    .row {
+      flex-direction: column;
+   
+      margin: auto;
+
+      width:1000px;
+
+  
+  
+  
+      background-color:#CC9900;
+    }
+  
+}
+
+
+/* Media Query pour cibler spécifiquement le Samsung Galaxy A51 */
+@media only screen 
+  and (device-width: 720px) /* Largeur en pixels */
+  and (device-height: 1560px) /* Hauteur en pixels */
+  and (-webkit-device-pixel-ratio: 2) /* Ratio de pixels */ {
+ 
+    .row {
+      flex-direction: column;
+   
+      margin: auto;
+
+      width:1000px;
+  
+  
+      background-color:#CC9900;
+    }
+  
+
+
+
+}
+
+@media only screen 
+
+  and (max-width: 1780px) 
+   {
+
+
+    .presentation{
+
+
+     
+      background-color:rgba(199, 216, 67, 0.699);
+  
+      float:left;
+  
+      margin:auto;
+  
+      color:black;
+  
+   
+      border:1px solid white;
+  
+      margin-bottom:3%;
+  
+   
+  
+  
+      margin-top:-3%;
+  
+    
+    
+      width: 100%;
+      height: 300px;
+  
+  
+  
+  
+   
+    
+  
+  
+  
+    }
+
+
+  }
+    
+
 
   .presentation{
 
 
-    justify-content: space-between;
 
     background-color:rgba(199, 216, 67, 0.699);
+
+    justify-content: space-between;
 
    
 
@@ -36,18 +201,16 @@
  
 
 
-    margin-top:-3%;
+    margin-top:-0.3%;
 
-    padding: 46px;
+
   
     width: 100%;
-    height: 300px;
 
-    /* upadate */
+
 
     display:flex; 
-    
-    justify-content: center;
+ 
 
     flex-wrap: wrap;
 
@@ -58,6 +221,8 @@
 
 
   }
+
+  
   .row:before,
   .row:after {
     content: '';
@@ -83,29 +248,15 @@
 
 @media screen and (min-width:300px) and  (max-width:1008px) {
 
-  .presentation img{
 
-    float:left;
-    /* shape-outside:margin-box;*/
-
-    margin-left:7%;
-
-    width:40%;
-
-    height:40%;
-
-    margin-left:-80%;
-  
-  
-  }
-
+/*
   .presentation{
 
     margin-top:-0.1%;
     width: 100%;
     height: 800px;
 
-    /* update */
+
 
     display:flex;
     
@@ -120,6 +271,8 @@
 
 
   }
+
+  */
 
   .bloc_titre_logo{ 
 
@@ -139,10 +292,19 @@
     width: 960px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     padding: 12px 16px;
+    align-items: center;
 
-    justify-content:center;
+
     z-index: 1;
   }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+    background-color:#CC9900;
+    width:990px;
+    
+  }
+
   
   
 
@@ -150,6 +312,8 @@
 
 
 @media screen and (max-width:1023px){
+
+  
   .row {
     flex-direction: column;
  
@@ -164,28 +328,11 @@
   }
 
 
-  .presentation{
-
-    margin-top:-0.1%;
-    width: 100%;
-    height: 800px;
-
-    /* update */
-
-    display:flex;
-    
-    justify-content: center;
-
-    flex-wrap: wrap;
-
-    font-size: 13px;
-
-
-
-
-  }
+  
 
   
+
+
 
   /* end update */
 
@@ -204,6 +351,8 @@
   .dropdown:hover .dropdown-content {
     display: block;
     background-color:#CC9900;
+    width:990px;
+    
   }
 
   .dropdown-content {
@@ -291,18 +440,6 @@
 }
 
 
-.presentation img{
-
-	float:left;
-	shape-outside:margin-box;
-	margin:10px;
-  width:280px;
-
-
-
-
-
-}
 
 
 
@@ -335,6 +472,45 @@
   z-index: 1;
 }
 
+
+
+
 .dropdown:hover .dropdown-content {
   display: block;
+}
+
+
+.divexterne {
+
+  background-color:rgba(199, 216, 67, 0.699);;
+  
+  width: 100%;
+  
+  
+  
+  }
+
+.divexterne img{
+
+
+width:300px;
+height:300px;
+
+}
+  
+.tableau {
+  width: 100%;
+  border-collapse: collapse;
+  
+  
+}
+
+.cellule {
+  text-align: center;
+  padding: 20px;
+}
+
+.cellule img {
+  max-width: 100%;
+  height: auto;
 }

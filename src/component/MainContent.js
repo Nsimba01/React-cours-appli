@@ -23,34 +23,46 @@ function MainContent() {
 
     <>
 
-     <div className="presentation" >
 
 
-  
+<div className="divexterne"  style={{ marginTop: '2px' }} >
+   <table class="tableau">
+    <tr>
+      <td class="cellule">
+        <img src={presentation_img} alt="presentation" />
+      </td>
+      <td class="cellule">
 
 
 
-        <img src={presentation_img} alt="L'arbre du savoir"  />
-
-      
-
-          <p>
-
-             Bienvenue dans <strong>"L'Arbre du Savoir"</strong>. <br/><br/>
+            Bienvenue dans <strong>"L'Arbre du Savoir"</strong>. <br/><br/>
              Ici, tu trouveras l'ensemble des connaissances, méthodes et outils<br/><br/>
              qui te serviront tout au long de ta vie. <br/><br/>
              Toutefois, garde toujours à l'esprit que la discipline est la clé <br/><br/> de l'accomplissement de toute grande chose.
              <br/><br/> Sois donc patient, et surtout régulier dans ton apprentissage. <br/><br/>
              Je te souhaite toute la réussite que tu mérites.  <br/><br/>
-
-          </p>
-
-     </div>      
-
-   <div className='container'>
+       
 
 
-          <div className='element'>
+
+      </td>
+    </tr>
+  </table>
+
+  </div>
+
+
+
+
+
+
+
+
+
+   <div className='module_container'>
+
+
+          <div className='module_element'>
 
               <h1> scolarité </h1>
 
@@ -60,7 +72,7 @@ function MainContent() {
           </div>
 
 
-          <div className='element'>
+          <div className='module_element'>
 
 
               <h1> Finance </h1>
@@ -74,7 +86,7 @@ function MainContent() {
 
 
           
-          <div className='element'>
+          <div className='module_element'>
 
 
                <h1> Autres </h1>

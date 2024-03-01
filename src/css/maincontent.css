@@ -1,5 +1,5 @@
 
-.container{
+.module_container{
 
   color: black;   
           
@@ -19,7 +19,7 @@
 
 }
 
-.element{
+.module_element{
 
   padding: 8px 16px;
   border-radius: 45px;
@@ -30,7 +30,7 @@
 
 }
 
-.element img{
+.module_element img{
 
   padding: 8px 16px;
 
@@ -46,7 +46,7 @@
 @media screen and (min-width:0px) and (max-width:1023px){
   
 
-.container{
+.module_container{
 
   color: black;
 
@@ -64,7 +64,7 @@
 
 }
 
-.element{
+.module_element{
 
   padding: 8px 16px;
   border-radius: 45px;
@@ -122,6 +122,8 @@ a{
 
   color:black;  
 }
+
+
 
 
 
