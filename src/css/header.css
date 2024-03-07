@@ -514,3 +514,33 @@ height:300px;
   max-width: 100%;
   height: auto;
 }
+
+.HideShow{
+
+
+  position:absolute;
+  z-index:2;
+  padding: 10px 20px;
+  background-color:rgba(199, 216, 67, 0.699);;
+  color:black;
+ 
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+
+  }
+  
+  
+  .divexterne {
+  
+    background-color:rgba(199, 216, 67, 0.699);;
+    
+    width: 100%;
+  
+    position:relative;
+  
+    z-index:1;
+    
+    
+    
+  }  

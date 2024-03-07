@@ -16,23 +16,47 @@ import img_scolaire from '../images/maviescolaire.jpg';
 
 import log_euro from '../images/logo_euro.png';
 
-// <img alt="Salle de classe" src={scolaire} className="scolarite"  />
+
+import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
+
+
 function MainContent() {
+
+
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  const toggleCollapse = () => {
+ setIsCollapsed(!isCollapsed);
+  };
+
+
     return (
  
 
     <>
 
+<button onClick={toggleCollapse} className="HideShow">
 
+        {isCollapsed ? <FontAwesomeIcon icon={faAngleDown} /> : <FontAwesomeIcon icon={faAngleUp} />} Toggle Content
+
+</button>
+
+
+
+{!isCollapsed && (
 
 <div className="divexterne"  style={{ marginTop: '2px' }} >
+
+   
+  
    <table class="tableau">
     <tr>
       <td class="cellule">
         <img src={presentation_img} alt="presentation" />
       </td>
       <td class="cellule">
-
 
 
             Bienvenue dans <strong>"L'Arbre du Savoir"</strong>. <br/><br/>
@@ -51,15 +75,8 @@ function MainContent() {
 
   </div>
 
-
-
-
-
-
-
-
-
-   <div className='module_container'>
+)}
+<div className='module_container'>
 
 
           <div className='module_element'>
@@ -88,14 +105,11 @@ function MainContent() {
           
           <div className='module_element'>
 
-
-               <h1> Autres </h1>
+<h1> Autres </h1>
 
             
           </div>
-
-      
-      </div>
+</div>
 
      
         
@@ -107,5 +121,7 @@ function MainContent() {
     );
   }
    
+
   export default MainContent;
+
 
