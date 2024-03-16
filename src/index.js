@@ -8,6 +8,7 @@ import { initializeApp } from "firebase/app";
 import 'firebase/auth'; // Importez le module d'authentification Firebase
 
 
+
 const firebaseConfig = {
   apiKey: "AIzaSyAp3Dnc8N0Ud4A9XOLYoGakcAXl_q1m6rg",
   authDomain: "cours-pour-petits.firebaseapp.com",

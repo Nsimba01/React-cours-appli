@@ -9,19 +9,26 @@ function Connexion() {
     });
     const [successMessage, setSuccessMessage] = useState(null);
     const [errorMessage, setErrorMessage] = useState(null);
+    const [showPasswordTooltip, setShowPasswordTooltip] = useState(false);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
         setFormData((prevState) => ({ ...prevState, [name]: value }));
     };
 
-   
-  
-      const handleSubmit = (event) => {
+    const handleFocus = () => {
+        setShowPasswordTooltip(true);
+    };
+
+    const handleBlur = () => {
+        setShowPasswordTooltip(false);
+    };
+
+    const handleSubmit = (event) => {
         event.preventDefault();
         const auth = getAuth();
         const email = formData.mail;
-    
+
         // Tentative de création de compte
         createUserWithEmailAndPassword(auth, email, formData.password)
             .then(() => {
@@ -52,8 +59,6 @@ function Connexion() {
                 }
             });
     };
-    
-   
   
     return (
 
@@ -74,9 +79,10 @@ function Connexion() {
 
                     <pre>
 
-                         <label> Email :        <input type="email" name="mail"  value={formData.mail} onChange={handleChange}/>   </label> <br/>
+                         <label> Email :       <input type="email" name="mail"  value={formData.mail} onChange={handleChange}/>   </label> <br/>
     
-                         <label> Mot de passe : <input type="password" name="password"  value={formData.password}  onChange={handleChange}/> </label> <br/>
+                         Mot de passe : <input type="password" name="password" value={formData.password} onChange={handleChange} onFocus={handleFocus} onBlur={handleBlur}/>
+                        {showPasswordTooltip &&  <span className="tooltip">      Au moins 6 caractères</span>}
       
                      </pre>
 

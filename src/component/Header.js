@@ -62,7 +62,7 @@ window.addEventListener("resize", handleWindowResize);
 
                 <div className="dropdown">
 
-                  <Link to="/connexion"> 
+                  <Link to="/connexion-inscription"> 
               
                     <div  className="button_espace">
 
@@ -112,7 +112,7 @@ window.addEventListener("resize", handleWindowResize);
 
              <Route exact path="/home" element={<MainContent />}>  </Route>
 
-             <Route exact path="/connexion" element={<Connexion />}>  </Route>
+             <Route exact path="/connexion-inscription" element={<Connexion />}>  </Route>
 
              <Route
                         path="*"
