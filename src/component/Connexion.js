@@ -1,107 +1,71 @@
 import React, { useState } from "react";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { getDatabase, ref, set } from "firebase/database";
+import bcrypt from 'bcryptjs'; // Importer bcrypt pour le hachage sécurisé
 import '../css/connexion.css';
 
 function Connexion() {
     const [formData, setFormData] = useState({
-        mail: "",
+        pseudo: "",
         password: ""
     });
     const [successMessage, setSuccessMessage] = useState(null);
     const [errorMessage, setErrorMessage] = useState(null);
-    const [showPasswordTooltip, setShowPasswordTooltip] = useState(false);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
         setFormData((prevState) => ({ ...prevState, [name]: value }));
     };
 
-    const handleFocus = () => {
-        setShowPasswordTooltip(true);
-    };
-
-    const handleBlur = () => {
-        setShowPasswordTooltip(false);
-    };
-
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        const auth = getAuth();
-        const email = formData.mail;
 
-        // Tentative de création de compte
-        createUserWithEmailAndPassword(auth, email, formData.password)
-            .then(() => {
-                // L'utilisateur a été créé avec succès
-                setSuccessMessage("Votre compte a été créé avec succès !");
-                setErrorMessage(null);
-            })
-            .catch((error) => {
-                if (error.code === "auth/email-already-in-use") {
-                    // L'email est déjà utilisé, connectez-vous plutôt
-                    signInWithEmailAndPassword(auth, email, formData.password)
-                        .then(() => {
-                            // L'authentification réussie
-                            setSuccessMessage("Vous êtes connecté !");
-                            setErrorMessage(null);
-                        })
-                        .catch((signInError) => {
-                            // L'authentification a échoué
-                            setErrorMessage("Mot de passe incorrect. Veuillez réessayer.");
-                            setSuccessMessage(null);
-                            console.error("Erreur d'authentification:", signInError);
-                        });
-                } else {
-                    // Une erreur s'est produite lors de la création de l'utilisateur
-                    setErrorMessage("Une erreur s'est produite lors de la création de votre compte. Veuillez réessayer.");
-                    setSuccessMessage(null);
-                    console.error("Erreur lors de la création de l'utilisateur:", error);
-                }
+        try {
+            // Hacher le mot de passe avant l'envoi à Firebase
+            const hashedPassword = await encryptPassword(formData.password);
+
+            // Enregistrer les données dans Firebase
+            const db = getDatabase();
+            await set(ref(db, 'users/' + formData.pseudo), {
+                pseudo: formData.pseudo,
+                password: hashedPassword
             });
+
+            setSuccessMessage("Votre compte a été créé avec succès !");
+            setErrorMessage(null);
+            setFormData({ pseudo: "", password: "" }); // Effacer les champs après envoi
+        } catch (error) {
+            setErrorMessage("Une erreur s'est produite lors de la création de votre compte. Veuillez réessayer.");
+            setSuccessMessage(null);
+            console.error("Erreur lors de l'enregistrement des données:", error);
+        }
     };
-  
+
+    // Fonction de hachage sécurisé du mot de passe
+    const encryptPassword = async (password) => {
+        try {
+            const saltRounds = 10; // Nombre de tours de salage pour bcrypt
+            const hashedPassword = await bcrypt.hash(password, saltRounds);
+            return hashedPassword;
+        } catch (error) {
+            console.error("Erreur lors du hachage du mot de passe:", error);
+            throw new Error("Erreur lors du hachage du mot de passe");
+        }
+    };
+
     return (
-
-  
-
-    
-
-
-      <div  className="formulaire"> 
-        
-        <p> Veuillez vous connecter  ! </p>
-
-
-            <form  onSubmit={handleSubmit}>
-
-       
+        <div className="formulaire">
+            <p> Veuillez vous connecter ! </p>
+            <form onSubmit={handleSubmit}>
                 <div>
-
-                    <pre>
-
-                         <label> Email :       <input type="email" name="mail"  value={formData.mail} onChange={handleChange}/>   </label> <br/>
-    
-                         Mot de passe : <input type="password" name="password" value={formData.password} onChange={handleChange} onFocus={handleFocus} onBlur={handleBlur}/>
-                        {showPasswordTooltip &&  <span className="tooltip">      Au moins 6 caractères</span>}
-      
-                     </pre>
-
-                     <input type="submit" value="connexion/inscription" id="aligner-button" />
-
+                    <label> Pseudo : <input type="text" name="pseudo" value={formData.pseudo} onChange={handleChange} /> </label> <br />
+                    <label> Mot de passe : <input type="password" name="password" value={formData.password} onChange={handleChange} /> </label> <br />
+                    <input type="submit" value="Connexion/Inscription" id="aligner-button" />
                 </div>
-
-             </form>
-
-             
-             {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
-
-             {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-            
+            </form>
+            {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
+            {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
         </div>
-    
- 
-
-    )
-
+    );
 }
+
 export default Connexion;
