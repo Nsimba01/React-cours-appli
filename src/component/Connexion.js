@@ -15,6 +15,7 @@ function Connexion() {
         uppercase: false,
         number: false
     });
+    const [isPasswordFocused, setIsPasswordFocused] = useState(false); // État pour suivre le focus sur le champ de mot de passe
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -25,42 +26,34 @@ function Connexion() {
     };
 
     const validatePassword = (password) => {
-        const newPasswordValidation = {
+        setPasswordValidation({
             length: password.length >= 10,
             uppercase: /[A-Z]/.test(password),
             number: /[0-9]/.test(password)
-        };
-        setPasswordValidation(newPasswordValidation);
+        });
     };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
+        if (!Object.values(passwordValidation).every(value => value)) {
+            setErrorMessage("Le mot de passe ne remplit pas les critères de validation.");
+            setSuccessMessage(null);
+            return;
+        }
+
         try {
-            // Vérifier si tous les critères de validation du mot de passe sont satisfaits
-            if (Object.values(passwordValidation).every(value => value)) {
-                // Hacher le mot de passe avant l'envoi à Firebase
-                const hashedPassword = await encryptPassword(formData.password);
+            const hashedPassword = await encryptPassword(formData.password);
+            const db = getDatabase();
+            await set(ref(db, 'users/' + formData.pseudo), {
+                pseudo: formData.pseudo,
+                password: hashedPassword
+            });
 
-                // Enregistrer les données dans Firebase
-                const db = getDatabase();
-                await set(ref(db, 'users/' + formData.pseudo), {
-                    pseudo: formData.pseudo,
-                    password: hashedPassword
-                });
-
-                setSuccessMessage("Votre compte a été créé avec succès !");
-                setErrorMessage(null);
-                setFormData({ pseudo: "", password: "" }); // Effacer les champs après envoi
-                setPasswordValidation({
-                    length: false,
-                    uppercase: false,
-                    number: false
-                });
-            } else {
-                setErrorMessage("Le mot de passe ne remplit pas les critères de validation.");
-                setSuccessMessage(null);
-            }
+            setSuccessMessage("Votre compte a été créé avec succès !");
+            setErrorMessage(null);
+            setFormData({ pseudo: "", password: "" });
+            setPasswordValidation({ length: false, uppercase: false, number: false });
         } catch (error) {
             setErrorMessage("Une erreur s'est produite lors de la création de votre compte. Veuillez réessayer.");
             setSuccessMessage(null);
@@ -68,13 +61,10 @@ function Connexion() {
         }
     };
 
-    // Fonction de hachage sécurisé du mot de passe
     const encryptPassword = async (password) => {
         try {
-            const saltRounds = 10; // Nombre de tours de salage pour bcrypt
-            const hashedPassword = await bcrypt.hash(password, saltRounds);
-            console.log("Hachage du mot de passe généré avec succès :", hashedPassword); // Ajout d'un journal pour afficher le hachage généré
-            return hashedPassword;
+            const saltRounds = 10;
+            return await bcrypt.hash(password, saltRounds);
         } catch (error) {
             console.error("Erreur lors du hachage du mot de passe:", error);
             throw new Error("Erreur lors du hachage du mot de passe");
@@ -83,21 +73,53 @@ function Connexion() {
 
     return (
         <div className="formulaire">
-            <p> Veuillez vous connecter ! </p>
+            <p>Veuillez vous connecter !</p>
             <form onSubmit={handleSubmit}>
                 <div>
+                    <label>
+               
 
-                    <pre> 
-                    <label> Pseudo :       <input type="text" name="pseudo" value={formData.pseudo} onChange={handleChange} /> </label> <br />
-                    <label> Mot de passe : <input type="password" name="password" value={formData.password} onChange={handleChange} /> </label> <br />
-                    </pre>
-                    
-                    <div>
-                        <span style={{ color: passwordValidation.length ? "green" : "red" }}>Au moins 10 caractères</span> <br />
-                        <span style={{ color: passwordValidation.uppercase ? "green" : "red" }}>Au moins une majuscule</span> <br />
-                        <span style={{ color: passwordValidation.number ? "green" : "red" }}>Au moins 1 chiffre</span>
-                    </div>
-                    <input type="submit" value="Connexion/Inscription" id="aligner-button" disabled={!Object.values(passwordValidation).every(value => value)} />
+                        <pre> 
+ 
+                        Pseudo:      <input type="text" name="pseudo" value={formData.pseudo} onChange={handleChange}aria-label="Pseudo" />
+ 
+                        </pre>
+                    </label>
+                    <br />
+                    <label>
+                        Mot de passe:
+                        <input
+                            type="password"
+                            name="password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            onFocus={() => setIsPasswordFocused(true)}
+                            onBlur={() => setIsPasswordFocused(false)}
+                            aria-label="Mot de passe"
+                        />
+                    </label>
+                    <br />
+                    {isPasswordFocused && (
+                        <div>
+                            <span style={{ color: passwordValidation.length ? "green" : "red" }}>
+                                Au moins 10 caractères
+                            </span>
+                            <br />
+                            <span style={{ color: passwordValidation.uppercase ? "green" : "red" }}>
+                                Au moins une majuscule
+                            </span>
+                            <br />
+                            <span style={{ color: passwordValidation.number ? "green" : "red" }}>
+                                Au moins 1 chiffre
+                            </span>
+                        </div>
+                    )}
+                    <input
+                        type="submit"
+                        value="Connexion/Inscription"
+                        id="aligner-button"
+                        disabled={!Object.values(passwordValidation).every(value => value)}
+                    />
                 </div>
             </form>
             {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
