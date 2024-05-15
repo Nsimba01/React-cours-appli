@@ -10,26 +10,17 @@ import  coffre from '../images/coffreautresor.jpeg'; */
 
 import '../css/header.css';
 
-import presentation_img from '../images/arbredusavoir.jpg';
-
 import img_scolaire from '../images/maviescolaire.jpg';
 
 import log_euro from '../images/logo_euro.png';
 
 
-import React, { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
+import React from 'react';
+
 
 
 function MainContent() {
 
-
-  const [isCollapsed, setIsCollapsed] = useState(false);
-
-  const toggleCollapse = () => {
- setIsCollapsed(!isCollapsed);
-  };
 
 
     return (
@@ -37,45 +28,8 @@ function MainContent() {
 
     <>
 
-<button onClick={toggleCollapse} className="HideShow">
-
-        {isCollapsed ? <FontAwesomeIcon icon={faAngleDown} /> : <FontAwesomeIcon icon={faAngleUp} />} Toggle Content
-
-</button>
 
 
-
-{!isCollapsed && (
-
-<div className="divexterne"  style={{ marginTop: '2px' }} >
-
-   
-  
-   <table class="tableau">
-    <tr>
-      <td class="cellule">
-        <img src={presentation_img} alt="presentation" />
-      </td>
-      <td class="cellule">
-
-
-            Bienvenue dans <strong>"L'Arbre du Savoir"</strong>. <br/><br/>
-             Ici, tu trouveras l'ensemble des connaissances, méthodes et outils<br/><br/>
-             qui te serviront tout au long de ta vie. <br/><br/>
-             Toutefois, garde toujours à l'esprit que la discipline est la clé <br/><br/> de l'accomplissement de toute grande chose.
-             <br/><br/> Sois donc patient, et surtout régulier dans ton apprentissage. <br/><br/>
-             Je te souhaite toute la réussite que tu mérites.  <br/><br/>
-       
-
-
-
-      </td>
-    </tr>
-  </table>
-
-  </div>
-
-)}
 <div className='module_container'>
 
 
