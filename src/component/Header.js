@@ -2,7 +2,9 @@
 
 import logos from '../images/arbredusavoir.jpg';
 
-import img_btn_espace from '../images/boutonespace.png'; 
+/* import img_btn_espace from '../images/boutonespace.png'; */
+
+import btn_off_connexion from '../images/connexion_off.png'; 
 
 import {BrowserRouter as Router,Routes,Route,Link,Navigate} from "react-router-dom";
 
@@ -70,9 +72,14 @@ window.addEventListener("resize", handleWindowResize);
         
                  
                       
-                          <img className="bloc_titre_boutonespace_image" src={img_btn_espace} alt="bouton-space"/> 
+                    <img 
+  className="bloc_titre_boutonespace_image" 
+  src={btn_off_connexion} 
+  alt="bouton-space" 
+  style={{ width: '100px', height: '100px' }} 
+      />
                           
-                                    Bouton Espace 
+                              
                                     
                       </div>
 

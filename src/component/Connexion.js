@@ -15,13 +15,17 @@ function Connexion() {
         uppercase: false,
         number: false
     });
-    const [isPasswordFocused, setIsPasswordFocused] = useState(false); // État pour suivre le focus sur le champ de mot de passe
+    const [isPasswordFocused, setIsPasswordFocused] = useState(false);
+    const [pseudoValidation, setPseudoValidation] = useState(false);
+    const [isPseudoFocused, setIsPseudoFocused] = useState(false);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
         setFormData((prevState) => ({ ...prevState, [name]: value }));
         if (name === "password") {
             validatePassword(value);
+        } else if (name === "pseudo") {
+            validatePseudo(value);
         }
     };
 
@@ -33,11 +37,21 @@ function Connexion() {
         });
     };
 
+    const validatePseudo = (pseudo) => {
+        setPseudoValidation(pseudo.length >= 5);
+    };
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         if (!Object.values(passwordValidation).every(value => value)) {
             setErrorMessage("Le mot de passe ne remplit pas les critères de validation.");
+            setSuccessMessage(null);
+            return;
+        }
+
+        if (!pseudoValidation) {
+            setErrorMessage("Le pseudo ne remplit pas les critères de validation.");
             setSuccessMessage(null);
             return;
         }
@@ -54,6 +68,7 @@ function Connexion() {
             setErrorMessage(null);
             setFormData({ pseudo: "", password: "" });
             setPasswordValidation({ length: false, uppercase: false, number: false });
+            setPseudoValidation(false);
         } catch (error) {
             setErrorMessage("Une erreur s'est produite lors de la création de votre compte. Veuillez réessayer.");
             setSuccessMessage(null);
@@ -77,26 +92,24 @@ function Connexion() {
             <form onSubmit={handleSubmit}>
                 <div>
                     <label>
-               
 
-                        <pre> 
+                          <pre> 
  
-                        Pseudo:      <input type="text" name="pseudo" value={formData.pseudo} onChange={handleChange}aria-label="Pseudo" />
+                        Pseudo:      <input type="text" name="pseudo" value={formData.pseudo} onChange={handleChange}aria-label="Pseudo"      onFocus={() => setIsPseudoFocused(true)} onBlur={() => setIsPseudoFocused(false)} />
  
                         </pre>
+                       
                     </label>
+                    {isPseudoFocused && (
+                        <div>
+                            <span style={{ color: pseudoValidation ? "green" : "red" }}>
+                                Au moins 5 caractères
+                            </span>
+                        </div>
+                    )}
                     <br />
                     <label>
-                        Mot de passe:
-                        <input
-                            type="password"
-                            name="password"
-                            value={formData.password}
-                            onChange={handleChange}
-                            onFocus={() => setIsPasswordFocused(true)}
-                            onBlur={() => setIsPasswordFocused(false)}
-                            aria-label="Mot de passe"
-                        />
+                        Mot de passe: <input  type="password" name="password" value={formData.password} onChange={handleChange} onFocus={() => setIsPasswordFocused(true)} onBlur={() => setIsPasswordFocused(false)} aria-label="Mot de passe" />
                     </label>
                     <br />
                     {isPasswordFocused && (
@@ -118,7 +131,7 @@ function Connexion() {
                         type="submit"
                         value="Connexion/Inscription"
                         id="aligner-button"
-                        disabled={!Object.values(passwordValidation).every(value => value)}
+                        disabled={!Object.values(passwordValidation).every(value => value) || !pseudoValidation}
                     />
                 </div>
             </form>
