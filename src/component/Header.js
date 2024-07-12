@@ -1,5 +1,3 @@
-// Header.js
-
 import React, { useContext, useState } from 'react';
 import logos from '../images/arbredusavoir.jpg';
 import btn_off_connexion from '../images/connexion_off.png';
@@ -8,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route, Link, Navigate } from "react-ro
 import MainContent from './MainContent.js';
 import Connexion from './Connexion.js';
 import LoginHover from './LoginHover.js';
+import Creation from './Creation.js'; // Importer le nouveau composant
 import { AuthContext } from './AuthContext';
 
 function Header() {
@@ -30,7 +29,7 @@ function Header() {
             onMouseEnter={() => setIsDropdownHovered(true)}
             onMouseLeave={() => setIsDropdownHovered(false)}
           >
-            <Link to="/connexion">
+            {isAuthenticated ? (
               <div 
                 className="button_espace"
                 onMouseEnter={() => setIsHovered(true)}
@@ -38,12 +37,27 @@ function Header() {
               >
                 <img
                   className="bloc_titre_boutonespace_image"
-                  src={isAuthenticated ? btn_on_connexion : btn_off_connexion}
+                  src={btn_on_connexion}
                   alt="bouton-space"
                   style={{ width: '100px', height: '100px' }}
                 />
               </div>
-            </Link>
+            ) : (
+              <Link to="/connexion">
+                <div 
+                  className="button_espace"
+                  onMouseEnter={() => setIsHovered(true)}
+                  onMouseLeave={() => setIsHovered(false)}
+                >
+                  <img
+                    className="bloc_titre_boutonespace_image"
+                    src={btn_off_connexion}
+                    alt="bouton-space"
+                    style={{ width: '100px', height: '100px' }}
+                  />
+                </div>
+              </Link>
+            )}
             <div className="dropdown-content">
               {isAuthenticated && (isHovered || isDropdownHovered) ? (
                 <button onClick={handleLogout}>Déconnexion</button>
@@ -55,9 +69,10 @@ function Header() {
         </div>
       </div>
       <Routes>
-        <Route exact path="/home" element={<MainContent />} />
-        <Route exact path="/connexion" element={<Connexion />} />
-        <Route path="*" element={<Navigate to="/home" />} />
+        <Route path="/home" element={<MainContent />} />
+        <Route path="/connexion" element={<Connexion />} />
+        <Route path="/creation" element={<Creation />} /> {/* Ajout de la route */}
+        <Route path="/" element={<Navigate to="/home" />} />
       </Routes>
     </Router>
   );

@@ -1,11 +1,10 @@
-// src/component/Connexion.js
 import React, { useState, useContext } from "react";
+import { useNavigate } from 'react-router-dom';
 import { getDatabase, ref, get, child } from "firebase/database";
 import bcrypt from 'bcryptjs';
-import { useNavigate } from 'react-router-dom';
 import '../css/connexion.css';
 import { AuthContext } from './AuthContext';
-import { validatePassword, validatePseudo, handleLogin } from './validationUtils';
+import { validatePassword, validatePseudo } from './validationUtils';
 
 function Connexion() {
   const { login } = useContext(AuthContext);
@@ -28,6 +27,7 @@ function Connexion() {
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
   const [pseudoValidation, setPseudoValidation] = useState(false);
   const [isPseudoFocused, setIsPseudoFocused] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -54,7 +54,36 @@ function Connexion() {
       return;
     }
 
-    handleLogin(formData.pseudo, formData.password, login, navigate, setErrorMessage, setSuccessMessage);
+    try {
+      const dbRef = ref(getDatabase());
+      const snapshot = await get(child(dbRef, `users/${formData.pseudo}`));
+
+      if (snapshot.exists()) {
+        const userData = snapshot.val();
+        const passwordMatch = await bcrypt.compare(formData.password, userData.password);
+
+        if (passwordMatch) {
+          setSuccessMessage("Vous êtes connecté !");
+          setErrorMessage(null);
+          login();
+          navigate('/home');
+        } else {
+          setErrorMessage("Le mot de passe est incorrect.");
+          setSuccessMessage(null);
+        }
+      } else {
+        setErrorMessage("Veuillez vous enregistrer !");
+        setSuccessMessage(null);
+      }
+    } catch (error) {
+      setErrorMessage("Une erreur s'est produite lors de la connexion/inscription. Veuillez réessayer.");
+      setSuccessMessage(null);
+      console.error("Erreur lors de l'enregistrement des données:", error);
+    }
+  };
+
+  const toggleShowPassword = () => {
+    setShowPassword(prevState => !prevState);
   };
 
   return (
@@ -63,10 +92,19 @@ function Connexion() {
       <form onSubmit={handleSubmit}>
         <div>
           <label>
-            <pre>
-              Pseudo:      <input type="text" name="pseudo" value={formData.pseudo} onChange={handleChange} aria-label="Pseudo" onFocus={() => setIsPseudoFocused(true)} onBlur={() => setIsPseudoFocused(false)} />
-            </pre>
+            Pseudo:
+            <input 
+              type="text" 
+              name="pseudo" 
+              value={formData.pseudo} 
+              onChange={handleChange} 
+              aria-label="Pseudo" 
+              onFocus={() => setIsPseudoFocused(true)} 
+              onBlur={() => setIsPseudoFocused(false)} 
+              required 
+            />
           </label>
+          <br />
           {isPseudoFocused && (
             <div>
               <span style={{ color: pseudoValidation ? "green" : "red" }}>
@@ -76,7 +114,25 @@ function Connexion() {
           )}
           <br />
           <label>
-            Mot de passe: <input type="password" name="password" value={formData.password} onChange={handleChange} onFocus={() => setIsPasswordFocused(true)} onBlur={() => setIsPasswordFocused(false)} aria-label="Mot de passe" />
+            Mot de passe:
+            <div style={{ position: "relative", display: "inline-block" }}>
+              <input 
+                type={showPassword ? "text" : "password"} 
+                name="password" 
+                value={formData.password} 
+                onChange={handleChange} 
+                aria-label="Mot de passe" 
+                onFocus={() => setIsPasswordFocused(true)} 
+                onBlur={() => setIsPasswordFocused(false)} 
+                required 
+              />
+              <span 
+                onClick={toggleShowPassword} 
+                style={{ position: "absolute", right: 10, top: 2, cursor: "pointer" }}
+              >
+                {showPassword ? '\u{1F441}\u{200D}\u{1F5E8}' : '\u{1F441}'}
+              </span>
+            </div>
           </label>
           <br />
           {isPasswordFocused && (
@@ -94,16 +150,23 @@ function Connexion() {
               </span>
             </div>
           )}
+          <br />
           <input
             type="submit"
             value="Connexion"
             id="aligner-button"
             disabled={!Object.values(passwordValidation).every(value => value) || !pseudoValidation}
           />
+          <p onClick={() => navigate('/creation')} style={{ cursor: 'pointer' }}>je veux créer mon espace</p>
+          <p>Mot de passe oublié ?</p>
         </div>
       </form>
       {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
-      {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+      {errorMessage && (
+        <div>
+          <p style={{ color: "red" }}>{errorMessage}</p>
+        </div>
+      )}
     </div>
   );
 }

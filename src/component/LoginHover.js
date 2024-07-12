@@ -1,4 +1,3 @@
-// src/component/LoginHover.js
 import React, { useState, useContext } from "react";
 import '../css/login_hover.css';
 import { validatePassword, validatePseudo, handleLogin } from './validationUtils';
@@ -25,6 +24,7 @@ function LoginHover() {
   const [isPseudoFocused, setIsPseudoFocused] = useState(false);
   const [successMessage, setSuccessMessage] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -38,20 +38,34 @@ function LoginHover() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
     if (!Object.values(passwordValidation).every(value => value)) {
       setErrorMessage("Le mot de passe ne remplit pas les critères de validation.");
       setSuccessMessage(null);
       return;
     }
-
     if (!pseudoValidation) {
       setErrorMessage("Le pseudo ne remplit pas les critères de validation.");
       setSuccessMessage(null);
       return;
     }
+    handleLogin(
+      formData.username, 
+      formData.password, 
+      login, 
+      navigate, 
+      (error) => {
+        setErrorMessage(error);
+      },
+      setSuccessMessage
+    );
+  };
 
-    handleLogin(formData.username, formData.password, login, navigate, setErrorMessage, setSuccessMessage);
+  const toggleShowPassword = () => {
+    setShowPassword(prevState => !prevState);
+  };
+
+  const handleCreateAccount = () => {
+    navigate('/creation');
   };
 
   return (
@@ -59,10 +73,19 @@ function LoginHover() {
       <form onSubmit={handleSubmit}>
         <div>
           <label>
-            Pseudo: <input type="text" name="username" value={formData.username} onChange={handleChange} onFocus={() => setIsPseudoFocused(true)} onBlur={() => setIsPseudoFocused(false)} />
+            Pseudo: <input 
+              type="text" 
+              name="username" 
+              value={formData.username} 
+              onChange={handleChange} 
+              onFocus={() => setIsPseudoFocused(true)} 
+              onBlur={() => setIsPseudoFocused(false)} 
+              aria-invalid={!pseudoValidation}
+              aria-describedby="pseudo-validation"
+            />
           </label>
           {isPseudoFocused && (
-            <div>
+            <div id="pseudo-validation">
               <span style={{ color: pseudoValidation ? "green" : "red" }}>
                 Au moins 5 caractères
               </span>
@@ -70,11 +93,29 @@ function LoginHover() {
           )}
           <br />
           <label>
-            Mot de passe: <input type="password" name="password" value={formData.password} onChange={handleChange} onFocus={() => setIsPasswordFocused(true)} onBlur={() => setIsPasswordFocused(false)} />
+            Mot de passe: 
+            <div style={{ position: "relative", display: "inline-block" }}>
+              <input 
+                type={showPassword ? "text" : "password"} 
+                name="password" 
+                value={formData.password} 
+                onChange={handleChange} 
+                onFocus={() => setIsPasswordFocused(true)} 
+                onBlur={() => setIsPasswordFocused(false)} 
+                aria-invalid={!Object.values(passwordValidation).every(Boolean)}
+                aria-describedby="password-validation"
+              />
+              <span 
+                onClick={toggleShowPassword} 
+                style={{ position: "absolute", right: 10, top: 5, cursor: "pointer" }}
+              >
+                {showPassword ? '\u{1F441}\u{200D}\u{1F5E8}' : '\u{1F441}'}
+              </span>
+            </div>
           </label>
           <br />
           {isPasswordFocused && (
-            <div>
+            <div id="password-validation">
               <span style={{ color: passwordValidation.length ? "green" : "red" }}>
                 Au moins 10 caractères
               </span>
@@ -93,12 +134,22 @@ function LoginHover() {
             value="Connexion"
             disabled={!Object.values(passwordValidation).every(value => value) || !pseudoValidation}
           />
+
+          <br/> <br/>
+
+          <p onClick={handleCreateAccount} style={{ cursor: 'pointer' }}>Je  veux  créer mon espace </p>
+
+          <p> Mot de passe oublié ?</p>
+
+         {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+          
+     
           <br /><br />
-          <b>Sinon créer un compte !</b>
+       
         </div>
       </form>
       {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
-      {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+  
     </div>
   );
 }
