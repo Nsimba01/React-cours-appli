@@ -38,3 +38,4 @@ export const handleLogin = async (pseudo, password, loginCallback, navigateCallb
     console.error("Erreur lors de l'enregistrement des données:", error);
   }
 };
+
