@@ -9,7 +9,6 @@ function Creation() {
   const [formData, setFormData] = useState({
     pseudo: "",
     password: "",
-    confirmPassword: "",
     email: "",
     nom: "",
     prenom: "",
@@ -26,23 +25,25 @@ function Creation() {
     number: false
   });
 
-  const [confirmPasswordValidation, setConfirmPasswordValidation] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevState) => ({ ...prevState, [name]: value }));
     if (name === "password") {
       setPasswordValidation(validatePassword(value));
-    } else if (name === "confirmPassword") {
-      setConfirmPasswordValidation(value === formData.password);
     }
+  };
+
+  const toggleShowPassword = () => {
+    setShowPassword(prevState => !prevState);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (!Object.values(passwordValidation).every(Boolean) || !confirmPasswordValidation) {
-      setErrorMessage("Veuillez vérifier que tous les critères de mot de passe sont remplis et que les mots de passe correspondent.");
+    if (!Object.values(passwordValidation).every(Boolean)) {
+      setErrorMessage("Veuillez vérifier que tous les critères de mot de passe sont remplis.");
       return;
     }
 
@@ -112,52 +113,36 @@ function Creation() {
           <br />
           <label>
             Mot de passe:
-            <input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              aria-label="Mot de passe"
-              required
-            />
+            <div style={{ position: "relative", display: "inline-block" }}>
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                aria-label="Mot de passe"
+                required
+              />
+              <span 
+                onClick={toggleShowPassword} 
+                style={{ position: "absolute", right: 10, top: 2, cursor: "pointer" }}
+              >
+                {showPassword ? '\u{1F441}\u{200D}\u{1F5E8}' : '\u{1F441}'}
+              </span>
+            </div>
             <br />
             <div>
-              {passwordValidation.length ? (
-                <span style={{ color: "green" }}>Au moins 10 caractères</span>
-              ) : (
-                <span style={{ color: "red" }}>Au moins 10 caractères</span>
-              )}
+              <span style={{ color: passwordValidation.length ? "green" : "red" }}>
+                Au moins 10 caractères
+              </span>
               <br />
-              {passwordValidation.uppercase ? (
-                <span style={{ color: "green" }}>Au moins une majuscule</span>
-              ) : (
-                <span style={{ color: "red" }}>Au moins une majuscule</span>
-              )}
+              <span style={{ color: passwordValidation.uppercase ? "green" : "red" }}>
+                Au moins une majuscule
+              </span>
               <br />
-              {passwordValidation.number ? (
-                <span style={{ color: "green" }}>Au moins 1 chiffre</span>
-              ) : (
-                <span style={{ color: "red" }}>Au moins 1 chiffre</span>
-              )}
+              <span style={{ color: passwordValidation.number ? "green" : "red" }}>
+                Au moins 1 chiffre
+              </span>
             </div>
-          </label>
-          <br />
-          <label>
-            Confirmation de mot de passe:
-            <input
-              type="password"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              aria-label="Confirmation de mot de passe"
-              required
-            />
-            <br />
-            {confirmPasswordValidation ? (
-              <span style={{ color: "green" }}>Les mots de passe correspondent</span>
-            ) : (
-              <span style={{ color: "red" }}>Les mots de passe ne correspondent pas</span>
-            )}
           </label>
           <br />
           <label>

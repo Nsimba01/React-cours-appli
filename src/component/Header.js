@@ -6,7 +6,8 @@ import { BrowserRouter as Router, Routes, Route, Link, Navigate } from "react-ro
 import MainContent from './MainContent.js';
 import Connexion from './Connexion.js';
 import LoginHover from './LoginHover.js';
-import Creation from './Creation.js'; // Importer le nouveau composant
+import Creation from './Creation.js';
+import ResetPassword from './ResetPassword.js'; // Importer le nouveau composant
 import { AuthContext } from './AuthContext';
 
 function Header() {
@@ -71,7 +72,8 @@ function Header() {
       <Routes>
         <Route path="/home" element={<MainContent />} />
         <Route path="/connexion" element={<Connexion />} />
-        <Route path="/creation" element={<Creation />} /> {/* Ajout de la route */}
+        <Route path="/creation" element={<Creation />} />
+        <Route path="/reset_password" element={<ResetPassword />} /> {/* Ajout de la route */}
         <Route path="/" element={<Navigate to="/home" />} />
       </Routes>
     </Router>

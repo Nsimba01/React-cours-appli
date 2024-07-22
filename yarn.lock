@@ -5738,6 +5738,7 @@ __metadata:
     css-minimizer-webpack-plugin: "npm:^3.2.0"
     dotenv: "npm:^10.0.0"
     dotenv-expand: "npm:^5.1.0"
+    emailjs-com: "npm:^3.2.0"
     eslint: "npm:^8.3.0"
     eslint-config-react-app: "npm:^7.0.1"
     eslint-webpack-plugin: "npm:^3.1.1"
@@ -6593,6 +6594,13 @@ __metadata:
     minimalistic-assert: "npm:^1.0.1"
     minimalistic-crypto-utils: "npm:^1.0.1"
   checksum: 10c0/3e591e93783a1b66f234ebf5bd3a8a9a8e063a75073a35a671e03e3b25253b6e33ac121f7efe9b8808890fffb17b40596cc19d01e6e8d1fa13b9a56ff65597c8
+  languageName: node
+  linkType: hard
+
+"emailjs-com@npm:^3.2.0":
+  version: 3.2.0
+  resolution: "emailjs-com@npm:3.2.0"
+  checksum: 10c0/3c6865ce89ebabeccd4f678fbd5f545f58482bb99fc23c17d9cebbf895705275df2da9c6fadaef8148397fe7fcc18cbbe49f9c720b5ad88b2dd6b82680ef169f
   languageName: node
   linkType: hard
 

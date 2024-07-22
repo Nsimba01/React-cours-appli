@@ -158,7 +158,7 @@ function Connexion() {
             disabled={!Object.values(passwordValidation).every(value => value) || !pseudoValidation}
           />
           <p onClick={() => navigate('/creation')} style={{ cursor: 'pointer' }}>je veux créer mon espace</p>
-          <p>Mot de passe oublié ?</p>
+          <p onClick={() => navigate('/reset_password')} style={{ cursor: 'pointer' }}>Mot de passe oublié ?</p>
         </div>
       </form>
       {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
