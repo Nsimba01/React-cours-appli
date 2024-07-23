@@ -1,4 +1,3 @@
-// src/component/ResetPassword.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getDatabase, ref, get, child } from "firebase/database";
@@ -27,13 +26,13 @@ function ResetPassword() {
       if (emailExists) {
         // Envoyer l'email de réinitialisation
         const templateParams = {
-          to_name: userName,
-          to_email: email,
-          from_name: 'lembansimbacompte@gmail.com',
-          message: 'Veuillez ré-initialiser votre mot de passe !'
+          to_name: userName, // Nom de l'utilisateur récupéré depuis Firebase
+          to_email: email, // Email saisi par l'utilisateur dans le formulaire
+          from_name: 'Lemba', // Votre nom ou le nom de votre application
+          from_email: 'lemba.nsimba.arnaud.freelance@gmail.com', // Votre adresse email configurée dans EmailJS
+          message: 'Veuillez ré-initialiser votre mot de passe !' // Message de réinitialisation de mot de passe
         };
-
-        // your_service_id : service_z2vqh5i  , your_template_id : template_48nncre, your_user_id(ou public_key) : k9E-hi9Gv6XCXnZWM
+        
 
         emailjs.send('service_z2vqh5i', 'template_48nncre', templateParams, 'k9E-hi9Gv6XCXnZWM')
           .then((response) => {
