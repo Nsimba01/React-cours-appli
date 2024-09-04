@@ -1,14 +1,15 @@
 import React, { useContext, useState } from 'react';
-import logos from '../images/arbredusavoir.jpg';
-import btn_off_connexion from '../images/connexion_off.png';
-import btn_on_connexion from '../images/connexion_on.png';
-import { BrowserRouter as Router, Routes, Route, Link, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link, Navigate, useNavigate } from "react-router-dom";
 import MainContent from './MainContent.js';
 import Connexion from './Connexion.js';
 import LoginHover from './LoginHover.js';
 import Creation from './Creation.js';
-import ResetPassword from './ResetPassword.js'; // Importer le nouveau composant
+import ResetPassword from './ResetPassword.js';
+import ResetPwdReady from './ResetPwdReady.js'; // Importer le nouveau composant
 import { AuthContext } from './AuthContext';
+import logos from '../images/arbredusavoir.jpg'; // Importer l'image du logo
+import btn_off_connexion from '../images/connexion_off.png'; // Importer l'image du bouton de connexion off
+import btn_on_connexion from '../images/connexion_on.png'; // Importer l'image du bouton de connexion on
 
 function Header() {
   const { isAuthenticated, logout } = useContext(AuthContext);
@@ -73,7 +74,8 @@ function Header() {
         <Route path="/home" element={<MainContent />} />
         <Route path="/connexion" element={<Connexion />} />
         <Route path="/creation" element={<Creation />} />
-        <Route path="/reset_password" element={<ResetPassword />} /> {/* Ajout de la route */}
+        <Route path="/reset_password" element={<ResetPassword />} />
+        <Route path="/reset-pwd-process" element={<ResetPwdReady />} /> {/* Ajout de la route */}
         <Route path="/" element={<Navigate to="/home" />} />
       </Routes>
     </Router>

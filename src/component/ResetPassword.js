@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getDatabase, ref, get, child } from "firebase/database";
+import { getDatabase, ref, get, set } from 'firebase/database';
 import emailjs from 'emailjs-com';
-import '../css/connexion.css'; // Assurez-vous d'importer le CSS
+import '../css/connexion.css';
 
 function ResetPassword() {
   const [email, setEmail] = useState('');
@@ -11,44 +11,47 @@ function ResetPassword() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const dbRef = ref(getDatabase());
+    const db = getDatabase();
+    
     try {
-      const snapshot = await get(child(dbRef, `users`));
-      let emailExists = false;
-      let userName = '';
-      snapshot.forEach(userSnapshot => {
-        if (userSnapshot.val().email === email) {
-          emailExists = true;
-          userName = userSnapshot.val().name; // Supposons que le nom de l'utilisateur est stocké sous 'name'
+      // Vérifiez si l'email existe dans la base de données
+      const usersRef = ref(db, 'users');
+      const snapshot = await get(usersRef);
+
+      let userFound = false;
+      snapshot.forEach((userSnapshot) => {
+        const userData = userSnapshot.val();
+        if (userData.email === email) {
+          userFound = true;
         }
       });
 
-      if (emailExists) {
-        // Envoyer l'email de réinitialisation
-        const templateParams = {
-          to_name: userName, // Nom de l'utilisateur récupéré depuis Firebase
-          to_email: email, // Email saisi par l'utilisateur dans le formulaire
-          from_name: 'Lemba', // Votre nom ou le nom de votre application
-          from_email: 'lemba.nsimba.arnaud.freelance@gmail.com', // Votre adresse email configurée dans EmailJS
-          message: 'Veuillez ré-initialiser votre mot de passe !' // Message de réinitialisation de mot de passe
-        };
-        
-
-        emailjs.send('service_z2vqh5i', 'template_48nncre', templateParams, 'k9E-hi9Gv6XCXnZWM')
-          .then((response) => {
-            console.log('Email envoyé avec succès!', response.status, response.text);
-            setMessage('Un email de réinitialisation a été envoyé.');
-          }, (error) => {
-            console.error('Erreur lors de l\'envoi de l\'email:', error);
-            setMessage('Une erreur s\'est produite lors de l\'envoi de l\'email. Veuillez réessayer.');
-          });
-      } else {
-        setMessage('Aucun compte n\'est associé à cet email.');
+      if (!userFound) {
+        setMessage('Aucun compte associé à cet email.');
+        return;
       }
+
+      // Si l'email existe, générer un token de réinitialisation
+      const token = generateUniqueToken(); // Une fonction pour générer un jeton unique
+      const expiration = Date.now() + 10 * 60 * 1000; // 10 minutes
+      await set(ref(db, 'reset_tokens/' + token), { expiration });
+
+      const templateParams = {
+        to_name: 'Utilisateur', // Remplacez par le nom de l'utilisateur ou obtenez-le d'une autre manière
+        to_email: email,
+        reset_link: `http://localhost:3000/reset-pwd-process?token=${token}`
+      };
+
+      await emailjs.send('service_z2vqh5i', 'template_48nncre', templateParams, 'k9E-hi9Gv6XCXnZWM');
+      setMessage('Un email de réinitialisation a été envoyé.');
     } catch (error) {
-      setMessage('Une erreur s\'est produite. Veuillez réessayer.');
-      console.error("Erreur lors de la vérification de l'email:", error);
+      setMessage('Une erreur s\'est produite lors de l\'envoi de l\'email. Veuillez réessayer.');
+      console.error("Erreur lors de l'envoi de l'email:", error);
     }
+  };
+
+  const generateUniqueToken = () => {
+    return `${Date.now()}-${Math.random().toString(36).slice(2, 11)}`;
   };
 
   return (

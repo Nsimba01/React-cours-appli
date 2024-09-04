@@ -139,7 +139,9 @@ function LoginHover() {
 
           <p onClick={handleCreateAccount} style={{ cursor: 'pointer' }}>Je  veux  créer mon espace </p>
 
-          <p> Mot de passe oublié ?</p>
+          <p onClick={() => navigate('/reset_password')} style={{ cursor: 'pointer' }}>Mot de passe oublié ?</p>
+          
+ 
 
          {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
           

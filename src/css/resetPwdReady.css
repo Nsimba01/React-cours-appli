@@ -1,0 +1,15 @@
+/* src/css/resetPwdReady.css */
+.reset-pwd-ready {
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  .reset-pwd-ready h1 {
+    color: #4CAF50;
+  }
+  
+  .reset-pwd-ready p {
+    font-size: 18px;
+    color:white;
+  }
+  

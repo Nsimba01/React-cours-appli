@@ -1,5 +1,4 @@
-// src/component/validationUtils.js
-import { getDatabase, ref, get, child } from "firebase/database";
+import { getDatabase, ref, get } from 'firebase/database';
 import bcrypt from 'bcryptjs';
 
 export const validatePassword = (password) => ({
@@ -12,8 +11,9 @@ export const validatePseudo = (pseudo) => pseudo.length >= 5;
 
 export const handleLogin = async (pseudo, password, loginCallback, navigateCallback, setErrorMessage, setSuccessMessage) => {
   try {
-    const dbRef = ref(getDatabase());
-    const snapshot = await get(child(dbRef, `users/${pseudo}`));
+    const db = getDatabase();
+    const userRef = ref(db, `users/${pseudo}`);
+    const snapshot = await get(userRef);
 
     if (snapshot.exists()) {
       const userData = snapshot.val();
@@ -35,7 +35,6 @@ export const handleLogin = async (pseudo, password, loginCallback, navigateCallb
   } catch (error) {
     setErrorMessage("Une erreur s'est produite lors de la connexion/inscription. Veuillez réessayer.");
     setSuccessMessage(null);
-    console.error("Erreur lors de l'enregistrement des données:", error);
+    console.error("Erreur lors de la connexion:", error);
   }
 };
-
