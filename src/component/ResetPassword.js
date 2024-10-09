@@ -1,57 +1,80 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { getDatabase, ref, get, set } from 'firebase/database';
+import { getDatabase, ref, get } from 'firebase/database';
 import emailjs from 'emailjs-com';
 import '../css/connexion.css';
+import { generateResetToken } from './tokenUtils'; // Importez la fonction de génération de token
 
 function ResetPassword() {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
-  const navigate = useNavigate();
+  const [pseudos, setPseudos] = useState([]);
+  const [selectedPseudo, setSelectedPseudo] = useState('');
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const db = getDatabase();
-    
+    if (!selectedPseudo) {
+      setMessage('Veuillez sélectionner un pseudo.');
+      return;
+    }
+
     try {
-      // Vérifiez si l'email existe dans la base de données
-      const usersRef = ref(db, 'users');
-      const snapshot = await get(usersRef);
+      const db = getDatabase();
+      const userRef = ref(db, `users/${selectedPseudo}`);
+      const snapshot = await get(userRef);
 
-      let userFound = false;
-      snapshot.forEach((userSnapshot) => {
-        const userData = userSnapshot.val();
-        if (userData.email === email) {
-          userFound = true;
-        }
-      });
+      if (snapshot.exists()) {
+        const userData = snapshot.val();
+        const token = await generateResetToken(selectedPseudo); // Générez le token
+        const resetLink = `http://localhost:3000/reset-pwd-process?token=${token}`;
 
-      if (!userFound) {
-        setMessage('Aucun compte associé à cet email.');
-        return;
+        // Mettez à jour templateParams avec le vrai nom de l'utilisateur et le pseudo
+        const templateParams = {
+          to_name: userData.name || 'Utilisateur', // Remplacez par le nom de l'utilisateur ou utilisez 'Utilisateur' par défaut
+          to_email: email,
+          reset_link: resetLink,
+          pseudo: selectedPseudo // Ajoutez le pseudo ici
+        };
+
+        await emailjs.send('service_z2vqh5i', 'template_48nncre', templateParams, 'k9E-hi9Gv6XCXnZWM');
+
+        setMessage(`Email envoyé pour ${selectedPseudo}`);
+      } else {
+        setMessage('Pseudo non trouvé.');
       }
-
-      // Si l'email existe, générer un token de réinitialisation
-      const token = generateUniqueToken(); // Une fonction pour générer un jeton unique
-      const expiration = Date.now() + 10 * 60 * 1000; // 10 minutes
-      await set(ref(db, 'reset_tokens/' + token), { expiration });
-
-      const templateParams = {
-        to_name: 'Utilisateur', // Remplacez par le nom de l'utilisateur ou obtenez-le d'une autre manière
-        to_email: email,
-        reset_link: `http://localhost:3000/reset-pwd-process?token=${token}`
-      };
-
-      await emailjs.send('service_z2vqh5i', 'template_48nncre', templateParams, 'k9E-hi9Gv6XCXnZWM');
-      setMessage('Un email de réinitialisation a été envoyé.');
     } catch (error) {
-      setMessage('Une erreur s\'est produite lors de l\'envoi de l\'email. Veuillez réessayer.');
-      console.error("Erreur lors de l'envoi de l'email:", error);
+      setMessage('Erreur lors de l\'envoi de l\'email.');
+      console.error('Erreur EmailJS:', error);
     }
   };
 
-  const generateUniqueToken = () => {
-    return `${Date.now()}-${Math.random().toString(36).slice(2, 11)}`;
+  const handleEmailBlur = async () => {
+    if (!email) return;
+
+    const db = getDatabase();
+    const usersRef = ref(db, 'users');
+    const snapshot = await get(usersRef);
+
+    const associatedPseudos = [];
+    snapshot.forEach((userSnapshot) => {
+      const userData = userSnapshot.val();
+      if (userData.email === email) {
+        associatedPseudos.push(userSnapshot.key);
+      }
+    });
+
+    if (associatedPseudos.length > 1) {
+      setPseudos(associatedPseudos);
+      setIsButtonDisabled(false);
+    } else if (associatedPseudos.length === 1) {
+      setSelectedPseudo(associatedPseudos[0]);
+      setIsButtonDisabled(false);
+    } else {
+      setPseudos([]);
+      setSelectedPseudo('');
+      setIsButtonDisabled(true);
+      setMessage('Aucun compte associé à cet email.');
+    }
   };
 
   return (
@@ -60,15 +83,40 @@ function ResetPassword() {
       <form onSubmit={handleSubmit}>
         <label>
           Email:
-          <input 
-            type="email" 
-            value={email} 
-            onChange={(e) => setEmail(e.target.value)} 
-            required 
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            onBlur={handleEmailBlur}
+            required
           />
         </label>
-        <button type="submit" id="aligner-button">Envoyer</button>
+
+        {pseudos.length > 1 && (
+          <div>
+            <label>
+              Sélectionnez un pseudo:
+              <select
+                value={selectedPseudo}
+                onChange={(e) => setSelectedPseudo(e.target.value)}
+                required
+              >
+                <option value="">-- Sélectionnez un pseudo --</option>
+                {pseudos.map((pseudo) => (
+                  <option key={pseudo} value={pseudo}>
+                    {pseudo}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+        )}
+
+        <button type="submit" id="aligner-button" disabled={isButtonDisabled}>
+          Envoyer
+        </button>
       </form>
+
       {message && <p>{message}</p>}
     </div>
   );

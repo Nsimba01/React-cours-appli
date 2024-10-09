@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getDatabase, ref, get } from 'firebase/database';
@@ -51,5 +50,3 @@ function ResetPwdReady() {
 }
 
 export default ResetPwdReady;
-
-
