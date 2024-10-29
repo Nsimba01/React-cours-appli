@@ -13,3 +13,71 @@
     color:white;
   }
   
+  
+
+  .password-reset-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+  }
+  
+  .password-reset-form label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .password-reset-form input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .error {
+    color: red;
+    margin-bottom: 15px;
+  }
+  
+  .submit-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .submit-btn:hover {
+    background-color: #45a049;
+  }
+  
+  @media (max-width: 600px) {
+    .password-reset-form {
+      padding: 10px;
+    }
+  }
+  
+
+  .password-field {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .password-field input {
+    width: 100%;
+    padding-right: 30px; /* Pour laisser de la place à l'icône */
+  }
+  
+  .eye-icon {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    color: #888;
+  }
+  

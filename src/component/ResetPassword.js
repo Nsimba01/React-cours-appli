@@ -5,10 +5,10 @@ import '../css/connexion.css';
 import { generateResetToken } from './tokenUtils'; // Importez la fonction de génération de token
 
 function ResetPassword() {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState(localStorage.getItem('email') || ''); // Pré-remplir si l'email existe déjà dans localStorage
   const [message, setMessage] = useState('');
   const [pseudos, setPseudos] = useState([]);
-  const [selectedPseudo, setSelectedPseudo] = useState('');
+  const [selectedPseudo, setSelectedPseudo] = useState(localStorage.getItem('pseudo') || ''); // Pré-remplir si le pseudo existe déjà dans localStorage
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   const handleSubmit = async (event) => {
@@ -37,6 +37,10 @@ function ResetPassword() {
         };
 
         await emailjs.send('service_z2vqh5i', 'template_48nncre', templateParams, 'k9E-hi9Gv6XCXnZWM');
+
+        // Stocker les informations dans localStorage
+        localStorage.setItem('email', email);
+        localStorage.setItem('pseudo', selectedPseudo);
 
         setMessage(`Email envoyé pour ${selectedPseudo}`);
       } else {
