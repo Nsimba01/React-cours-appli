@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { getDatabase, ref, get, update } from 'firebase/database';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import bcrypt from 'bcryptjs';
 import '../css/resetPwdReady.css';
 import { validatePassword } from './validationUtils';
 
@@ -23,6 +24,7 @@ function ResetPwdReady() {
   });
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedEmail = localStorage.getItem('email');
@@ -88,9 +90,19 @@ function ResetPwdReady() {
     try {
       const db = getDatabase();
       const userRef = ref(db, `users/${pseudo}`);
-      await update(userRef, { password: newPassword });
+
+      // Hashage du mot de passe avec bcrypt
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+      // Mise à jour du mot de passe dans Firebase
+      await update(userRef, { password: hashedPassword });
       setMessage('Votre mot de passe a été réinitialisé avec succès.');
       setError('');
+
+      // Redirection vers la page de connexion après succès
+      setTimeout(() => {
+        navigate('/connexion');
+      }, 2000); // 2 secondes de délai avant la redirection
     } catch (error) {
       setMessage("Une erreur s'est produite lors de la réinitialisation du mot de passe.");
       console.error('Erreur de réinitialisation:', error);
