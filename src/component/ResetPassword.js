@@ -5,10 +5,10 @@ import '../css/connexion.css';
 import { generateResetToken } from './tokenUtils'; // Importez la fonction de génération de token
 
 function ResetPassword() {
-  const [email, setEmail] = useState(localStorage.getItem('email') || ''); // Pré-remplir si l'email existe déjà dans localStorage
+  const [email, setEmail] = useState(localStorage.getItem('email') || ''); 
   const [message, setMessage] = useState('');
   const [pseudos, setPseudos] = useState([]);
-  const [selectedPseudo, setSelectedPseudo] = useState(localStorage.getItem('pseudo') || ''); // Pré-remplir si le pseudo existe déjà dans localStorage
+  const [selectedPseudo, setSelectedPseudo] = useState(localStorage.getItem('pseudo') || '');
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   const handleSubmit = async (event) => {
@@ -25,20 +25,18 @@ function ResetPassword() {
 
       if (snapshot.exists()) {
         const userData = snapshot.val();
-        const token = await generateResetToken(selectedPseudo); // Générez le token
+        const token = await generateResetToken(selectedPseudo); 
         const resetLink = `http://localhost:3000/reset-pwd-process?token=${token}`;
 
-        // Mettez à jour templateParams avec le vrai nom de l'utilisateur et le pseudo
         const templateParams = {
-          to_name: userData.name || 'Utilisateur', // Remplacez par le nom de l'utilisateur ou utilisez 'Utilisateur' par défaut
+          to_name: userData.name || 'Utilisateur',
           to_email: email,
           reset_link: resetLink,
-          pseudo: selectedPseudo // Ajoutez le pseudo ici
+          pseudo: selectedPseudo 
         };
 
         await emailjs.send('service_z2vqh5i', 'template_48nncre', templateParams, 'k9E-hi9Gv6XCXnZWM');
 
-        // Stocker les informations dans localStorage
         localStorage.setItem('email', email);
         localStorage.setItem('pseudo', selectedPseudo);
 
@@ -49,6 +47,17 @@ function ResetPassword() {
     } catch (error) {
       setMessage('Erreur lors de l\'envoi de l\'email.');
       console.error('Erreur EmailJS:', error);
+    }
+  };
+
+  const handleEmailChange = (e) => {
+    const inputEmail = e.target.value;
+    setEmail(inputEmail);
+    
+    if (inputEmail.includes('@')) {
+      setIsButtonDisabled(false);
+    } else {
+      setIsButtonDisabled(true);
     }
   };
 
@@ -86,11 +95,11 @@ function ResetPassword() {
       <h2>Réinitialiser le mot de passe</h2>
       <form onSubmit={handleSubmit}>
         <label>
-          Email:
+          Mail :
           <input
             type="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={handleEmailChange}
             onBlur={handleEmailBlur}
             required
           />
@@ -117,7 +126,7 @@ function ResetPassword() {
         )}
 
         <button type="submit" id="aligner-button" disabled={isButtonDisabled}>
-          Envoyer
+          Vérifier
         </button>
       </form>
 

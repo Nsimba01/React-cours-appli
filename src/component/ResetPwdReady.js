@@ -113,14 +113,13 @@ function ResetPwdReady() {
 
   return (
     <div className="reset-pwd-ready">
-      <h1>{isValidToken ? `Bienvenue ${pseudo} !` : ''}</h1>
+      <h1>{isValidToken ? `Bienvenue ${pseudo},` : ''}</h1>
       <p>{message}</p>
-      <p>Email: {email}</p>
-      <p>Pseudo: {pseudo}</p>
+    
       {isValidToken && (
         <form onSubmit={handlePasswordReset} className="password-reset-form">
           <label>
-            Nouveau mot de passe:
+            Nouveau mot de passe
             <div className="password-field">
               <input
                 type={showPassword ? 'text' : 'password'}
@@ -151,7 +150,7 @@ function ResetPwdReady() {
             </div>
           )}
           <label>
-            Confirmez le nouveau mot de passe:
+            Confirmation du  nouveau mot de passe
             <div className="password-field">
               <input
                 type={showConfirmPassword ? 'text' : 'password'}
@@ -176,7 +175,7 @@ function ResetPwdReady() {
               cursor: isFormValid ? 'pointer' : 'not-allowed'
             }}
           >
-            Réinitialiser le mot de passe
+           Valider
           </button>
         </form>
       )}
