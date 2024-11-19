@@ -98,7 +98,7 @@ function ResetPassword() {
           Mail :
           <input
             type="email"
-            value={email}
+           
             onChange={handleEmailChange}
             onBlur={handleEmailBlur}
             required
