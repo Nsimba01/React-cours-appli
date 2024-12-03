@@ -23,15 +23,11 @@ function ResetPwdReady() {
     number: false,
   });
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
+  const [isConfirmPasswordFocused, setIsConfirmPasswordFocused] = useState(false); // Nouveau état pour le focus du champ de confirmation
   const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedEmail = localStorage.getItem('email');
-    const storedPseudo = localStorage.getItem('pseudo');
-    setEmail(storedEmail);
-    setPseudo(storedPseudo);
-
     const query = new URLSearchParams(location.search);
     const token = query.get('token');
     if (token) {
@@ -44,6 +40,21 @@ function ResetPwdReady() {
           if (now < data.expiration) {
             setIsValidToken(true);
             setMessage('Le lien est valide. Vous pouvez maintenant réinitialiser votre mot de passe.');
+
+            // Récupération des informations utilisateur avec le pseudo stocké dans 'data'
+            const userRef = ref(db, `users/${data.pseudo}`);
+            get(userRef).then(userSnapshot => {
+              if (userSnapshot.exists()) {
+                const userData = userSnapshot.val();
+                setEmail(userData.email);
+                setPseudo(userData.pseudo);
+              } else {
+                setMessage("Utilisateur introuvable.");
+              }
+            }).catch(error => {
+              setMessage("Une erreur s'est produite lors de la récupération de l'utilisateur.");
+              console.error("Erreur lors de la récupération de l'utilisateur:", error);
+            });
           } else {
             setIsValidToken(false);
             setMessage('Ce lien a expiré.');
@@ -115,7 +126,7 @@ function ResetPwdReady() {
     <div className="reset-pwd-ready">
       <h1>{isValidToken ? `Bienvenue ${pseudo},` : ''}</h1>
       <p>{message}</p>
-    
+
       {isValidToken && (
         <form onSubmit={handlePasswordReset} className="password-reset-form">
           <label>
@@ -156,6 +167,8 @@ function ResetPwdReady() {
                 type={showConfirmPassword ? 'text' : 'password'}
                 value={confirmPassword}
                 onChange={handleConfirmPasswordChange}
+                onFocus={() => setIsConfirmPasswordFocused(true)} // Focus sur le champ de confirmation
+                onBlur={() => setIsConfirmPasswordFocused(false)} // Perte de focus
                 required
               />
               <FontAwesomeIcon
@@ -165,6 +178,9 @@ function ResetPwdReady() {
               />
             </div>
           </label>
+          {isConfirmPasswordFocused && confirmPassword !== newPassword && (
+            <p style={{ color: 'red' }}>Les mots de passe doivent être identiques.</p>
+          )}
           {error && <p className="error">{error}</p>}
           <button
             type="submit"
@@ -175,7 +191,7 @@ function ResetPwdReady() {
               cursor: isFormValid ? 'pointer' : 'not-allowed'
             }}
           >
-           Valider
+            Valider
           </button>
         </form>
       )}

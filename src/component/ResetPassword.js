@@ -5,7 +5,7 @@ import '../css/connexion.css';
 import { generateResetToken } from './tokenUtils'; // Importez la fonction de génération de token
 
 function ResetPassword() {
-  const [email, setEmail] = useState(localStorage.getItem('email') || ''); 
+  const [email, setEmail] = useState(localStorage.getItem('email') || '');
   const [message, setMessage] = useState('');
   const [pseudos, setPseudos] = useState([]);
   const [selectedPseudo, setSelectedPseudo] = useState(localStorage.getItem('pseudo') || '');
@@ -25,14 +25,14 @@ function ResetPassword() {
 
       if (snapshot.exists()) {
         const userData = snapshot.val();
-        const token = await generateResetToken(selectedPseudo); 
+        const token = await generateResetToken(selectedPseudo);
         const resetLink = `http://localhost:3000/reset-pwd-process?token=${token}`;
 
         const templateParams = {
           to_name: userData.name || 'Utilisateur',
           to_email: email,
           reset_link: resetLink,
-          pseudo: selectedPseudo 
+          pseudo: selectedPseudo
         };
 
         await emailjs.send('service_z2vqh5i', 'template_48nncre', templateParams, 'k9E-hi9Gv6XCXnZWM');
@@ -53,7 +53,7 @@ function ResetPassword() {
   const handleEmailChange = (e) => {
     const inputEmail = e.target.value;
     setEmail(inputEmail);
-    
+
     if (inputEmail.includes('@')) {
       setIsButtonDisabled(false);
     } else {
@@ -86,7 +86,7 @@ function ResetPassword() {
       setPseudos([]);
       setSelectedPseudo('');
       setIsButtonDisabled(true);
-      setMessage('Aucun compte associé à cet email.');
+      setMessage('Aucun compte n\’est associé à cet mail.');
     }
   };
 
@@ -98,7 +98,7 @@ function ResetPassword() {
           Mail :
           <input
             type="email"
-           
+
             onChange={handleEmailChange}
             onBlur={handleEmailBlur}
             required
