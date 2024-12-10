@@ -23,50 +23,47 @@ function ResetPwdReady() {
     number: false,
   });
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
-  const [isConfirmPasswordFocused, setIsConfirmPasswordFocused] = useState(false); // Nouveau état pour le focus du champ de confirmation
+  const [isConfirmPasswordFocused, setIsConfirmPasswordFocused] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
     const query = new URLSearchParams(location.search);
     const token = query.get('token');
+
     if (token) {
       const db = getDatabase();
-      const tokenRef = ref(db, 'reset_tokens/' + token);
-      get(tokenRef).then(snapshot => {
-        if (snapshot.exists()) {
-          const data = snapshot.val();
-          const now = Date.now();
-          if (now < data.expiration) {
-            setIsValidToken(true);
-            setMessage('Le lien est valide. Vous pouvez maintenant réinitialiser votre mot de passe.');
+      const tokenRef = ref(db, `reset_tokens/${token}`);
+      get(tokenRef)
+        .then(snapshot => {
+          if (snapshot.exists()) {
+            const data = snapshot.val();
+            console.log("Données du token :", data); // Ajout pour le débogage
+            const now = Date.now();
 
-            // Récupération des informations utilisateur avec le pseudo stocké dans 'data'
-            const userRef = ref(db, `users/${data.pseudo}`);
-            get(userRef).then(userSnapshot => {
-              if (userSnapshot.exists()) {
-                const userData = userSnapshot.val();
-                setEmail(userData.email);
-                setPseudo(userData.pseudo);
+            if (now < data.expiration) {
+              setIsValidToken(true);
+              setMessage('Le lien est valide. Vous pouvez maintenant réinitialiser votre mot de passe.');
+
+              // Vérification du pseudo dans les données du token
+              if (data.pseudo) {
+                setPseudo(data.pseudo);
               } else {
-                setMessage("Utilisateur introuvable.");
+                setMessage('Pseudo introuvable dans les données du lien.');
               }
-            }).catch(error => {
-              setMessage("Une erreur s'est produite lors de la récupération de l'utilisateur.");
-              console.error("Erreur lors de la récupération de l'utilisateur:", error);
-            });
+            } else {
+              setIsValidToken(false);
+              setMessage('Ce lien a expiré.');
+            }
           } else {
             setIsValidToken(false);
-            setMessage('Ce lien a expiré.');
+            setMessage('Le lien est invalide.');
           }
-        } else {
-          setIsValidToken(false);
-          setMessage('Le lien est invalide.');
-        }
-      }).catch(error => {
-        setMessage("Une erreur s'est produite.");
-        console.error("Erreur lors de la vérification du jeton:", error);
-      });
+        })
+        .catch(error => {
+          setMessage("Une erreur s'est produite.");
+          console.error("Erreur lors de la vérification du jeton :", error);
+        });
     } else {
       setMessage('Aucun jeton fourni.');
     }
@@ -116,7 +113,7 @@ function ResetPwdReady() {
       }, 2000); // 2 secondes de délai avant la redirection
     } catch (error) {
       setMessage("Une erreur s'est produite lors de la réinitialisation du mot de passe.");
-      console.error('Erreur de réinitialisation:', error);
+      console.error('Erreur de réinitialisation :', error);
     }
   };
 
@@ -124,7 +121,7 @@ function ResetPwdReady() {
 
   return (
     <div className="reset-pwd-ready">
-      <h1>{isValidToken ? `Bienvenue ${pseudo},` : ''}</h1>
+      <h1>{isValidToken ? `Bienvenue ${pseudo || ''},` : ''}</h1>
       <p>{message}</p>
 
       {isValidToken && (
@@ -161,14 +158,14 @@ function ResetPwdReady() {
             </div>
           )}
           <label>
-            Confirmation du  nouveau mot de passe
+            Confirmation du nouveau mot de passe
             <div className="password-field">
               <input
                 type={showConfirmPassword ? 'text' : 'password'}
                 value={confirmPassword}
                 onChange={handleConfirmPasswordChange}
-                onFocus={() => setIsConfirmPasswordFocused(true)} // Focus sur le champ de confirmation
-                onBlur={() => setIsConfirmPasswordFocused(false)} // Perte de focus
+                onFocus={() => setIsConfirmPasswordFocused(true)}
+                onBlur={() => setIsConfirmPasswordFocused(false)}
                 required
               />
               <FontAwesomeIcon
