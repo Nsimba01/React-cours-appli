@@ -86,7 +86,7 @@ function ResetPassword() {
       setPseudos([]);
       setSelectedPseudo('');
       setIsButtonDisabled(true);
-      setMessage('Aucun compte n\’est associé à cet mail.');
+      setMessage('Aucun compte n’est associé à cet email.');
     }
   };
 
@@ -98,7 +98,7 @@ function ResetPassword() {
           Mail :
           <input
             type="email"
-
+            value={email}
             onChange={handleEmailChange}
             onBlur={handleEmailBlur}
             required
@@ -106,23 +106,28 @@ function ResetPassword() {
         </label>
 
         {pseudos.length > 1 && (
-          <div>
-            <label>
-              Sélectionnez un pseudo:
-              <select
-                value={selectedPseudo}
-                onChange={(e) => setSelectedPseudo(e.target.value)}
-                required
-              >
-                <option value="">-- Sélectionnez un pseudo --</option>
-                {pseudos.map((pseudo) => (
-                  <option key={pseudo} value={pseudo}>
-                    {pseudo}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
+          <>
+            <p style={{ color: 'green', marginBottom: '10px' }}>
+              Merci de choisir le pseudo souhaité.
+            </p>
+            <div>
+              <label>
+                Sélectionnez un pseudo :
+                <select
+                  value={selectedPseudo}
+                  onChange={(e) => setSelectedPseudo(e.target.value)}
+                  required
+                >
+                  <option value="">-- Sélectionnez un pseudo --</option>
+                  {pseudos.map((pseudo) => (
+                    <option key={pseudo} value={pseudo}>
+                      {pseudo}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
+          </>
         )}
 
         <button type="submit" id="aligner-button" disabled={isButtonDisabled}>
@@ -130,7 +135,7 @@ function ResetPassword() {
         </button>
       </form>
 
-      {message && <p>{message}</p>}
+
     </div>
   );
 }
