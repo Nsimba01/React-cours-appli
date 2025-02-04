@@ -112,13 +112,13 @@ function ResetPassword() {
             </p>
             <div>
               <label>
-                Sélectionnez un pseudo :
+                Pseudo :
                 <select
                   value={selectedPseudo}
                   onChange={(e) => setSelectedPseudo(e.target.value)}
                   required
                 >
-                  <option value="">-- Sélectionnez un pseudo --</option>
+                  <option value="">  </option>
                   {pseudos.map((pseudo) => (
                     <option key={pseudo} value={pseudo}>
                       {pseudo}

@@ -1,4 +1,3 @@
-// src/component/AuthContext.js
 import React, { createContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
