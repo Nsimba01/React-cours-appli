@@ -36,7 +36,7 @@ function ResetPassword() {
         localStorage.setItem('email', email);
         localStorage.setItem('pseudo', pseudo);
 
-        setMessage(`Email de réinitialisation envoyé pour le pseudo ${pseudo}.`);
+        setMessage(`Email envoyé pour  ${pseudo}  .`);
         // Réinitialisation du formulaire et retour à l'étape "email"
         setEmail('');
         setSelectedPseudo('');
