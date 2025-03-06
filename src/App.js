@@ -4,6 +4,8 @@ import Header from './component/Header.js';
 import './css/App.css';
 import videoBg from './assets/foret.mp4';
 import { AuthProvider } from './component/AuthContext';
+import Footer from './component/Footer.js';
+
 
 function App() {
   return (
@@ -11,6 +13,9 @@ function App() {
       <video src={videoBg} autoPlay loop muted />
       <div className="content">
         <Header />
+        <Footer />
+        
+  
       </div>
     </AuthProvider>
   );
