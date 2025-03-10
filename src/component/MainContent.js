@@ -29,7 +29,7 @@ function MainContent() {
 
                     <h1> scolarité </h1>
 
-                    <img src={img_scolaire} alt="scolaire" />
+                    <img src={img_scolaire} alt="scolaire" onContextMenu={(e) => e.preventDefault()}  />
 
 
                 </div>
@@ -40,7 +40,7 @@ function MainContent() {
 
                     <h1> Finance </h1>
 
-                    <img src={log_euro} alt="logo euro" />
+                    <img src={log_euro} alt="logo euro"  onContextMenu={(e) => e.preventDefault()} />
 
 
 
