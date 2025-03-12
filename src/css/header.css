@@ -459,6 +459,7 @@ and (orientation: portrait) {
 .bloc_titre_boutonespace_image{
 	width:30px;
 	margin-right:5px;
+  border: 20px ridge #ccc;  
 
 }    
 
