@@ -1,25 +1,40 @@
-.footer{
-
+.footer {
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    gap: 30px;
+    background-color: #CC9900;
     color: rgb(11, 10, 10);
-    background-color:#CC9900;/* couleur de fond pour une meilleure visibilité */
     padding: 10px;
     box-sizing: border-box;
-    flex-wrap: wrap;
-
-
-
+    display: flex;
+    flex-direction: column; /* Permet de mettre la mention légale sous le contenu */
+    align-items: center;
 }
 
-.footer-position{
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+    gap: 30px;
+    flex-wrap: wrap;
+    width: 100%;
+}
 
-text-align: center;
+.footer-position {
+    text-align: center;
+}
 
+.footer-legal {
+    text-align: center;
+    width: 100%;
+    margin-top: 10px; /* Crée un espace entre le contenu et la mention légale */
+}
+
+
+.title-design {
+    border: 3px solid black;
+    border-radius: 5px; /* Utilisation de px pour plus de cohérence */
+    padding: 10px; /* Remplace le % par une valeur fixe */
+    display: inline-block; /* Évite que le H3 prenne toute la largeur */
+    text-align: center;
 }

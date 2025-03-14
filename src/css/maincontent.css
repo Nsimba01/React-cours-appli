@@ -41,8 +41,33 @@
 }
 
   
+@media screen and (min-width:0px) and (max-width:540px){
 
-@media screen and (min-width:0px) and (max-width:1023px){
+
+.module_container{
+
+  color: black;
+
+  width:100%; 
+
+  display:flex; /*  aligne les elements de container */
+
+  justify-content: space-around;
+
+  flex-wrap: wrap;
+
+  margin-top:5%;
+
+  margin-bottom: -1%;
+
+  background-color: antiquewhite;
+
+}
+
+
+}
+
+@media screen and (min-width:541px) and (max-width:1023px){
   
 
 .module_container{
