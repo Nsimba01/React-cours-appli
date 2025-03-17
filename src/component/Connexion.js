@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import { getDatabase, ref, get, child } from "firebase/database";
 import bcrypt from 'bcryptjs';
@@ -88,86 +89,89 @@ function Connexion() {
 
   return (
     <div className="formulaire">
-      <p>Veuillez vous connecter !</p>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>
-            Pseudo:
-            <input 
-              type="text" 
-              name="pseudo" 
-              value={formData.pseudo} 
-              onChange={handleChange} 
-              aria-label="Pseudo" 
-              onFocus={() => setIsPseudoFocused(true)} 
-              onBlur={() => setIsPseudoFocused(false)} 
-              required 
-            />
-          </label>
-          <br />
-          {isPseudoFocused && (
-            <div>
-              <span style={{ color: pseudoValidation ? "green" : "red" }}>
-                Au moins 5 caractères
-              </span>
-            </div>
-          )}
-          <br />
-          <label>
-            Mot de passe:
-            <div style={{ position: "relative", display: "inline-block" }}>
-              <input 
-                type={showPassword ? "text" : "password"} 
-                name="password" 
-                value={formData.password} 
-                onChange={handleChange} 
-                aria-label="Mot de passe" 
-                onFocus={() => setIsPasswordFocused(true)} 
-                onBlur={() => setIsPasswordFocused(false)} 
-                required 
-              />
-              <span 
-                onClick={toggleShowPassword} 
-                style={{ position: "absolute", right: 10, top: 2, cursor: "pointer" }}
-              >
-                {showPassword ? '\u{1F441}\u{200D}\u{1F5E8}' : '\u{1F441}'}
-              </span>
-            </div>
-          </label>
-          <br />
-          {isPasswordFocused && (
-            <div>
-              <span style={{ color: passwordValidation.length ? "green" : "red" }}>
-                Au moins 10 caractères
-              </span>
-              <br />
-              <span style={{ color: passwordValidation.uppercase ? "green" : "red" }}>
-                Au moins une majuscule
-              </span>
-              <br />
-              <span style={{ color: passwordValidation.number ? "green" : "red" }}>
-                Au moins 1 chiffre
-              </span>
-            </div>
-          )}
-          <br />
-          <input
-            type="submit"
-            value="Connexion"
-            id="aligner-button"
-            disabled={!Object.values(passwordValidation).every(value => value) || !pseudoValidation}
-          />
-          <p onClick={() => navigate('/creation')} style={{ cursor: 'pointer' }}>je veux créer mon espace</p>
-          <p onClick={() => navigate('/reset_password')} style={{ cursor: 'pointer' }}>Mot de passe oublié ?</p>
-        </div>
-      </form>
-      {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
-      {errorMessage && (
-        <div>
-          <p style={{ color: "red" }}>{errorMessage}</p>
-        </div>
-      )}
+  <p>Veuillez vous connecter !</p>
+  <form onSubmit={handleSubmit}>
+    <div className="form-row">
+      <label htmlFor="pseudo">Pseudo :</label>
+      <div className="input-container">
+        <input 
+          type="text" 
+          id="pseudo"
+          name="pseudo" 
+          value={formData.pseudo} 
+          onChange={handleChange} 
+          aria-label="Pseudo" 
+          onFocus={() => setIsPseudoFocused(true)} 
+          onBlur={() => setIsPseudoFocused(false)} 
+          required 
+        />
+      </div>
     </div>
+    {isPseudoFocused && (
+      <div className="validation-message">
+        <span style={{ color: pseudoValidation ? "green" : "red" }}>
+          Au moins 5 caractères
+        </span>
+      </div>
+    )}
+    <div className="form-row">
+      <label htmlFor="motdepasse">Mot de passe :</label>
+      <div className="input-container">
+        <input 
+          type={showPassword ? "text" : "password"} 
+          id="motdepasse"
+          name="password" 
+          value={formData.password} 
+          onChange={handleChange} 
+          aria-label="Mot de passe" 
+          onFocus={() => setIsPasswordFocused(true)} 
+          onBlur={() => setIsPasswordFocused(false)} 
+          required 
+        />
+        <span className="toggle-password" onClick={toggleShowPassword}>
+        {showPassword ? <FaEyeSlash /> : <FaEye />}
+        </span>
+      </div>
+    </div>
+    {isPasswordFocused && (
+      <div className="validation-message">
+        <span style={{ color: passwordValidation.length ? "green" : "red" }}>
+          Au moins 10 caractères
+        </span>
+        <br />
+        <span style={{ color: passwordValidation.uppercase ? "green" : "red" }}>
+          Au moins une majuscule
+        </span>
+        <br />
+        <span style={{ color: passwordValidation.number ? "green" : "red" }}>
+          Au moins 1 chiffre
+        </span>
+      </div>
+    )}
+    <div className="form-row">
+      <input
+        type="submit"
+        value="Connexion"
+        className="submit-btn"
+        disabled={!Object.values(passwordValidation).every(value => value) || !pseudoValidation}
+      />
+    </div>
+    <p onClick={() => navigate('/creation')} className="link">
+      Pas encore d'espace ?
+    </p>
+    <p onClick={() => navigate('/reset_password')} className="link">
+      Mot de passe oublié ?
+    </p>
+  </form>
+  {successMessage && <p className="success">{successMessage}</p>}
+  {errorMessage && (
+    <div className="error">
+      <p>{errorMessage}</p>
+    </div>
+  )}
+</div>
+
+
   );
 }
 

@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import '../css/login_hover.css';
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { validatePassword, validatePseudo, handleLogin } from './validationUtils';
 import { AuthContext } from './AuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -109,7 +110,7 @@ function LoginHover() {
                 onClick={toggleShowPassword} 
                 style={{ position: "absolute", right: 10, top: 5, cursor: "pointer" }}
               >
-                {showPassword ? '\u{1F441}\u{200D}\u{1F5E8}' : '\u{1F441}'}
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
               </span>
             </div>
           </label>

@@ -1,467 +1,213 @@
+/* Styles généraux du menu et de la présentation */
 .row {
-    display: flex;
-   
-   justify-content: space-around ;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;           /* Centre verticalement le contenu */
+  width: 100%;
+  border: 1px solid black;
+  background-color: #CC9900;
+  min-height: 80px;              /* Hauteur réduite, à ajuster */
+  padding: 0 10px;              /* Réduit l'espace interne horizontal */
+  margin-bottom: 0;
+}
 
-    width:100%; /* to update*/
+.presentation img {
+  width: 200px;
+  height: 100px;
+  padding-left: 4%;
+  padding-top: 4%;
+}
 
-    border:1px solid black;
+.presentation p {
+  font-size: 13px;
+  margin-left: -13%;
+}
 
-    margin-bottom:0%; 
+/* Media Queries pour responsive design */
 
-    background-color:#CC9900;
-   
-
-
-
-  } 
-
-  
-  .presentation img{
-
-
-    width:200px;
- 
-    height:100px;
-
-    padding-left: 4%;
-
-    padding-top:4%;
-
-
- 
-    
-   }
-
-
-   .presentation P{
-
-    font-size:13px;
-
-    margin-left:-13%;
-
-   }
- 
-
-  @media screen and (min-width:200px) and (max-width:1000px)  {
-
-
-    .row {
-      flex-direction: column;
-   
-      margin: auto;
-  
-  
-      width:1000px;
-  
-    
-      
-      background-color:#CC9900;
-    }
-
-  }
-
-
-
-  /* Media Query pour cibler spécifiquement l'iPhone SE en mode portrait */
-@media only screen 
-and (min-device-width: 375px) 
-and (max-device-width: 667px) 
-and (-webkit-device-pixel-ratio: 2) 
-and (orientation: portrait) {
-
+@media screen and (min-width:200px) and (max-width:1000px) {
   .row {
     flex-direction: column;
- 
     margin: auto;
-
-    width:1000px;
-
- 
-    background-color:#CC9900;
+    width: 1000px;
+    background-color: #CC9900;
   }
-
-
-
-
 }
 
-
-/* Media Query pour cibler spécifiquement l'iPad Mini */
-@media only screen 
-  and (device-width: 768px) 
-  and (device-height: 1024px) 
-  and (-webkit-min-device-pixel-ratio: 1) {
-
-    .row {
-      flex-direction: column;
-   
-      margin: auto;
-
-      width:1000px;
-
-  
-  
-  
-      background-color:#CC9900;
-    }
-  
-}
-
-
-/* Media Query pour cibler spécifiquement le Samsung Galaxy A51 */
-@media only screen 
-  and (device-width: 720px) /* Largeur en pixels */
-  and (device-height: 1560px) /* Hauteur en pixels */
-  and (-webkit-device-pixel-ratio: 2) /* Ratio de pixels */ {
- 
-    .row {
-      flex-direction: column;
-   
-      margin: auto;
-
-      width:1000px;
-  
-  
-      background-color:#CC9900;
-    }
-  
-
-
-
-}
-
-@media only screen 
-
-  and (max-width: 1780px) 
-   {
-
-
-    .presentation{
-
-
-     
-      background-color:rgba(199, 216, 67, 0.699);
-  
-      float:left;
-  
-      margin:auto;
-  
-      color:black;
-  
-   
-      border:1px solid white;
-  
-      margin-bottom:3%;
-  
-   
-  
-  
-      margin-top:-3%;
-  
-    
-    
-      width: 100%;
-      height: 300px;
-  
-  
-  
-  
-   
-    
-  
-  
-  
-    }
-
-
-  }
-    
-
-
-  .presentation{
-
-
-
-    background-color:rgba(199, 216, 67, 0.699);
-
-    justify-content: space-between;
-
-   
-
-    margin:auto;
-
-    color:black;
-
- 
-    border:1px solid white;
-
-    margin-bottom:3%;
-
- 
-
-
-    margin-top:-0.3%;
-
-
-  
-    width: 100%;
-
-
-
-    display:flex; 
- 
-
-    flex-wrap: wrap;
-
-
- 
-  
-
-
-
-  }
-
-  
-  .row:before,
-  .row:after {
-    content: '';
-    flex: 0.5;
-  }
-  
-  .col {
-    text-align: center;
-    flex: 1;
-    display: flex;
+/* iPhone SE en portrait */
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait) {
+  .row {
     flex-direction: column;
+    margin: auto;
+    width: 1000px;
+    background-color: #CC9900;
   }
-  
-  .col:nth-child(1) {
-    order: -1
+}
+
+/* iPad Mini */
+@media only screen and (device-width: 768px) and (device-height: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
+  .row {
+    flex-direction: column;
+    margin: auto;
+    width: 1000px;
+    background-color: #CC9900;
   }
-  
-  .col:nth-child(3) {
-    order: 1;
-}  
+}
 
+/* Samsung Galaxy A51 */
+@media only screen and (device-width: 720px) and (device-height: 1560px) and (-webkit-device-pixel-ratio: 2) {
+  .row {
+    flex-direction: column;
+    margin: auto;
+    width: 1000px;
+    background-color: #CC9900;
+  }
+}
 
-
-@media screen and (min-width:300px) and  (max-width:1008px) {
-
-
-/*
-  .presentation{
-
-    margin-top:-0.1%;
+@media only screen and (max-width: 1780px) {
+  .presentation {
+    background-color: rgba(199, 216, 67, 0.699);
+    float: left;
+    margin: auto;
+    color: black;
+    border: 1px solid white;
+    margin-bottom: 3%;
+    margin-top: -3%;
     width: 100%;
-    height: 800px;
-
-
-
-    display:flex;
-    
-    justify-content: center;
-
-    flex-wrap: wrap;
-
-    font-size: 13px;
-
-
-
-
-
+    height: 300px;
   }
+}
 
-  */
+.presentation {
+  background-color: rgba(199, 216, 67, 0.699);
+  justify-content: space-between;
+  margin: auto;
+  color: black;
+  border: 1px solid white;
+  margin-bottom: 3%;
+  margin-top: -0.3%;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
 
-  .bloc_titre_logo{ 
+.row:before,
+.row:after {
+  content: '';
+  flex: 0.5;
+}
 
-    margin-right:-52%;
-   
-    clip-path:ellipse(33% 50%);
-    
-  
-   
-  
+.col {
+  text-align: center;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.col:nth-child(1) {
+  order: -1;
+}
+
+.col:nth-child(3) {
+  order: 1;
+}
+
+@media screen and (min-width:300px) and (max-width:1008px) {
+  .bloc_titre_logo {
+    margin-right: -52%;
+    clip-path: ellipse(33% 50%);
   }
-
   .dropdown-content {
     display: none;
     position: absolute;
-    background-color:#CC9900; 
-
- 
+    background-color: #CC9900;
     width: 960px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     padding: 12px 16px;
     align-items: center;
-
-
     z-index: 1;
   }
-
   .dropdown:hover .dropdown-content {
     display: block;
-    background-color:#CC9900;
+    background-color: #CC9900;
     width: 100%;
   }
-
-  
-  
-
 }
 
-
-@media screen and (min-width:300px) and  (max-width:900px) {
-
-  
+@media screen and (min-width:300px) and (max-width:900px) {
   .row {
     flex-direction: column;
- 
     margin: auto;
-
-
-    width:100%;
-
-  
-    
-    background-color:#CC9900;
+    width: 100%;
+    background-color: #CC9900;
   }
-
-
-  
-
-  
-
-
-
-  /* end update */
-
   .dropdown-content {
     display: none;
     position: absolute;
-    background-color:#CC9900;
+    background-color: #CC9900;
     width: 660px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     padding: 12px 16px;
-    justify-content: center; /* Centre horizontalement */
-    align-items: center; /* Centre verticalement */
+    justify-content: center;
+    align-items: center;
     z-index: 1;
   }
-  
-  /* .dropdown:hover .dropdown-content {
-    display: block;
-    background-color:#CC9900;
-    width:990px;
-    
-  } */
-
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color:#CC9900;
-    width: 660px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    padding: 12px 16px;
-    justify-content: center; /* Centre horizontalement */
-    align-items: center; /* Centre verticalement */
-    z-index: 1;
-  }
-  
   .dropdown:hover .dropdown-content {
     display: block;
-    background-color:#CC9900;
+    background-color: #CC9900;
     width: 100%;
   }
 }
- 
 
-
-
-.button_espace{
+/* Ajustements pour réduire la hauteur du menu */
+.button_espace {
   flex: 1;
-  display:flex;
-  /*align-items:center;*/
-  justify-content:center;
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: black;
-
-  padding: 26px 26px;
-
-
-  background:#CC9900;
-
+  padding: 10px;           /* Padding réduit */
+  background: #CC9900;
   text-decoration: none;
-  margin-top:3%;
-  margin-bottom:3%;
-/* to update */
- 
+  margin: 5px 0;           /* Marges verticales réduites */
 }
 
-
-
-
-
-
-
-.titre{
-
-    flex: 1;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-family: verdana;
-    font-weight: bold;
-    color:black;
-    font-size: calc(8px + 0.5vw);
-    padding: 8px 16px;
-    text-decoration: none;
-    margin-top:3%;
-    margin-bottom:3%;
-
-
-
+.titre {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Verdana, sans-serif;
+  font-weight: bold;
+  color: black;
+  font-size: calc(8px + 0.5vw);
+  padding: 4px 8px;        /* Padding réduit */
+  text-decoration: none;
+  margin: 5px 0;           /* Marges verticales réduites */
 }
 
-
-.bloc_titre_logo{ 
-	width:200px;
-
-   
-  margin-left:-53%;
-
-	clip-path:ellipse(33% 50%);
-
-
+.bloc_titre_logo {
+  width: 150px;            /* Réduction de la taille du logo */
+  margin-left: -53%;
+  clip-path: ellipse(33% 50%);
 }
 
-  
-.row,.presentation{
-
-
-   color:black;
-
-
+.row,
+.presentation {
+  color: black;
 }
 
-
-
-
-
-.presentation P{
-  
-  padding:10px;
-	text-align:justify;
-	overflow-wrap:break-word;
-
+.presentation p {
+  padding: 10px;
+  text-align: justify;
+  overflow-wrap: break-word;
 }
 
-.bloc_titre_boutonespace_image{
-	width:30px;
-	margin-right:5px;
-  border: 20px ridge #ccc;  
-
-}    
+.bloc_titre_boutonespace_image {
+  width: 30px;
+  margin-right: 5px;
+  border: 20px ridge #ccc; /* Vous pouvez aussi réduire la bordure si besoin */
+}
 
 .dropdown {
   position: relative;
@@ -471,44 +217,32 @@ and (orientation: portrait) {
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color:#CC9900;
+  background-color: #CC9900;
   min-width: 260px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   padding: 12px 16px;
   z-index: 1;
 }
 
-
-
 .dropdown:hover .dropdown-content {
   display: block;
-  background-color:#CC9900;
+  background-color: #CC9900;
   width: 100%;
 }
 
 .divexterne {
-
-  background-color:rgba(199, 216, 67, 0.699);;
-  
+  background-color: rgba(199, 216, 67, 0.699);
   width: 100%;
-  
-  
-  
-  }
-
-.divexterne img{
-
-
-width:300px;
-height:300px;
-
 }
-  
+
+.divexterne img {
+  width: 300px;
+  height: 300px;
+}
+
 .tableau {
   width: 100%;
   border-collapse: collapse;
-  
-  
 }
 
 .cellule {
@@ -521,32 +255,20 @@ height:300px;
   height: auto;
 }
 
-.HideShow{
-
-
-  position:absolute;
-  z-index:2;
+.HideShow {
+  position: absolute;
+  z-index: 2;
   padding: 10px 20px;
-  background-color:rgba(199, 216, 67, 0.699);;
-  color:black;
- 
+  background-color: rgba(199, 216, 67, 0.699);
+  color: black;
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
+}
 
-  }
-  
-  
-  .divexterne {
-  
-    background-color:rgba(199, 216, 67, 0.699);;
-    
-    width: 100%;
-  
-    position:relative;
-  
-    z-index:1;
-    
-    
-    
-  }  
+.divexterne {
+  background-color: rgba(199, 216, 67, 0.699);
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
