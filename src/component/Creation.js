@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getDatabase, ref, set, get } from "firebase/database";
 import bcrypt from 'bcryptjs';
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import '../css/creation.css';
 
 function Creation() {
   const navigate = useNavigate();
@@ -25,15 +27,34 @@ function Creation() {
     number: false
   });
 
+  const [showCriteria, setShowCriteria] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
+
+  const validatePassword = (password) => ({
+    length: password.length >= 10,
+    uppercase: /[A-Z]/.test(password),
+    number: /[0-9]/.test(password)
+  });
 
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevState) => ({ ...prevState, [name]: value }));
     if (name === "password") {
-      setPasswordValidation(validatePassword(value));
+      const validation = validatePassword(value);
+      setPasswordValidation(validation);
     }
   };
+
+  useEffect(() => {
+    if (Object.values(passwordValidation).every(Boolean)) {
+      const timer = setTimeout(() => {
+        setShowCriteria(false);
+      }, 500);
+      return () => clearTimeout(timer);
+    } else {
+      setShowCriteria(true);
+    }
+  }, [passwordValidation]);
 
   const toggleShowPassword = () => {
     setShowPassword(prevState => !prevState);
@@ -51,17 +72,14 @@ function Creation() {
       const db = getDatabase();
       const userRef = ref(db, 'users/' + formData.pseudo);
 
-      // Vérifier si l'utilisateur existe déjà
       const snapshot = await get(userRef);
       if (snapshot.exists()) {
         setErrorMessage("Ce pseudo est déjà utilisé. Veuillez en choisir un autre.");
         return;
       }
 
-      // Hash du mot de passe avant de le stocker
       const hashedPassword = await bcrypt.hash(formData.password, 10);
 
-      // Création de l'objet utilisateur à stocker
       const userData = {
         email: formData.email,
         nom: formData.nom,
@@ -71,13 +89,11 @@ function Creation() {
         password: hashedPassword,
       };
 
-      // Enregistrement de l'utilisateur dans la base de données
       await set(userRef, userData);
 
       setSuccessMessage("Votre compte a été créé avec succès !");
       setErrorMessage(null);
 
-      // Redirection vers la page de connexion après un court délai
       setTimeout(() => {
         navigate('/connexion');
       }, 2000);
@@ -88,19 +104,14 @@ function Creation() {
     }
   };
 
-  const validatePassword = (password) => ({
-    length: password.length >= 10,
-    uppercase: /[A-Z]/.test(password),
-    number: /[0-9]/.test(password)
-  });
-
   return (
     <div className="formulaire">
       <p>Créer votre espace !</p>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>
-            Pseudo:
+        {/* Pseudo */}
+        <div className="form-row">
+          <label>Pseudo:</label>
+          <div className="input-container">
             <input
               type="text"
               name="pseudo"
@@ -109,28 +120,36 @@ function Creation() {
               aria-label="Pseudo"
               required
             />
-          </label>
-          <br />
-          <label>
-            Mot de passe:
-            <div style={{ position: "relative", display: "inline-block" }}>
-              <input
-                type={showPassword ? "text" : "password"}
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                aria-label="Mot de passe"
-                required
-              />
-              <span 
-                onClick={toggleShowPassword} 
-                style={{ position: "absolute", right: 10, top: 2, cursor: "pointer" }}
-              >
-                {showPassword ? '\u{1F441}\u{200D}\u{1F5E8}' : '\u{1F441}'}
-              </span>
-            </div>
-            <br />
-            <div>
+          </div>
+        </div>
+
+        {/* Mot de passe */}
+        <div className="form-row">
+          <label>Mot de passe:</label>
+          <div className="input-container" style={{ position: "relative", width: "100%" }}>
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              aria-label="Mot de passe"
+              required
+              style={{ width: "100%" }}
+            />
+            <span
+              onClick={toggleShowPassword}
+              style={{ position: "absolute", right: 10, top: 2, cursor: "pointer" }}
+            >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </span>
+          </div>
+
+          {/* Critères de mot de passe */}
+         
+        </div>
+
+        {showCriteria && (
+            <div className="criteria" style={{ marginTop: "10px" }}>
               <span style={{ color: passwordValidation.length ? "green" : "red" }}>
                 Au moins 10 caractères
               </span>
@@ -143,22 +162,12 @@ function Creation() {
                 Au moins 1 chiffre
               </span>
             </div>
-          </label>
-          <br />
-          <label>
-            Mail:
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              aria-label="Mail"
-              required
-            />
-          </label>
-          <br />
-          <label>
-            Nom:
+          )}
+
+        {/* Nom */}
+        <div className="form-row">
+          <label>Nom:</label>
+          <div className="input-container">
             <input
               type="text"
               name="nom"
@@ -167,10 +176,13 @@ function Creation() {
               aria-label="Nom"
               required
             />
-          </label>
-          <br />
-          <label>
-            Prénom:
+          </div>
+        </div>
+
+        {/* Prénom */}
+        <div className="form-row">
+          <label>Prénom:</label>
+          <div className="input-container">
             <input
               type="text"
               name="prenom"
@@ -179,23 +191,30 @@ function Creation() {
               aria-label="Prénom"
               required
             />
-          </label>
-          <br />
-          <label>
-            Sexe:
+          </div>
+        </div>
+
+        {/* Sexe */}
+        <div className="form-row">
+          <label>Sexe:</label>
+          <div className="input-container">
             <select
               name="sexe"
               value={formData.sexe}
               onChange={handleChange}
               required
             >
+              <option value="vide"> (vide) </option>
               <option value="homme">Homme</option>
               <option value="femme">Femme</option>
             </select>
-          </label>
-          <br />
-          <label>
-            Date de naissance:
+          </div>
+        </div>
+
+        {/* Date de naissance */}
+        <div className="form-row">
+          <label>Date de naissance:</label>
+          <div className="input-container">
             <input
               type="date"
               name="dateNaissance"
@@ -204,8 +223,26 @@ function Creation() {
               aria-label="Date de naissance"
               required
             />
-          </label>
-          <br />
+          </div>
+        </div>
+
+        {/* Mail */}
+        <div className="form-row">
+          <label>Mail:</label>
+          <div className="input-container">
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              aria-label="Mail"
+              required
+            />
+          </div>
+        </div>
+
+        {/* Bouton de soumission */}
+        <div className="form-row">
           <input
             type="submit"
             value="Création"
@@ -213,12 +250,10 @@ function Creation() {
           />
         </div>
       </form>
+
+      {/* Affichage des messages */}
       {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
-      {errorMessage && (
-        <div>
-          <p style={{ color: "red" }}>{errorMessage}</p>
-        </div>
-      )}
+      {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
     </div>
   );
 }

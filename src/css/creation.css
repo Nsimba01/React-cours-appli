@@ -1,0 +1,27 @@
+
+/* création.css */
+.criteria {
+    transition: opacity 1s ease;
+    opacity: 1;
+    font-size: 11px; /* Taille encore réduite pour les critères */
+    margin-top: 8px; /* Réduction de l'espace entre le champ et les critères */
+  }
+  
+  /* Masquer les critères lorsque non remplis */
+  .criteria.hidden {
+    opacity: 0;
+  }
+  
+  .criteria span {
+    display: block;
+    margin-bottom: 4px;
+  }
+  
+  .criteria span.green {
+    color: green;
+  }
+  
+  .criteria span.red {
+    color: red;
+  }
+  

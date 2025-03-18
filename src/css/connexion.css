@@ -1,114 +1,112 @@
 /* Conteneur principal du formulaire */
 .formulaire {
-    max-width: 400px;      /* Largeur maximale pour desktop */
-    margin: 0 auto;        /* Centrage horizontal */
-    padding: 20px;
-    background-color: rgba(206, 207, 200, 0.897);
-    color: black;
-    font-family: Arial, sans-serif;
-    border-radius: 5px;
-    margin-top: 30px;
-
-  }
-  
-  /* Titre centré */
-  .formulaire p {
-        text-align: left;
-    margin-bottom: 15px;
-  }
-  
-  /* Ligne du formulaire en flex */
-  .form-row {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-    flex-wrap: wrap;
-  }
-  
-  /* Labels avec largeur fixe */
-  .form-row label {
-    flex: 0 0 120px;
-    margin-right: 10px;
-  }
-  
-  /* Conteneur pour les champs d'entrée */
-  .input-container {
-    flex: 1;
-    position: relative;
-  }
-  
-  /* Styles identiques pour tous les inputs dans ces conteneurs */
-  .input-container input {
-    width: 100%;
-    height: 40px;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    box-sizing: border-box;
-  }
-  
-  /* Positionnement de l'icône pour afficher/cacher le mot de passe */
-  .toggle-password {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-  }
-  
-  /* Bouton de soumission */
-  .submit-btn {
-    background-color: #007BFF;
-    color: #fff;
-    border: none;
-    width: 100%;
-    height: 40px;
-    border-radius: 3px;
-    cursor: pointer;
-  }
-  
-  /* Bouton désactivé */
-  .submit-btn:disabled {
-    background-color: #f0f0f0;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-    color: #0e0d0d;
-  }
-  
-  /* Style des liens */
-  .link {
-
-    color: #18191b;
-    cursor: pointer;
-    margin-top: 10px;
-    text-decoration: underline;
-   
-  }
-  
-  /* Responsive : sur écrans étroits, empiler label et champ */
-  @media (max-width: 600px) {
-    .form-row {
-      flex-direction: column;
-      align-items: stretch;
-    }
-    
-    .form-row label {
-      flex: none;
-      margin-bottom: 5px;
-    }
-    
-    .input-container {
-      width: 100%;
-    }
-  }
-  
-
-#aligner-button{
-
-margin-left: 27%;
-
-border-radius: 20px;
-
+  max-width: 300px;  /* Largeur maximale encore plus réduite */
+  margin: 0 auto;    /* Centrage horizontal */
+  padding: 10px;     /* Réduction du padding */
+  background-color: rgba(206, 207, 200, 0.897);
+  color: black;
+  font-family: Arial, sans-serif;
+  border-radius: 5px;
+  margin-top: 20px;   /* Moins d'espace en haut */
+  margin-bottom: 30px; /* Plus d'espace en bas pour éviter de toucher le footer */
 }
 
+/* Titre centré */
+.formulaire p {
+  text-align: center;
+  margin-bottom: 8px; /* Réduction de l'espace sous le titre */
+  font-size: 16px;    /* Taille réduite pour le titre */
+}
 
+/* Ligne du formulaire en flex */
+.form-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px; /* Espacement encore réduit */
+  flex-wrap: wrap;
+}
 
+/* Labels avec largeur encore plus réduite */
+.form-row label {
+  flex: 0 0 80px;  /* Réduction supplémentaire de la largeur des labels */
+  margin-right: 6px;
+  font-size: 12px;  /* Taille de police plus petite */
+}
+
+/* Conteneur pour les champs d'entrée */
+.input-container {
+  flex: 1;
+  position: relative;
+}
+
+/* Styles identiques pour tous les inputs dans ces conteneurs */
+.input-container input,
+.input-container select {
+  width: 100%;
+  height: 25px; /* Hauteur des champs encore plus petite */
+  padding: 4px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box;
+  font-size: 12px; /* Taille de police plus petite */
+}
+
+/* Positionnement de l'icône pour afficher/cacher le mot de passe */
+.toggle-password {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+/* Bouton de soumission */
+.submit-btn {
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  width: 100%;
+  height: 30px; /* Réduction de la hauteur du bouton */
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 13px; /* Réduction de la taille du texte du bouton */
+}
+
+/* Bouton désactivé */
+.submit-btn:disabled {
+  background-color: #f0f0f0;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  color: #0e0d0d;
+}
+
+/* Style des liens */
+.link {
+  color: #18191b;
+  cursor: pointer;
+  margin-top: 6px;
+  text-decoration: underline;
+}
+
+/* Responsive : sur écrans étroits, empiler label et champ */
+@media (max-width: 600px) {
+  .form-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .form-row label {
+    flex: none;
+    margin-bottom: 4px;  /* Espacement réduit sous les labels */
+  }
+
+  .input-container {
+    width: 100%;
+  }
+}
+
+#aligner-button {
+  display: block;
+  margin: 0 auto;
+  padding: 3%;
+  box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.75);
+}
