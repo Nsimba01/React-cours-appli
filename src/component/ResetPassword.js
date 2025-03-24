@@ -5,12 +5,11 @@ import '../css/connexion.css';
 import { generateResetToken } from './tokenUtils';
 
 function ResetPassword() {
-  // États pour gérer l'email, le message, les pseudos et l'étape du formulaire
+  // États
   const [email, setEmail] = useState(localStorage.getItem('email') || '');
   const [message, setMessage] = useState('');
   const [pseudos, setPseudos] = useState([]);
   const [selectedPseudo, setSelectedPseudo] = useState(localStorage.getItem('pseudo') || '');
-  // "step" permet de savoir si l'on est à l'étape "email" ou "pseudo"
   const [step, setStep] = useState('email');
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
@@ -20,6 +19,7 @@ function ResetPassword() {
       const db = getDatabase();
       const userRef = ref(db, `users/${pseudo}`);
       const snapshot = await get(userRef);
+
       if (snapshot.exists()) {
         const userData = snapshot.val();
         const token = await generateResetToken(pseudo);
@@ -28,16 +28,20 @@ function ResetPassword() {
           to_name: userData.name || 'Utilisateur',
           to_email: email,
           reset_link: resetLink,
-          pseudo: pseudo,  // Le pseudo sera inclus dans le template EmailJS
+          pseudo: pseudo,
         };
 
-        await emailjs.send('service_z2vqh5i', 'template_48nncre', templateParams, 'k9E-hi9Gv6XCXnZWM');
+        await emailjs.send('service_z2vqh5i', 'template_48nncre', templateParams, 'k9E-hi9Gv6XCXnZWM')
+          .then((response) => {
+            console.log('Email envoyé avec succès:', response);
+            setMessage(`Email envoyé pour ${pseudo}.`);
+          })
+          .catch((error) => {
+            console.error('Erreur EmailJS:', error);
+            setMessage(`Erreur lors de l'envoi de l'email : ${error.text || error.message}`);
+          });
 
-        localStorage.setItem('email', email);
-        localStorage.setItem('pseudo', pseudo);
-
-        setMessage(`Email envoyé pour ${pseudo}.`);
-        // Réinitialisation du formulaire et retour à l'étape "email"
+        // Réinitialisation après envoi
         setEmail('');
         setSelectedPseudo('');
         setPseudos([]);
@@ -48,14 +52,14 @@ function ResetPassword() {
       }
     } catch (error) {
       setMessage('Erreur lors de l\'envoi de l\'email.');
-      console.error('Erreur EmailJS:', error);
+      console.error('Erreur:', error);
     }
   };
 
   // Gestion de la soumission du formulaire
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // Si l'on est à l'étape "email", on recherche les comptes associés à l'email
+
     if (step === 'email') {
       if (!email.includes('@')) {
         setMessage('Veuillez entrer un email valide.');
@@ -65,26 +69,25 @@ function ResetPassword() {
       const usersRef = ref(db, 'users');
       const snapshot = await get(usersRef);
       const associatedPseudos = [];
+
       snapshot.forEach((userSnapshot) => {
         const userData = userSnapshot.val();
         if (userData.email === email) {
           associatedPseudos.push(userSnapshot.key);
         }
       });
+
       if (associatedPseudos.length === 0) {
         setMessage('Aucun compte n’est associé à cet email.');
         return;
       } else if (associatedPseudos.length === 1) {
-        // Un seul compte trouvé : envoi direct de l'email
         setSelectedPseudo(associatedPseudos[0]);
         await sendResetEmail(associatedPseudos[0]);
       } else {
-        // Plusieurs comptes trouvés : passage à l'étape "pseudo" pour choisir le compte
         setPseudos(associatedPseudos);
         setStep('pseudo');
       }
     } else if (step === 'pseudo') {
-      // À l'étape "pseudo", vérifier qu'un pseudo est sélectionné et envoyer l'email
       if (!selectedPseudo) {
         setMessage('Veuillez sélectionner un pseudo.');
         return;
@@ -93,26 +96,35 @@ function ResetPassword() {
     }
   };
 
-  // Gestion des changements dans le champ email
+  // Gestion du champ email
   const handleEmailChange = (e) => {
     const inputEmail = e.target.value;
     setEmail(inputEmail);
-    // Active le bouton si l'email semble valide (on vérifie simplement la présence de '@')
     setIsButtonDisabled(!inputEmail.includes('@'));
   };
 
-  // Gestion du changement de sélection du pseudo (étape "pseudo")
+  // Gestion du changement de pseudo
   const handlePseudoChange = (e) => {
     setSelectedPseudo(e.target.value);
   };
 
   return (
-    <div className="formulaire">
-      <h2>Réinitialiser le mot de passe</h2>
-      <form onSubmit={handleSubmit}>
+    <div className="formulaire-reset-pwd">
+      <h2>Réinitialisation de mot de passe</h2>   <br/>
+
+      {step === 'pseudo' && (
+         
+            <p style={{ color: 'green', marginBottom: '10px' }}>
+              
+              Plusieurs comptes ont été identifiés. Choisi ton pseudo dans  <br/>
+              dans la liste ci-dessous puis cliquer sur le bouton
+            </p>
+
+          )}
+      <form onSubmit={handleSubmit} className="reset-pwd-form">
         {step === 'email' && (
           <label>
-            Mail :
+            Mail : &nbsp;
             <input
               type="email"
               value={email}
@@ -125,12 +137,12 @@ function ResetPassword() {
         {step === 'pseudo' && (
           <>
             <p style={{ color: 'green', marginBottom: '10px' }}>
-              Merci de choisir le pseudo souhaité.
-            </p>
+         
+            </p>  
             <div>
               <label>
                 Pseudo :
-                <select
+                <select className='select-pseudo'
                   value={selectedPseudo}
                   onChange={handlePseudoChange}
                   required
@@ -152,7 +164,7 @@ function ResetPassword() {
           id="aligner-button"
           disabled={step === 'pseudo' ? !selectedPseudo : isButtonDisabled}
         >
-          Valider
+          Vérifier
         </button>
       </form>
 
