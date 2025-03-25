@@ -12,6 +12,7 @@ function ResetPassword() {
   const [selectedPseudo, setSelectedPseudo] = useState(localStorage.getItem('pseudo') || '');
   const [step, setStep] = useState('email');
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const [buttonText, setButtonText] = useState('Vérifier'); // Gestion du texte du bouton
 
   // Fonction pour envoyer l'email de réinitialisation
   const sendResetEmail = async (pseudo) => {
@@ -47,6 +48,7 @@ function ResetPassword() {
         setPseudos([]);
         setStep('email');
         setIsButtonDisabled(true);
+        setButtonText('Vérifier'); // Remettre le texte du bouton à 'Vérifier'
       } else {
         setMessage('Pseudo non trouvé.');
       }
@@ -86,6 +88,7 @@ function ResetPassword() {
       } else {
         setPseudos(associatedPseudos);
         setStep('pseudo');
+        setButtonText('Valider'); // Change le texte du bouton à "Valider"
       }
     } else if (step === 'pseudo') {
       if (!selectedPseudo) {
@@ -113,14 +116,12 @@ function ResetPassword() {
       <h2>Réinitialisation de mot de passe</h2>   <br/>
 
       {step === 'pseudo' && (
-         
-            <p style={{ color: 'green', marginBottom: '10px' }}>
-              
-              Plusieurs comptes ont été identifiés. Choisi ton pseudo dans  <br/>
-              dans la liste ci-dessous puis cliquer sur le bouton
-            </p>
+        <p style={{ color: 'green', marginBottom: '10px' }}>
+          Plusieurs comptes ont été identifiés. Choisi ton pseudo dans  <br/>
+          dans la liste ci-dessous puis cliquer sur le bouton Valider
+        </p>
+      )}
 
-          )}
       <form onSubmit={handleSubmit} className="reset-pwd-form">
         {step === 'email' && (
           <label>
@@ -136,9 +137,6 @@ function ResetPassword() {
 
         {step === 'pseudo' && (
           <>
-            <p style={{ color: 'green', marginBottom: '10px' }}>
-         
-            </p>  
             <div>
               <label>
                 Pseudo :
@@ -164,7 +162,7 @@ function ResetPassword() {
           id="aligner-button"
           disabled={step === 'pseudo' ? !selectedPseudo : isButtonDisabled}
         >
-          Vérifier
+          {buttonText}
         </button>
       </form>
 
