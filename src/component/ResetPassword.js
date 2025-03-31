@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { getDatabase, ref, get } from 'firebase/database';
 import emailjs from 'emailjs-com';
 import '../css/connexion.css';
@@ -7,12 +7,18 @@ import { generateResetToken } from './tokenUtils';
 function ResetPassword() {
   // États
   const [email, setEmail] = useState(localStorage.getItem('email') || '');
-  const [message, setMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   const [pseudos, setPseudos] = useState([]);
   const [selectedPseudo, setSelectedPseudo] = useState(localStorage.getItem('pseudo') || '');
   const [step, setStep] = useState('email');
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-  const [buttonText, setButtonText] = useState('Vérifier'); // Gestion du texte du bouton
+  const [buttonText, setButtonText] = useState('Vérifier');
+
+  // Met à jour le texte du bouton dynamiquement selon l'étape
+  useEffect(() => {
+    setButtonText(step === 'pseudo' ? 'Valider' : 'Vérifier');
+  }, [step]);
 
   // Fonction pour envoyer l'email de réinitialisation
   const sendResetEmail = async (pseudo) => {
@@ -32,14 +38,17 @@ function ResetPassword() {
           pseudo: pseudo,
         };
 
-        await emailjs.send('service_z2vqh5i', 'template_48nncre', templateParams, 'k9E-hi9Gv6XCXnZWM')
+        await emailjs
+          .send('service_z2vqh5i', 'template_48nncre', templateParams, 'k9E-hi9Gv6XCXnZWM')
           .then((response) => {
             console.log('Email envoyé avec succès:', response);
-            setMessage(`Email envoyé pour ${pseudo}.`);
+            setSuccessMessage(`Un lien de réinitialisation de ton mot de passe a été envoyé à l’adresse « ${email} ».`);
+            setErrorMessage('');
           })
           .catch((error) => {
             console.error('Erreur EmailJS:', error);
-            setMessage(`Erreur lors de l'envoi de l'email : ${error.text || error.message}`);
+            setErrorMessage(`Erreur lors de l'envoi de l'email : ${error.text || error.message}`);
+            setSuccessMessage('');
           });
 
         // Réinitialisation après envoi
@@ -48,13 +57,15 @@ function ResetPassword() {
         setPseudos([]);
         setStep('email');
         setIsButtonDisabled(true);
-        setButtonText('Vérifier'); // Remettre le texte du bouton à 'Vérifier'
+        setButtonText('Vérifier');
       } else {
-        setMessage('Pseudo non trouvé.');
+        setErrorMessage('Pseudo non trouvé.');
+        setSuccessMessage('');
       }
     } catch (error) {
-      setMessage('Erreur lors de l\'envoi de l\'email.');
+      setErrorMessage('Erreur lors de l\'envoi de l\'email.');
       console.error('Erreur:', error);
+      setSuccessMessage('');
     }
   };
 
@@ -64,7 +75,8 @@ function ResetPassword() {
 
     if (step === 'email') {
       if (!email.includes('@')) {
-        setMessage('Veuillez entrer un email valide.');
+        setErrorMessage('Veuillez entrer un email valide.');
+        setSuccessMessage('');
         return;
       }
       const db = getDatabase();
@@ -80,7 +92,8 @@ function ResetPassword() {
       });
 
       if (associatedPseudos.length === 0) {
-        setMessage('Aucun compte n’est associé à cet email.');
+        setErrorMessage('Aucun compte n’est associé à ce mail.');
+        setSuccessMessage('');
         return;
       } else if (associatedPseudos.length === 1) {
         setSelectedPseudo(associatedPseudos[0]);
@@ -88,11 +101,11 @@ function ResetPassword() {
       } else {
         setPseudos(associatedPseudos);
         setStep('pseudo');
-        setButtonText('Valider'); // Change le texte du bouton à "Valider"
       }
     } else if (step === 'pseudo') {
       if (!selectedPseudo) {
-        setMessage('Veuillez sélectionner un pseudo.');
+        setErrorMessage('Veuillez sélectionner un pseudo.');
+        setSuccessMessage('');
         return;
       }
       await sendResetEmail(selectedPseudo);
@@ -113,12 +126,13 @@ function ResetPassword() {
 
   return (
     <div className="formulaire-reset-pwd">
-      <h2>Réinitialisation de mot de passe</h2>   <br/>
+      <h2>Réinitialisation de mot de passe</h2>
+      <br />
 
       {step === 'pseudo' && (
         <p style={{ color: 'green', marginBottom: '10px' }}>
-          Plusieurs comptes ont été identifiés. Choisi ton pseudo dans  <br/>
-          dans la liste ci-dessous puis cliquer sur le bouton Valider
+          Plusieurs comptes ont été identifiés. Choisis ton pseudo dans <br />
+          la liste ci-dessous puis clique sur le bouton Valider.
         </p>
       )}
 
@@ -136,25 +150,24 @@ function ResetPassword() {
         )}
 
         {step === 'pseudo' && (
-          <>
-            <div>
-              <label>
-                Pseudo :
-                <select className='select-pseudo'
-                  value={selectedPseudo}
-                  onChange={handlePseudoChange}
-                  required
-                >
-                  <option value=""> </option>
-                  {pseudos.map((pseudo) => (
-                    <option key={pseudo} value={pseudo}>
-                      {pseudo}
-                    </option>
-                  ))}
-                </select>
-              </label>
-            </div>
-          </>
+          <div>
+            <label>
+              Pseudo :
+              <select
+                className="select-pseudo"
+                value={selectedPseudo}
+                onChange={handlePseudoChange}
+                required
+              >
+                <option value=""> </option>
+                {pseudos.map((pseudo) => (
+                  <option key={pseudo} value={pseudo}>
+                    {pseudo}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
         )}
 
         <button
@@ -166,7 +179,14 @@ function ResetPassword() {
         </button>
       </form>
 
-      {message && <p>{message}</p>}
+      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+
+      {successMessage && (
+        <div>
+          <p>{successMessage}</p>
+          <p style={{ color: 'green' }}>Ce lien sera valable 10 minutes.</p>
+        </div>
+      )}
     </div>
   );
 }
