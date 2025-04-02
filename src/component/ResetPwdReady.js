@@ -22,6 +22,11 @@ function ResetPwdReady() {
     uppercase: false,
     number: false,
   });
+  const [confirmPasswordValidation, setConfirmPasswordValidation] = useState({
+    length: false,
+    uppercase: false,
+    number: false,
+  });
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
   const [isConfirmPasswordFocused, setIsConfirmPasswordFocused] = useState(false);
   const location = useLocation();
@@ -43,7 +48,7 @@ function ResetPwdReady() {
 
             if (now < data.expiration) {
               setIsValidToken(true);
-              setMessage('Le lien est valide. Vous pouvez maintenant réinitialiser votre mot de passe.');
+              setMessage('Le lien est valide. Tu peux à présent réinitialiser ton mot de passe.');
 
               // Vérification du pseudo dans les données du token
               if (data.pseudo) {
@@ -73,11 +78,22 @@ function ResetPwdReady() {
     const { value } = e.target;
     setNewPassword(value);
     setPasswordValidation(validatePassword(value));
+
+    // Si le champ de confirmation contient déjà une valeur, on vérifie la correspondance et la validité
+    if (confirmPassword) {
+      setConfirmPasswordValidation(validatePassword(confirmPassword));
+      if (confirmPassword !== value) {
+        setError('Les mots de passe ne correspondent pas.');
+      } else {
+        setError('');
+      }
+    }
   };
 
   const handleConfirmPasswordChange = (e) => {
     const { value } = e.target;
     setConfirmPassword(value);
+    setConfirmPasswordValidation(validatePassword(value));
     if (value !== newPassword) {
       setError('Les mots de passe ne correspondent pas.');
     } else {
@@ -91,7 +107,10 @@ function ResetPwdReady() {
       setError('Les mots de passe ne correspondent pas.');
       return;
     }
-    if (!Object.values(passwordValidation).every(Boolean)) {
+    if (
+      !Object.values(passwordValidation).every(Boolean) ||
+      !Object.values(confirmPasswordValidation).every(Boolean)
+    ) {
       setError("Le mot de passe ne respecte pas les critères de sécurité.");
       return;
     }
@@ -117,15 +136,21 @@ function ResetPwdReady() {
     }
   };
 
-  const isFormValid = newPassword === confirmPassword && Object.values(passwordValidation).every(Boolean);
+  // On vérifie que les deux champs sont identiques et que tous les critères sont validés
+  const isFormValid =
+    newPassword === confirmPassword &&
+    Object.values(passwordValidation).every(Boolean) &&
+    Object.values(confirmPasswordValidation).every(Boolean);
 
   return (
     <div className="reset-pwd-ready">
-      <h1>{isValidToken ? `Bienvenue ${pseudo || ''},` : ''}</h1>
-      <p>{message}</p>
+      <h3>{isValidToken ? `Bienvenue ${pseudo || ''},` : ''}</h3>
 
       {isValidToken && (
         <form onSubmit={handlePasswordReset} className="password-reset-form">
+          <h4>Réinitialisation du mot de passe</h4>
+          <p>{message}</p>
+          <br/>
           <label>
             Nouveau mot de passe
             <div className="password-field">
@@ -175,6 +200,19 @@ function ResetPwdReady() {
               />
             </div>
           </label>
+          {isConfirmPasswordFocused && (
+            <div id="confirm-password-validation">
+              <span style={{ color: confirmPasswordValidation.length ? "green" : "red" }}>
+                Au moins 10 caractères
+              </span><br />
+              <span style={{ color: confirmPasswordValidation.uppercase ? "green" : "red" }}>
+                Au moins une majuscule
+              </span><br />
+              <span style={{ color: confirmPasswordValidation.number ? "green" : "red" }}>
+                Au moins un chiffre
+              </span>
+            </div>
+          )}
           {isConfirmPasswordFocused && confirmPassword !== newPassword && (
             <p style={{ color: 'red' }}>Les mots de passe doivent être identiques.</p>
           )}

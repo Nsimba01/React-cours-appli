@@ -4,16 +4,21 @@
     margin-top: 50px;
   }
   
-  .reset-pwd-ready h1 {
+  .reset-pwd-ready h3 {
     color: #4CAF50;
+    margin-top: -45px;
   }
   
   .reset-pwd-ready p {
     font-size: 18px;
-    color:white;
+    color:rgb(7, 7, 7);
   }
   
-  
+#password-validation{
+
+  margin-top: -20px;
+
+  }  
 
   .password-reset-form {
     max-width: 400px;
@@ -43,7 +48,7 @@
   }
   
   .submit-btn {
-    width: 100%;
+    width: 50%;
     padding: 10px;
     background-color: #4CAF50;
     color: white;
@@ -74,9 +79,23 @@
     padding-right: 30px; /* Pour laisser de la place à l'icône */
   }
   
+  /* 
+  
   .eye-icon {
     position: absolute;
     right: 10px;
+    cursor: pointer;
+    color: #888;
+    padding-top:-15px ;
+  }
+  
+  */
+
+  .eye-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-73%);
     cursor: pointer;
     color: #888;
   }

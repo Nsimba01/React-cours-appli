@@ -137,6 +137,10 @@ function ResetPassword() {
       )}
 
       <form onSubmit={handleSubmit} className="reset-pwd-form">
+
+
+
+      <br />
         {step === 'email' && (
           <label>
             Mail : &nbsp;
