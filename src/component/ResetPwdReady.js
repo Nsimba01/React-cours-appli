@@ -9,6 +9,7 @@ import { validatePassword } from './validationUtils';
 
 function ResetPwdReady() {
   const [message, setMessage] = useState('');
+  const [confirmationEmail, setConfirmationEmail] = useState('');
   const [isValidToken, setIsValidToken] = useState(false);
   const [email, setEmail] = useState('');
   const [pseudo, setPseudo] = useState('');
@@ -35,6 +36,8 @@ function ResetPwdReady() {
   useEffect(() => {
     const query = new URLSearchParams(location.search);
     const token = query.get('token');
+    const emailFromUrl = query.get('email'); // Récupération de l'email de l'URL
+    setEmail(emailFromUrl);
 
     if (token) {
       const db = getDatabase();
@@ -43,14 +46,11 @@ function ResetPwdReady() {
         .then(snapshot => {
           if (snapshot.exists()) {
             const data = snapshot.val();
-            console.log("Données du token :", data); // Ajout pour le débogage
             const now = Date.now();
 
             if (now < data.expiration) {
               setIsValidToken(true);
               setMessage('Le lien est valide. Tu peux à présent réinitialiser ton mot de passe.');
-
-              // Vérification du pseudo dans les données du token
               if (data.pseudo) {
                 setPseudo(data.pseudo);
               } else {
@@ -79,7 +79,6 @@ function ResetPwdReady() {
     setNewPassword(value);
     setPasswordValidation(validatePassword(value));
 
-    // Si le champ de confirmation contient déjà une valeur, on vérifie la correspondance et la validité
     if (confirmPassword) {
       setConfirmPasswordValidation(validatePassword(confirmPassword));
       if (confirmPassword !== value) {
@@ -117,26 +116,21 @@ function ResetPwdReady() {
     try {
       const db = getDatabase();
       const userRef = ref(db, `users/${pseudo}`);
-
-      // Hashage du mot de passe avec bcrypt
+      setConfirmationEmail(email); // Conserver l'email pour l'affichage
       const hashedPassword = await bcrypt.hash(newPassword, 10);
-
-      // Mise à jour du mot de passe dans Firebase
       await update(userRef, { password: hashedPassword });
-      setMessage('Votre mot de passe a été réinitialisé avec succès.');
+      setMessage("Ton mot de passe a été modifié avec succès.");
       setError('');
-
-      // Redirection vers la page de connexion après succès
+      setEmail('');
       setTimeout(() => {
         navigate('/connexion');
-      }, 2000); // 2 secondes de délai avant la redirection
+      }, 5000);
     } catch (error) {
       setMessage("Une erreur s'est produite lors de la réinitialisation du mot de passe.");
       console.error('Erreur de réinitialisation :', error);
     }
   };
 
-  // On vérifie que les deux champs sont identiques et que tous les critères sont validés
   const isFormValid =
     newPassword === confirmPassword &&
     Object.values(passwordValidation).every(Boolean) &&
@@ -149,8 +143,17 @@ function ResetPwdReady() {
       {isValidToken && (
         <form onSubmit={handlePasswordReset} className="password-reset-form">
           <h4>Réinitialisation du mot de passe</h4>
-          <p>{message}</p>
-          <br/>
+          {message && (
+            <div>
+              <p>{message}</p>
+              {confirmationEmail && (
+                <p style={{ color: 'green' }}>
+                  Un mail de confirmation a été envoyé à ton adresse « {confirmationEmail} ».
+                </p>
+              )}
+            </div>
+          )}
+          <br />
           <label>
             Nouveau mot de passe
             <div className="password-field">
@@ -223,10 +226,10 @@ function ResetPwdReady() {
             disabled={!isFormValid}
             style={{
               opacity: isFormValid ? 1 : 0.5,
-              cursor: isFormValid ? 'pointer' : 'not-allowed'
+              cursor: isFormValid ? 'pointer' : 'not-allowed',
             }}
           >
-            Valider
+            Réinitialiser mon mot de passe
           </button>
         </form>
       )}

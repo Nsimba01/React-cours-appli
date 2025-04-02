@@ -30,7 +30,7 @@ function ResetPassword() {
       if (snapshot.exists()) {
         const userData = snapshot.val();
         const token = await generateResetToken(pseudo);
-        const resetLink = `http://localhost:3000/reset-pwd-process?token=${token}`;
+        const resetLink = `http://localhost:3000/reset-pwd-process?token=${token}&email=${email}`; // Ajout de l'email dans l'URL
         const templateParams = {
           to_name: userData.name || 'Utilisateur',
           to_email: email,
@@ -137,10 +137,7 @@ function ResetPassword() {
       )}
 
       <form onSubmit={handleSubmit} className="reset-pwd-form">
-
-
-
-      <br />
+        <br />
         {step === 'email' && (
           <label>
             Mail : &nbsp;
