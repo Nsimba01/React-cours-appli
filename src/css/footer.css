@@ -17,6 +17,8 @@
     justify-content: space-around;
     gap: 30px;
     flex-wrap: wrap;
+    margin-bottom: 3px;
+    margin-top: 10px;
     width: 100%;
 }
 
@@ -32,9 +34,14 @@
 
 
 .title-design {
+    width: 200px; /* Largeur fixe pour que tous les éléments aient la même taille */
+    box-sizing: border-box; /* Inclut la bordure et le padding dans la largeur définie */
     border: 3px solid black;
-    border-radius: 5px; /* Utilisation de px pour plus de cohérence */
-    padding: 10px; /* Remplace le % par une valeur fixe */
-    display: inline-block; /* Évite que le H3 prenne toute la largeur */
+    border-radius: 5px;
+    padding: 10px;
+    display: inline-block;
+    margin-bottom: 10px;
     text-align: center;
+    white-space: nowrap; /* Empêche le retour à la ligne du contenu */
 }
+
