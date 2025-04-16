@@ -89,7 +89,7 @@ function Connexion() {
 
   return (
     <div className="formulaire">
-  <p>Veuillez vous connecter !</p>
+  <p>Connexion à mon espace</p>
   <form onSubmit={handleSubmit}>
     <div className="form-row">
       <label htmlFor="pseudo">Pseudo :</label>

@@ -1,99 +1,83 @@
 /* Conteneur principal du formulaire */
 .formulaire {
-  max-width: 300px;  /* Largeur maximale encore plus réduite */
-  margin: 0 auto;    /* Centrage horizontal */
-  padding: 10px;     /* Réduction du padding */
+  max-width: 300px;
+  margin: 0 auto;
+  padding: 10px;
   background-color: rgba(206, 207, 200, 0.897);
   color: black;
   font-family: Arial, sans-serif;
   border-radius: 5px;
-  margin-top: 20px;   /* Moins d'espace en haut */
-  margin-bottom: 30px; /* Plus d'espace en bas pour éviter de toucher le footer */
+  margin-top: 20px;
+  margin-bottom: 30px;
   text-align: center;
 }
 
-.formulaire-reset-pwd{
-
-  max-width: 800px;  /* Largeur maximale encore plus réduite */
+/* Styles pour le formulaire de réinitialisation par exemple */
+.formulaire-reset-pwd {
+  max-width: 800px;
   width: 70%;
-  margin: 0 auto;    /* Centrage horizontal */
-  padding: 10px;     /* Réduction du padding */
+  margin: 0 auto;
+  padding: 10px;
   background-color: rgba(206, 207, 200, 0.897);
   color: black;
   font-family: Arial, sans-serif;
   border-radius: 5px;
-  margin-top: 20px;   /* Moins d'espace en haut */
-  margin-bottom: 30px; /* Plus d'espace en bas pour éviter de toucher le footer */
+  margin-top: 20px;
+  margin-bottom: 30px;
   text-align: center;
-
-
 }
 
-
-.reset-pwd-form{
+/* Conteneur pour le formulaire de réinitialisation du mot de passe */
+.reset-pwd-form {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 50px;
 }
 
-.select-pseudo{
-
-  margin-right: -175%; /* Ajustez cette valeur selon vos besoins */
-
-
-
-
+/* Ajustement pour .select-pseudo */
+.select-pseudo {
+  margin-right: -175%;
 }
 
+/* Styles pour les médias queries (exemple) */
 @media (min-width: 700px) {
-
   .reset-pwd-form input[type="email"] {
-    margin-right: -105%; /* Ajustez cette valeur selon vos besoins */
+    margin-right: -105%;
   }
-
 }
-
-
-
 
 @media (min-width: 1000px) {
-
   .reset-pwd-form input[type="email"] {
-    margin-right: -175%; /* Ajustez cette valeur selon vos besoins */
+    margin-right: -175%;
   }
-
   
-  .select-pseudo{
-
-    margin-right: -289%; /* Ajustez cette valeur selon vos besoins */
-
-  
+  .select-pseudo {
+    margin-right: -289%;
   }
-
-
 }
 
-
+/* Titres et textes dans le formulaire */
 .formulaire p {
   text-align: center;
-  margin-bottom: 8px; /* Réduction de l'espace sous le titre */
-  font-size: 16px;    /* Taille réduite pour le titre */
+  margin-bottom: 8px;
+  font-size: 16px;
 }
 
 /* Ligne du formulaire en flex */
 .form-row {
   display: flex;
   align-items: center;
-  margin-bottom: 8px; /* Espacement encore réduit */
+  margin-bottom: 8px;
   flex-wrap: wrap;
 }
 
-/* Labels avec largeur encore plus réduite */
+/* Réglage des labels pour un alignement à gauche cohérent */
 .form-row label {
-  flex: 0 0 80px;  /* Réduction supplémentaire de la largeur des labels */
+  flex: 0 0 100px;  /* Largeur fixe pour aligner tous les labels */
   margin-right: 6px;
-  font-size: 12px;  /* Taille de police plus petite */
+  text-align: left; /* Assure que le texte démarre à gauche */
+  font-size: 12px;
 }
 
 /* Conteneur pour les champs d'entrée */
@@ -102,16 +86,16 @@
   position: relative;
 }
 
-/* Styles identiques pour tous les inputs dans ces conteneurs */
+/* Styles pour les inputs et selects */
 .input-container input,
 .input-container select {
   width: 100%;
-  height: 25px; /* Hauteur des champs encore plus petite */
+  height: 25px;
   padding: 4px;
   border: 1px solid #ccc;
   border-radius: 3px;
   box-sizing: border-box;
-  font-size: 12px; /* Taille de police plus petite */
+  font-size: 12px;
 }
 
 /* Positionnement de l'icône pour afficher/cacher le mot de passe */
@@ -128,11 +112,13 @@
   background-color: #007BFF;
   color: #fff;
   border: none;
-  width: 100%;
-  height: 30px; /* Réduction de la hauteur du bouton */
+  width: 50%;
+  height: 30px;
   border-radius: 3px;
+  display: block;
+  margin: 0 auto;
   cursor: pointer;
-  font-size: 13px; /* Réduction de la taille du texte du bouton */
+  font-size: 13px;
 }
 
 /* Bouton désactivé */
@@ -140,6 +126,7 @@
   background-color: #f0f0f0;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
   color: #0e0d0d;
+  width: 50%;
 }
 
 /* Style des liens */
@@ -147,6 +134,7 @@
   color: #18191b;
   cursor: pointer;
   margin-top: 6px;
+  font-style: italic;
   text-decoration: underline;
 }
 
@@ -159,47 +147,40 @@
 
   .form-row label {
     flex: none;
-    margin-bottom: 4px;  /* Espacement réduit sous les labels */
+    margin-bottom: 4px;
   }
 
   .input-container {
     width: 100%;
   }
 
-  
-.formulaire-reset-pwd{
+  .formulaire-reset-pwd {
+    max-width: 800px;
+    width: 70%;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: rgba(206, 207, 200, 0.897);
+    color: black;
+    font-family: Arial, sans-serif;
+    border-radius: 5px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+    gap: 30%;
+  }
 
-  max-width: 800px;  /* Largeur maximale encore plus réduite */
-  width: 70%;
-  margin: 0 auto;    /* Centrage horizontal */
-  padding: 10px;     /* Réduction du padding */
-  background-color: rgba(206, 207, 200, 0.897);
-  color: black;
-  font-family: Arial, sans-serif;
-  border-radius: 5px;
-  margin-top: 20px;   /* Moins d'espace en haut */
-  margin-bottom: 30px; /* Plus d'espace en bas pour éviter de toucher le footer */
-  text-align: center;
-  gap:30%;
+  .reset-pwd-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-
+  .select-pseudo {
+    margin-right: -25%;
+  }
 }
 
-.reset-pwd-form{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.select-pseudo{
-
-  margin-right: -25%; /* Ajustez cette valeur selon vos besoins */
-
-
-}
-
-}
-
+/* Style optionnel pour centrer un bouton par exemple */
 #aligner-button {
   display: block;
   margin: 0 auto;
