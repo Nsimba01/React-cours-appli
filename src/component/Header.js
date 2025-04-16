@@ -7,7 +7,7 @@ import Creation from './Creation.js';
 import ResetPassword from './ResetPassword.js';
 import ResetPwdReady from './ResetPwdReady.js'; // Importer le nouveau composant
 import { AuthContext } from './AuthContext';
-import logos from '../images/arbredusavoir.jpg'; // Importer l'image du logo
+import logos from '../images/Logo-app.png'; // Importer l'image du logo
 import btn_off_connexion from '../images/connexion_off.jpg'; // Importer l'image du bouton de connexion off
 import btn_on_connexion from '../images/connexion_on.png'; // Importer l'image du bouton de connexion on
 
@@ -24,7 +24,7 @@ function Header() {
     <Router>
       <div className="row">
         <div className="col"><Link to="/home"><img src={logos} className="bloc_titre_logo" alt="logo"  onContextMenu={(e) => e.preventDefault()}  /></Link></div>
-        <div className="col" id="button2"><h1 className="titre">Titre principal</h1></div>
+        <div className="col" id="button2"><h1 className="titre">Arbre du Savoir</h1></div>
         <div className="col">
           <div 
             className="dropdown"

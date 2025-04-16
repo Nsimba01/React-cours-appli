@@ -5,9 +5,9 @@
   align-items: center;           /* Centre verticalement le contenu */
   width: 100%;
   border: 1px solid black;
-  background-color: #CC9900;
+  background-color:rgb(153, 102, 51);
   min-height: 80px;              /* Hauteur réduite, à ajuster */
-  padding: 0 10px;              /* Réduit l'espace interne horizontal */
+  padding-left: 10px;
   margin-bottom: 0;
 }
 
@@ -30,7 +30,7 @@
     flex-direction: column;
     margin: auto;
     width: 1000px;
-    background-color: #CC9900;
+    background-color:rgb(153, 102, 51);
   }
 }
 
@@ -40,7 +40,7 @@
     flex-direction: column;
     margin: auto;
     width: 1000px;
-    background-color: #CC9900;
+    background-color:rgb(153, 102, 51);
   }
 }
 
@@ -50,7 +50,7 @@
     flex-direction: column;
     margin: auto;
     width: 1000px;
-    background-color: #CC9900;
+    background-color:rgb(153, 102, 51);
   }
 }
 
@@ -60,7 +60,7 @@
     flex-direction: column;
     margin: auto;
     width: 1000px;
-    background-color: #CC9900;
+    background-color:rgb(153, 102, 51);
   }
 }
 
@@ -112,15 +112,81 @@
   order: 1;
 }
 
-@media screen and (min-width:300px) and (max-width:1008px) {
+@media screen and (min-width:1001px) and (max-width:1024px) {
+
+  .bloc_titre_logo {
+    width: 20%;
+    height: 24%;            /* Réduction de la taille du logo */
+    margin-left: -37%;
+    clip-path: ellipse(33% 50%);
+  }
+
+}
+
+
+@media screen and (min-width:1001px) and (max-width:1024px) {
+
+  .bloc_titre_boutonespace_image {
+    width: 30px;
+  
+    border-radius: 10px;
+  }
+
+}
+
+
+@media screen and (min-width:1024px) {
+
+  .bloc_titre_boutonespace_image {
+    width: 30px;
+ 
+    border-radius: 10px;
+  }
+
+}
+
+
+@media screen and (min-width:1024px) {
+
+  .bloc_titre_logo {
+    width: 20%;
+    height: 110px;            /* Réduction de la taille du logo */
+    margin-left: -90%;
+    clip-path: ellipse(33% 50%);
+  }
+
+}
+
+
+
+
+@media screen and (min-width:300px) and (max-width:700px) {
   .bloc_titre_logo {
     margin-right: -52%;
+    margin-left: -57%;
+    
     clip-path: ellipse(33% 50%);
+    width: 15%;
+    height: 15%;
+ 
+  
+  }
+
+}
+@media screen and (min-width:700px) and (max-width:1008px) {
+  .bloc_titre_logo {
+    margin-right: -52%;
+    margin-left: -57%;
+    clip-path: ellipse(33% 50%);
+    width: 20%;
+    height: 20%;
+ 
+  
   }
   .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #CC9900;
+    background-color:rgb(153, 102, 51);
     width: 960px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     padding: 12px 16px;
@@ -129,7 +195,7 @@
   }
   .dropdown:hover .dropdown-content {
     display: block;
-    background-color: #CC9900;
+    background-color:rgb(153, 102, 51);
     width: 100%;
   }
 }
@@ -139,12 +205,12 @@
     flex-direction: column;
     margin: auto;
     width: 100%;
-    background-color: #CC9900;
+    background-color:rgb(153, 102, 51);
   }
   .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #CC9900;
+    background-color:rgb(153, 102, 51);
     width: 660px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     padding: 12px 16px;
@@ -154,7 +220,7 @@
   }
   .dropdown:hover .dropdown-content {
     display: block;
-    background-color: #CC9900;
+    background-color:rgb(153, 102, 51);
     width: 100%;
   }
 }
@@ -163,34 +229,78 @@
 .button_espace {
   flex: 1;
   display: flex;
-  justify-content: center;
+  justify-content:right;
   align-items: center;
   color: black;
-  padding: 10px;           /* Padding réduit */
-  background: #CC9900;
+           /* Padding réduit */
+  background-color:rgb(153, 102, 51);
   text-decoration: none;
   margin: 5px 0;           /* Marges verticales réduites */
 }
 
-.titre {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: Verdana, sans-serif;
-  font-weight: bold;
-  color: black;
-  font-size: calc(8px + 0.5vw);
-  padding: 4px 8px;        /* Padding réduit */
-  text-decoration: none;
-  margin: 5px 0;           /* Marges verticales réduites */
+
+@media screen and (min-width:1024px){
+
+  .titre {
+    flex: 1;
+    display: flex;
+
+    white-space: nowrap;
+
+    align-items: center;
+    justify-content: center;
+    font-family: "Comic Sans MS", sans-serif;
+    font-weight: bold;
+    color: black;
+    font-size: 45px;
+    padding: 4px 4px;        /* Padding réduit */
+    text-decoration: none;
+    margin: 5px 0;           /* Marges verticales réduites */
+  }
+
 }
 
-.bloc_titre_logo {
-  width: 150px;            /* Réduction de la taille du logo */
-  margin-left: -53%;
-  clip-path: ellipse(33% 50%);
+
+@media screen and (min-width:768px) and (max-width:1023px) {
+  .titre {
+    flex: 1;
+    display: flex;
+
+    white-space: nowrap;
+
+
+    align-items: center;
+    justify-content: center;
+    font-family: "Comic Sans MS", sans-serif;
+    font-weight: bold;
+    color: black;
+    font-size: 30px;
+    padding: 4px 8px;        /* Padding réduit */
+    text-decoration: none;
+    margin: 5px 0;           /* Marges verticales réduites */
+  }
 }
+
+
+
+@media screen and (max-width:768px){
+  .titre {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Comic Sans MS", sans-serif;
+    font-weight: bold;
+    color: black;
+    font-size: 24px;
+    padding: 4px 8px;        /* Padding réduit */
+    text-decoration: none;
+    margin: 5px 0;           /* Marges verticales réduites */
+  }
+}
+
+
+
 
 .row,
 .presentation {
@@ -206,7 +316,7 @@
 .bloc_titre_boutonespace_image {
   width: 30px;
   margin-right: 5px;
-  border: 20px ridge #ccc; /* Vous pouvez aussi réduire la bordure si besoin */
+  border-radius: 10px;
 }
 
 .dropdown {
@@ -217,7 +327,7 @@
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #CC9900;
+  background-color:rgb(153, 102, 51);
   min-width: 260px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   padding: 12px 16px;
@@ -226,7 +336,7 @@
 
 .dropdown:hover .dropdown-content {
   display: block;
-  background-color: #CC9900;
+  background-color:rgb(153, 102, 51);
   width: 100%;
 }
 
