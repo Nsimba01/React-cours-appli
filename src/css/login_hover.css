@@ -2,34 +2,72 @@
 
 
     
-    width: 60%;
+    width: 50%;
     max-width: 300px;
     margin: 0 auto;
     background-color:rgb(153, 102, 51);
+   
 
-
-
-  
 
 }
 
 
-/* add */
 
 .form-login label{
 
     display: block;
     margin-bottom: 10px;
+    font-size:2em;
 
 
 }
 
 /* add */
 
-.form-login input[type="text"], .form-login input[type="password"]{
+.form-login input[type="text"]{
+    width: 1001%;
+    padding: 10px;
+    margin-bottom: 20px;
+    height:30px;
+  }
+
+
+  .form-login input[type="password"]{
     width: 100%;
     padding: 10px;
     margin-bottom: 20px;
+    height:30px;
+  }
+
+
+
+  @media screen and (min-width:1024px)  {
+    .form-login input[type="text"]{
+      width: 93%;
+      padding: 10px;
+      margin-bottom: 20px;
+      height:30px;
+    }
+  
+  
+    .form-login input[type="password"]{
+      width: 103%;
+      padding: 10px;
+      margin-bottom: 20px;
+      height:30px;
+    }
+
+    
+   .form-login label{
+
+  display: block;
+  margin-bottom: 10px;
+  font-size:1.5em;
+
+
+   }
+
+
   }
 
 
@@ -37,8 +75,11 @@
 
   .form-login input[type="submit"] {
     padding: 10px 20px;
-    background-color: #000;
-    color: #fff;
+    background-color: rgb(211,211,211);
+    color: black;
+    border-radius:3px;
+    font-style:italic;
+   
   }
 
 

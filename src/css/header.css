@@ -11,6 +11,9 @@
   margin-bottom: 0;
 }
 
+
+
+
 .presentation img {
   width: 200px;
   height: 100px;
@@ -187,42 +190,24 @@
     display: none;
     position: absolute;
     background-color:rgb(153, 102, 51);
-    width: 960px;
+    width: 100%;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     padding: 12px 16px;
     align-items: center;
     z-index: 1;
   }
-  .dropdown:hover .dropdown-content {
-    display: block;
-    background-color:rgb(153, 102, 51);
-    width: 100%;
-  }
+
 }
 
-@media screen and (min-width:300px) and (max-width:900px) {
+
+@media screen and (min-width:300px) and (max-width:1008px) {
   .row {
     flex-direction: column;
     margin: auto;
     width: 100%;
     background-color:rgb(153, 102, 51);
   }
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color:rgb(153, 102, 51);
-    width: 660px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    padding: 12px 16px;
-    justify-content: center;
-    align-items: center;
-    z-index: 1;
-  }
-  .dropdown:hover .dropdown-content {
-    display: block;
-    background-color:rgb(153, 102, 51);
-    width: 100%;
-  }
+
 }
 
 /* Ajustements pour réduire la hauteur du menu */
@@ -257,6 +242,8 @@
     text-decoration: none;
     margin: 5px 0;           /* Marges verticales réduites */
   }
+
+
 
 }
 
@@ -324,14 +311,19 @@
   display: inline-block;
 }
 
+
+
+
+
 .dropdown-content {
   display: none;
   position: absolute;
   background-color:rgb(153, 102, 51);
-  min-width: 260px;
+
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   padding: 12px 16px;
   z-index: 1;
+  width:100%;
 }
 
 .dropdown:hover .dropdown-content {
@@ -381,4 +373,26 @@
   width: 100%;
   position: relative;
   z-index: 1;
+}
+
+@media screen and (min-width:300px) and (max-width:1000px) {
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color:rgb(153, 102, 51);
+    width: 100%;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    align-items: center;
+    z-index: 1;
+  }
+
+
+  .dropdown:hover .dropdown-content {
+    display: none;
+    background-color:rgb(153, 102, 51);
+    width: 100%;
+  }
+
+
 }

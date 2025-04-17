@@ -4,6 +4,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { validatePassword, validatePseudo, handleLogin } from './validationUtils';
 import { AuthContext } from './AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { getDatabase, ref, get } from 'firebase/database';
 
 function LoginHover() {
   const { login } = useContext(AuthContext);
@@ -14,6 +15,7 @@ function LoginHover() {
     password: ""
   });
 
+  const [isUserExists, setIsUserExists] = useState(false);
   const [passwordValidation, setPasswordValidation] = useState({
     length: false,
     uppercase: false,
@@ -21,25 +23,44 @@ function LoginHover() {
   });
 
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
-  const [pseudoValidation, setPseudoValidation] = useState(false);
   const [isPseudoFocused, setIsPseudoFocused] = useState(false);
+  const [pseudoValidation, setPseudoValidation] = useState(false);
   const [successMessage, setSuccessMessage] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
 
+  // Vérifie si l'utilisateur existe en base lorsque l'on sort du champ mot de passe
+  const checkUserExists = async () => {
+    if (validatePseudo(formData.username)) {
+      try {
+        const db = getDatabase();
+        const userRef = ref(db, `users/${formData.username}`);
+        const snapshot = await get(userRef);
+        setIsUserExists(snapshot.exists());
+      } catch (error) {
+        console.error('Erreur lors de la vérification de l\'utilisateur :', error);
+        setIsUserExists(false);
+      }
+    } else {
+      setIsUserExists(false);
+    }
+  };
+
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setFormData((prevState) => ({ ...prevState, [name]: value }));
+    setFormData(prev => ({ ...prev, [name]: value }));
     if (name === "password") {
       setPasswordValidation(validatePassword(value));
     } else if (name === "username") {
       setPseudoValidation(validatePseudo(value));
     }
+    // Si le pseudo change, on réinitialise l'état
+    if (name === 'username') setIsUserExists(false);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!Object.values(passwordValidation).every(value => value)) {
+    if (!Object.values(passwordValidation).every(v => v)) {
       setErrorMessage("Le mot de passe ne remplit pas les critères de validation.");
       setSuccessMessage(null);
       return;
@@ -50,109 +71,113 @@ function LoginHover() {
       return;
     }
     handleLogin(
-      formData.username, 
-      formData.password, 
-      login, 
-      navigate, 
-      (error) => {
-        setErrorMessage(error);
-      },
-      setSuccessMessage
+      formData.username,
+      formData.password,
+      login,
+      navigate,
+      (error) => setErrorMessage(error),
+      (message) => setSuccessMessage(message)
     );
   };
 
-  const toggleShowPassword = () => {
-    setShowPassword(prevState => !prevState);
+  const handlePasswordBlur = () => {
+    setIsPasswordFocused(false);
+    checkUserExists();
   };
 
-  const handleCreateAccount = () => {
-    navigate('/creation');
-  };
+  const toggleShowPassword = () => setShowPassword(prev => !prev);
+
+  const handleCreateAccount = () => navigate('/creation');
 
   return (
     <div className="form-login">
       <form onSubmit={handleSubmit}>
         <div>
+          {/* Pseudo */}
           <label>
-            Pseudo: <input 
-              type="text" 
-              name="username" 
-              value={formData.username} 
-              onChange={handleChange} 
-              onFocus={() => setIsPseudoFocused(true)} 
-              onBlur={() => setIsPseudoFocused(false)} 
+            Pseudo
+            <input
+              type="text"
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+              onFocus={() => setIsPseudoFocused(true)}
+              onBlur={() => setIsPseudoFocused(false)}
               aria-invalid={!pseudoValidation}
               aria-describedby="pseudo-validation"
             />
           </label>
           {isPseudoFocused && (
             <div id="pseudo-validation">
-              <span style={{ color: pseudoValidation ? "green" : "red" }}>
+              <span style={{ color: pseudoValidation ? "white" : "red" }}>
                 Au moins 5 caractères
               </span>
             </div>
           )}
           <br />
+
+          {/* Mot de passe */}
           <label>
-            Mot de passe: 
+            Mot de passe
             <div style={{ position: "relative", display: "inline-block" }}>
-              <input 
-                type={showPassword ? "text" : "password"} 
-                name="password" 
-                value={formData.password} 
-                onChange={handleChange} 
-                onFocus={() => setIsPasswordFocused(true)} 
-                onBlur={() => setIsPasswordFocused(false)} 
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                onFocus={() => setIsPasswordFocused(true)}
+                onBlur={handlePasswordBlur}
                 aria-invalid={!Object.values(passwordValidation).every(Boolean)}
                 aria-describedby="password-validation"
               />
-              <span 
-                onClick={toggleShowPassword} 
-                style={{ position: "absolute", right: 10, top: 5, cursor: "pointer" }}
+              <span
+                onClick={toggleShowPassword}
+                style={{ position: "absolute", right: 10, top: 7, cursor: "pointer" }}
+                aria-label={showPassword ? "Masquer le mot de passe" : "Afficher le mot de passe"}
               >
-                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
               </span>
             </div>
           </label>
           <br />
           {isPasswordFocused && (
             <div id="password-validation">
-              <span style={{ color: passwordValidation.length ? "green" : "red" }}>
+              <span style={{ color: passwordValidation.length ? "white" : "red" }}>
                 Au moins 10 caractères
               </span>
               <br />
-              <span style={{ color: passwordValidation.uppercase ? "green" : "red" }}>
+              <span style={{ color: passwordValidation.uppercase ? "white" : "red" }}>
                 Au moins une majuscule
               </span>
               <br />
-              <span style={{ color: passwordValidation.number ? "green" : "red" }}>
+              <span style={{ color: passwordValidation.number ? "white" : "red" }}>
                 Au moins 1 chiffre
               </span>
             </div>
           )}
+
+          {/* Bouton Connexion */}
           <input
             type="submit"
             value="Connexion"
-            disabled={!Object.values(passwordValidation).every(value => value) || !pseudoValidation}
+            disabled={!Object.values(passwordValidation).every(v => v) || !pseudoValidation}
+            style={{ backgroundColor: isUserExists ? 'rgb(146,208,80)' : undefined }}
           />
 
-          <br/> <br/>
+          <br/><br/>
 
-          <p onClick={handleCreateAccount} style={{ cursor: 'pointer' }}>Je  veux  créer mon espace </p>
+          <p onClick={handleCreateAccount} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
+            Pas encore d'espace ?
+          </p>
 
-          <p onClick={() => navigate('/reset_password')} style={{ cursor: 'pointer' }}>Mot de passe oublié ?</p>
-          
- 
+          <p onClick={() => navigate('/reset_password')} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
+            Mot de passe oublié ?
+          </p>
 
-         {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-          
-     
-          <br /><br />
-       
+          {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
         </div>
       </form>
-      {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
-  
+      {successMessage && <p style={{ color: "white" }}>{successMessage}</p>}
     </div>
   );
 }
