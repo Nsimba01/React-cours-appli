@@ -5,7 +5,6 @@ import '../css/connexion.css';
 import { generateResetToken } from './tokenUtils';
 
 function ResetPassword() {
-  // États
   const [email, setEmail] = useState(localStorage.getItem('email') || '');
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
@@ -14,13 +13,29 @@ function ResetPassword() {
   const [step, setStep] = useState('email');
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [buttonText, setButtonText] = useState('Vérifier');
+  const [emailExists, setEmailExists] = useState(false); // État pour suivre l'existence de l'email
+  const [emailSent, setEmailSent] = useState(false); // État pour suivre si l'email a été envoyé
 
-  // Met à jour le texte du bouton dynamiquement selon l'étape
   useEffect(() => {
     setButtonText(step === 'pseudo' ? 'Valider' : 'Vérifier');
   }, [step]);
 
-  // Fonction pour envoyer l'email de réinitialisation
+  const checkEmailExists = async (email) => {
+    const db = getDatabase();
+    const usersRef = ref(db, 'users');
+    const snapshot = await get(usersRef);
+    let exists = false;
+
+    snapshot.forEach((userSnapshot) => {
+      const userData = userSnapshot.val();
+      if (userData.email === email) {
+        exists = true;
+      }
+    });
+
+    setEmailExists(exists);
+  };
+
   const sendResetEmail = async (pseudo) => {
     try {
       const db = getDatabase();
@@ -30,7 +45,7 @@ function ResetPassword() {
       if (snapshot.exists()) {
         const userData = snapshot.val();
         const token = await generateResetToken(pseudo);
-        const resetLink = `http://localhost:3000/reset-pwd-process?token=${token}&email=${email}`; // Ajout de l'email dans l'URL
+        const resetLink = `http://localhost:3000/reset-pwd-process?token=${token}&email=${email}`;
         const templateParams = {
           to_name: userData.name || 'Utilisateur',
           to_email: email,
@@ -42,8 +57,9 @@ function ResetPassword() {
           .send('service_z2vqh5i', 'template_48nncre', templateParams, 'k9E-hi9Gv6XCXnZWM')
           .then((response) => {
             console.log('Email envoyé avec succès:', response);
-            setSuccessMessage(`Un lien de réinitialisation de ton mot de passe a été envoyé à l’adresse « ${email} ».`);
+            setSuccessMessage(`Un lien de réinitialisation de ton mot de passe a été envoyé à l’adresse « ${email} ». Ce lien sera valable 10 minutes.`);
             setErrorMessage('');
+            setEmailSent(true); // Mettre à jour l'état emailSent
           })
           .catch((error) => {
             console.error('Erreur EmailJS:', error);
@@ -51,13 +67,13 @@ function ResetPassword() {
             setSuccessMessage('');
           });
 
-        // Réinitialisation après envoi
         setEmail('');
         setSelectedPseudo('');
         setPseudos([]);
         setStep('email');
         setIsButtonDisabled(true);
         setButtonText('Vérifier');
+        setEmailExists(false); // Réinitialiser l'état emailExists
       } else {
         setErrorMessage('Pseudo non trouvé.');
         setSuccessMessage('');
@@ -69,7 +85,6 @@ function ResetPassword() {
     }
   };
 
-  // Gestion de la soumission du formulaire
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -112,80 +127,98 @@ function ResetPassword() {
     }
   };
 
-  // Gestion du champ email
   const handleEmailChange = (e) => {
     const inputEmail = e.target.value;
     setEmail(inputEmail);
     setIsButtonDisabled(!inputEmail.includes('@'));
+    if (inputEmail.includes('@')) {
+      checkEmailExists(inputEmail); // Vérifier l'existence de l'email en temps réel
+    } else {
+      setEmailExists(false); // Réinitialiser l'état emailExists si l'email n'est pas valide
+    }
   };
 
-  // Gestion du changement de pseudo
   const handlePseudoChange = (e) => {
     setSelectedPseudo(e.target.value);
   };
 
+  useEffect(() => {
+    let timer;
+    if (errorMessage) {
+      timer = setTimeout(() => {
+        setErrorMessage('');
+      }, 5000);
+    }
+    return () => clearTimeout(timer);
+  }, [errorMessage]);
+
   return (
     <div className="formulaire-reset-pwd">
-      <h2>Réinitialisation de mot de passe</h2>
-      <br />
+      <h2>Réinitialisation du mot de passe</h2>
+      {!emailSent ? (
+        <>
+          <br />
+          {step === 'pseudo' && (
+            <p style={{ color: 'green', marginBottom: '10px' }}>
+              Plusieurs comptes ont été identifiés. Choisis ton pseudo dans <br />
+              la liste ci-dessous puis clique sur le bouton Valider.
+            </p>
+          )}
 
-      {step === 'pseudo' && (
-        <p style={{ color: 'green', marginBottom: '10px' }}>
-          Plusieurs comptes ont été identifiés. Choisis ton pseudo dans <br />
-          la liste ci-dessous puis clique sur le bouton Valider.
-        </p>
-      )}
+          <form onSubmit={handleSubmit} className="reset-pwd-form">
+            <br />
+            {step === 'email' && (
+              <label>
+                Mail : &nbsp;
+                <input
+                  type="email"
+                  value={email}
+                  onChange={handleEmailChange}
+                  required
+                  aria-required="true"
+                />
+              </label>
+            )}
 
-      <form onSubmit={handleSubmit} className="reset-pwd-form">
-        <br />
-        {step === 'email' && (
-          <label>
-            Mail : &nbsp;
-            <input
-              type="email"
-              value={email}
-              onChange={handleEmailChange}
-              required
-            />
-          </label>
-        )}
+            {step === 'pseudo' && (
+              <div>
+                <label>
+                  Pseudo :
+                  <select
+                    className="select-pseudo"
+                    value={selectedPseudo}
+                    onChange={handlePseudoChange}
+                    required
+                    aria-required="true"
+                  >
+                    <option value=""> </option>
+                    {pseudos.map((pseudo) => (
+                      <option key={pseudo} value={pseudo}>
+                        {pseudo}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              </div>
+            )}
 
-        {step === 'pseudo' && (
-          <div>
-            <label>
-              Pseudo :
-              <select
-                className="select-pseudo"
-                value={selectedPseudo}
-                onChange={handlePseudoChange}
-                required
-              >
-                <option value=""> </option>
-                {pseudos.map((pseudo) => (
-                  <option key={pseudo} value={pseudo}>
-                    {pseudo}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
-        )}
+            <button
+              type="submit"
+              id="aligner-button"
+              disabled={step === 'pseudo' ? !selectedPseudo : isButtonDisabled}
+              style={{
+                backgroundColor: step === 'email' ? (emailExists ? 'rgb(146,208,80)' : 'rgb(211,211,211)') : undefined,
+              }} // Style conditionnel uniquement pour le bouton "Vérifier"
+            >
+              {buttonText}
+            </button>
+          </form>
 
-        <button
-          type="submit"
-          id="aligner-button"
-          disabled={step === 'pseudo' ? !selectedPseudo : isButtonDisabled}
-        >
-          {buttonText}
-        </button>
-      </form>
-
-      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-
-      {successMessage && (
+          {errorMessage && <p style={{ color: 'red', marginTop: '-5%' }}>{errorMessage}</p>}
+        </>
+      ) : (
         <div>
-          <p>{successMessage}</p>
-          <p style={{ color: 'green' }}>Ce lien sera valable 10 minutes.</p>
+          <p style={{ color: 'green',fontStyle:'italic' }}>{successMessage}</p>
         </div>
       )}
     </div>
