@@ -27,8 +27,15 @@ function Creation() {
     number: false
   });
 
-  const [showCriteria, setShowCriteria] = useState(true);
+  const [pseudoValidation, setPseudoValidation] = useState({
+    length: false,
+    available: false
+  });
+
+  const [showCriteria, setShowCriteria] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [isPasswordFocused, setIsPasswordFocused] = useState(false);
+  const [isPseudoFocused, setIsPseudoFocused] = useState(false);
 
   const validatePassword = (password) => ({
     length: password.length >= 10,
@@ -36,13 +43,36 @@ function Creation() {
     number: /[0-9]/.test(password)
   });
 
+  const validatePseudo = async (pseudo) => {
+    const lengthValid = pseudo.length >= 5;
+    let available = false;
+
+    if (lengthValid) {
+      const db = getDatabase();
+      const userRef = ref(db, `users/${pseudo}`);
+      const snapshot = await get(userRef);
+      available = !snapshot.exists();
+    }
+
+    setPseudoValidation({ length: lengthValid, available });
+  };
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevState) => ({ ...prevState, [name]: value }));
     if (name === "password") {
       const validation = validatePassword(value);
       setPasswordValidation(validation);
+    } else if (name === "pseudo") {
+      validatePseudo(value);
     }
+  };
+
+  const handleNomBlur = () => {
+    setFormData((prevState) => ({
+      ...prevState,
+      nom: prevState.nom.toUpperCase()
+    }));
   };
 
   useEffect(() => {
@@ -60,23 +90,25 @@ function Creation() {
     setShowPassword(prevState => !prevState);
   };
 
+  const handlePasswordFocus = () => {
+    setIsPasswordFocused(true);
+  };
+
+  const handlePasswordBlur = () => {
+    setIsPasswordFocused(false);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (!Object.values(passwordValidation).every(Boolean)) {
-      setErrorMessage("Veuillez vérifier que tous les critères de mot de passe sont remplis.");
+    if (!Object.values(passwordValidation).every(Boolean) || !pseudoValidation.length || !pseudoValidation.available) {
+      setErrorMessage("Veuillez vérifier que tous les critères sont remplis.");
       return;
     }
 
     try {
       const db = getDatabase();
       const userRef = ref(db, 'users/' + formData.pseudo);
-
-      const snapshot = await get(userRef);
-      if (snapshot.exists()) {
-        setErrorMessage("Ce pseudo est déjà utilisé. Veuillez en choisir un autre.");
-        return;
-      }
 
       const hashedPassword = await bcrypt.hash(formData.password, 10);
 
@@ -106,7 +138,7 @@ function Creation() {
 
   return (
     <div className="formulaire">
-      <p>Créer votre espace !</p>
+      <p>Création de mon espace</p>
       <form onSubmit={handleSubmit}>
         {/* Pseudo */}
         <div className="form-row">
@@ -119,9 +151,22 @@ function Creation() {
               onChange={handleChange}
               aria-label="Pseudo"
               required
+              onFocus={() => setIsPseudoFocused(true)}
+              onBlur={() => setIsPseudoFocused(false)}
             />
           </div>
         </div>
+        {isPseudoFocused && (
+          <div className="validation-message">
+            <span style={{ color: pseudoValidation.length ? "green" : "red" }}>
+              Au moins 5 caractères
+            </span>
+            <br />
+            <span style={{ color: pseudoValidation.available ? "green" : "red" }}>
+              Pseudo disponible
+            </span>
+          </div>
+        )}
 
         {/* Mot de passe */}
         <div className="form-row">
@@ -135,34 +180,33 @@ function Creation() {
               aria-label="Mot de passe"
               required
               style={{ width: "100%" }}
+              onFocus={handlePasswordFocus}
+              onBlur={handlePasswordBlur}
             />
             <span
               onClick={toggleShowPassword}
               style={{ position: "absolute", right: 10, top: 2, cursor: "pointer" }}
             >
-                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
             </span>
           </div>
-
-          {/* Critères de mot de passe */}
-         
         </div>
 
-        {showCriteria && (
-            <div className="criteria" style={{ marginTop: "10px" }}>
-              <span style={{ color: passwordValidation.length ? "green" : "red" }}>
-                Au moins 10 caractères
-              </span>
-              <br />
-              <span style={{ color: passwordValidation.uppercase ? "green" : "red" }}>
-                Au moins une majuscule
-              </span>
-              <br />
-              <span style={{ color: passwordValidation.number ? "green" : "red" }}>
-                Au moins 1 chiffre
-              </span>
-            </div>
-          )}
+        {isPasswordFocused && showCriteria && (
+          <div className="validation-message">
+            <span style={{ color: passwordValidation.length ? "green" : "red" }}>
+              Au moins 10 caractères
+            </span>
+            <br />
+            <span style={{ color: passwordValidation.uppercase ? "green" : "red" }}>
+              Au moins une majuscule
+            </span>
+            <br />
+            <span style={{ color: passwordValidation.number ? "green" : "red" }}>
+              Au moins 1 chiffre
+            </span>
+          </div>
+        )}
 
         {/* Nom */}
         <div className="form-row">
@@ -175,6 +219,7 @@ function Creation() {
               onChange={handleChange}
               aria-label="Nom"
               required
+              onBlur={handleNomBlur}
             />
           </div>
         </div>

@@ -25,3 +25,8 @@
     color: red;
   }
   
+  .validation-message {
+    font-size: 14px; /* Définissez la taille de police souhaitée */
+    margin-top: 5px; /* Ajoutez une marge pour espacer les messages */
+  }
+  
