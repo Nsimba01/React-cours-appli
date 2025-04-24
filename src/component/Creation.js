@@ -32,10 +32,13 @@ function Creation() {
     available: false
   });
 
+  const [emailValidation, setEmailValidation] = useState(false);
+
   const [showCriteria, setShowCriteria] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
   const [isPseudoFocused, setIsPseudoFocused] = useState(false);
+  const [isEmailFocused, setIsEmailFocused] = useState(false);
 
   const validatePassword = (password) => ({
     length: password.length >= 10,
@@ -57,6 +60,10 @@ function Creation() {
     setPseudoValidation({ length: lengthValid, available });
   };
 
+  const validateEmail = (email) => {
+    setEmailValidation(email.includes('@'));
+  };
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevState) => ({ ...prevState, [name]: value }));
@@ -65,6 +72,8 @@ function Creation() {
       setPasswordValidation(validation);
     } else if (name === "pseudo") {
       validatePseudo(value);
+    } else if (name === "email") {
+      validateEmail(value);
     }
   };
 
@@ -72,6 +81,13 @@ function Creation() {
     setFormData((prevState) => ({
       ...prevState,
       nom: prevState.nom.toUpperCase()
+    }));
+  };
+
+  const handlePrenomBlur = () => {
+    setFormData((prevState) => ({
+      ...prevState,
+      prenom: prevState.prenom.charAt(0).toUpperCase() + prevState.prenom.slice(1)
     }));
   };
 
@@ -101,7 +117,7 @@ function Creation() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (!Object.values(passwordValidation).every(Boolean) || !pseudoValidation.length || !pseudoValidation.available) {
+    if (!Object.values(passwordValidation).every(Boolean) || !pseudoValidation.length || !pseudoValidation.available || !emailValidation) {
       setErrorMessage("Veuillez vérifier que tous les critères sont remplis.");
       return;
     }
@@ -235,6 +251,7 @@ function Creation() {
               onChange={handleChange}
               aria-label="Prénom"
               required
+              onBlur={handlePrenomBlur}
             />
           </div>
         </div>
@@ -282,9 +299,18 @@ function Creation() {
               onChange={handleChange}
               aria-label="Mail"
               required
+              onFocus={() => setIsEmailFocused(true)}
+              onBlur={() => setIsEmailFocused(false)}
             />
           </div>
         </div>
+        {isEmailFocused && (
+          <div className="validation-message">
+            <span style={{ color: emailValidation ? "green" : "red" }}>
+              Une adresse email
+            </span>
+          </div>
+        )}
 
         {/* Bouton de soumission */}
         <div className="form-row">
@@ -294,6 +320,20 @@ function Creation() {
             id="aligner-button"
           />
         </div>
+
+        {/* Lien "Déjà un espace ?" */}
+        <p
+          onClick={() => navigate('/connexion')}
+          style={{
+            textAlign: 'center',
+            cursor: 'pointer',
+            textDecoration: 'underline',
+            color: 'black',
+            fontStyle: 'italic'
+          }}
+        >
+          Déjà un espace ?
+        </p>
       </form>
 
       {/* Affichage des messages */}

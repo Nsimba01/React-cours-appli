@@ -142,7 +142,7 @@ function ResetPwdReady() {
 
       {isValidToken && (
         <form onSubmit={handlePasswordReset} className="password-reset-form">
-          <h4>Réinitialisation du mot de passe</h4>
+          <h4   style={{fontStyle:"19px" }}>Réinitialisation du mot de passe</h4>
           {message && (
             <div>
               <p>{message}</p>

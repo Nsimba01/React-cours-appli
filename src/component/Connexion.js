@@ -89,7 +89,7 @@ function Connexion() {
 
   return (
     <div className="formulaire">
-  <p>Connexion à mon espace</p>
+  <p  style={{fontStyle:"19px" }}>Connexion à mon espace</p>
   <form onSubmit={handleSubmit}>
     <div className="form-row">
       <label htmlFor="pseudo">Pseudo :</label>
