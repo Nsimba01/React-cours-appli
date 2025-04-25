@@ -142,10 +142,18 @@ function ResetPwdReady() {
 
       {isValidToken && (
         <form onSubmit={handlePasswordReset} className="password-reset-form">
-          <h4   style={{fontStyle:"19px" }}>Réinitialisation du mot de passe</h4>
+          <h4 style={{ fontSize: '19px' }}>Réinitialisation du mot de passe</h4>
           {message && (
             <div>
-              <p>{message}</p>
+              <p style={message === 'Le lien est valide. Tu peux à présent réinitialiser ton mot de passe.' ? { color: 'green', fontStyle: 'italic' } : {}}>
+                {message}
+              </p>
+              {message === 'Le lien est valide. Tu peux à présent réinitialiser ton mot de passe.' && (
+                <div className="user-info">
+                  <p><strong>Pseudo :</strong> {pseudo}</p>
+                  <p><strong>Mail :</strong> {email}</p>
+                </div>
+              )}
               {confirmationEmail && (
                 <p style={{ color: 'green' }}>
                   Un mail de confirmation a été envoyé à ton adresse « {confirmationEmail} ».
@@ -229,7 +237,7 @@ function ResetPwdReady() {
               cursor: isFormValid ? 'pointer' : 'not-allowed',
             }}
           >
-            Réinitialiser mon mot de passe
+            Valider
           </button>
         </form>
       )}

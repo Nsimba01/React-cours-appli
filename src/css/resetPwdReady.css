@@ -3,6 +3,17 @@
     text-align: center;
     margin-top: 50px;
   }
+
+  /* resetPwdReady.css */
+.reset-pwd-ready .user-info {
+  text-align: left;
+  margin-bottom: 10px; /* Ajustez la marge selon vos besoins */
+}
+
+.reset-pwd-ready .user-info strong {
+  font-weight: bold;
+}
+
   
   .reset-pwd-ready h3 {
     color: #4CAF50;

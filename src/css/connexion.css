@@ -113,7 +113,7 @@
   background-color: #007BFF;
   color: #fff;
   border: none;
-  width: 50%;
+  width: 40%;
   height: 30px;
   border-radius: 3px;
   display: block;
@@ -127,7 +127,7 @@
   background-color: #f0f0f0;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
   color: #0e0d0d;
-  width: 50%;
+  width: 40%;
 }
 
 /* Style des liens */
