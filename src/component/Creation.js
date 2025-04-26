@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getDatabase, ref, set, get } from "firebase/database";
 import bcrypt from 'bcryptjs';
+import '../css/button-width-height-global.css';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import '../css/creation.css';
 
@@ -318,6 +319,9 @@ function Creation() {
             type="submit"
             value="Création"
             id="aligner-button"
+           
+            
+
           />
         </div>
 

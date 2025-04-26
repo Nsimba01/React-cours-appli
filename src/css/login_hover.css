@@ -74,12 +74,12 @@
   /* add */
 
   .form-login input[type="submit"] {
-    padding: 10px 20px;
+ 
     background-color: rgb(211,211,211);
     color: black;
     border-radius:3px;
     font-style:italic;
-   
+
   }
 
 

@@ -5,6 +5,7 @@ import { validatePassword, validatePseudo, handleLogin } from './validationUtils
 import { AuthContext } from './AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { getDatabase, ref, get } from 'firebase/database';
+import '../css/button-width-height-global.css';
 
 function LoginHover() {
   const { login } = useContext(AuthContext);
@@ -160,8 +161,9 @@ function LoginHover() {
           <input
             type="submit"
             value="Connexion"
+  
             disabled={!Object.values(passwordValidation).every(v => v) || !pseudoValidation}
-            style={{ backgroundColor: isUserExists ? 'rgb(146,208,80)' : undefined }}
+            style={{ backgroundColor: isUserExists ? 'rgb(146,208,80)' : undefined}}
           />
 
           <br/><br/>

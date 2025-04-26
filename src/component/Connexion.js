@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { getDatabase, ref, get, child } from "firebase/database";
 import bcrypt from 'bcryptjs';
 import '../css/connexion.css';
+import '../css/button-width-height-global.css';
 import { AuthContext } from './AuthContext';
 import { validatePassword, validatePseudo } from './validationUtils';
 
@@ -89,7 +90,7 @@ function Connexion() {
 
   return (
     <div className="formulaire">
-  <p  style={{fontStyle:"19px" }}>Connexion à mon espace</p>
+  <p>Connexion à mon espace</p>
   <form onSubmit={handleSubmit}>
     <div className="form-row">
       <label htmlFor="pseudo">Pseudo :</label>

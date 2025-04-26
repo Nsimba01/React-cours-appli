@@ -375,7 +375,7 @@
   z-index: 1;
 }
 
-@media screen and (min-width:300px) and (max-width:1000px) {
+@media screen and (min-width:300px) and (max-width:1444px) {
   .dropdown-content {
     display: none;
     position: absolute;
@@ -396,3 +396,5 @@
 
 
 }
+
+

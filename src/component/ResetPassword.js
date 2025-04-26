@@ -154,7 +154,7 @@ function ResetPassword() {
 
   return (
     <div className="formulaire-reset-pwd">
-      <h2   style={{fontStyle:"19px" }}>Réinitialisation du mot de passe</h2>
+      <h2>Réinitialisation du mot de passe</h2>
       {!emailSent ? (
         <>
           <br />
@@ -205,6 +205,7 @@ function ResetPassword() {
             <button
               type="submit"
               id="aligner-button"
+    
               disabled={step === 'pseudo' ? !selectedPseudo : isButtonDisabled}
               style={{
                 backgroundColor: step === 'email' ? (emailExists ? 'rgb(146,208,80)' : 'rgb(211,211,211)') : undefined,
