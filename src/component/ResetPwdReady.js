@@ -82,7 +82,7 @@ function ResetPwdReady() {
     if (confirmPassword) {
       setConfirmPasswordValidation(validatePassword(confirmPassword));
       if (confirmPassword !== value) {
-        setError('Les mots de passe ne correspondent pas.');
+       
       } else {
         setError('');
       }
@@ -94,7 +94,7 @@ function ResetPwdReady() {
     setConfirmPassword(value);
     setConfirmPasswordValidation(validatePassword(value));
     if (value !== newPassword) {
-      setError('Les mots de passe ne correspondent pas.');
+   
     } else {
       setError('');
     }
@@ -103,7 +103,7 @@ function ResetPwdReady() {
   const handlePasswordReset = async (e) => {
     e.preventDefault();
     if (newPassword !== confirmPassword) {
-      setError('Les mots de passe ne correspondent pas.');
+   
       return;
     }
     if (
@@ -138,7 +138,6 @@ function ResetPwdReady() {
 
   return (
     <div className="reset-pwd-ready">
-      <h3>{isValidToken ? `Bienvenue ${pseudo || ''},` : ''}</h3>
 
       {isValidToken && (
         <form onSubmit={handlePasswordReset} className="password-reset-form">
