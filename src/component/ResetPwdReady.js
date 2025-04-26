@@ -176,6 +176,9 @@ function ResetPwdReady() {
               <FontAwesomeIcon
                 icon={showPassword ? faEyeSlash : faEye}
                 onClick={() => setShowPassword(!showPassword)}
+                style={{
+                 marginTop: '-5px',
+                }}
                 className="eye-icon"
               />
             </div>
@@ -207,6 +210,9 @@ function ResetPwdReady() {
               <FontAwesomeIcon
                 icon={showConfirmPassword ? faEyeSlash : faEye}
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                style={{
+                  marginTop: '-5px',
+                 }}
                 className="eye-icon"
               />
             </div>
