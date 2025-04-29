@@ -37,7 +37,7 @@
 
 /* Ajustement pour .select-pseudo */
 .select-pseudo {
-  margin-right: -175%;
+  margin-right: -240%;
 }
 
 /* Styles pour les médias queries (exemple) */
@@ -53,7 +53,7 @@
   }
   
   .select-pseudo {
-    margin-right: -289%;
+    margin-right: -240%;
   }
 }
 
@@ -183,5 +183,6 @@
 #aligner-button {
   display: block;
   margin: 0 auto;
+  
   box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.75);
 }

@@ -6,9 +6,11 @@
   width: 100%;
   border: 1px solid black;
   background-color:rgb(153, 102, 51);
-  min-height: 80px;              /* Hauteur réduite, à ajuster */
+  min-height: 40px; 
+            /* Hauteur réduite, à ajuster */
   padding-left: 10px;
   margin-bottom: 0;
+  border-radius: 3px;
 }
 
 
@@ -119,9 +121,9 @@
 
   .bloc_titre_logo {
     width: 20%;
-    height: 24%;            /* Réduction de la taille du logo */
+    height: '4rem';            /* Réduction de la taille du logo */
     margin-left: -37%;
-    clip-path: ellipse(33% 50%);
+   
   }
 
 }
@@ -131,7 +133,7 @@
 
   .bloc_titre_boutonespace_image {
     width: 30px;
-  
+    height: '4rem';
     border-radius: 10px;
   }
 
@@ -142,6 +144,8 @@
 
   .bloc_titre_boutonespace_image {
     width: 30px;
+
+    height: '4rem';
  
     border-radius: 10px;
   }
@@ -153,9 +157,9 @@
 
   .bloc_titre_logo {
     width: 20%;
-    height: 110px;            /* Réduction de la taille du logo */
-    margin-left: -90%;
-    clip-path: ellipse(33% 50%);
+    height: 4rem;            /* Réduction de la taille du logo */
+    margin-left: -83%;
+  
   }
 
 }
@@ -168,9 +172,9 @@
     margin-right: -52%;
     margin-left: -57%;
     
-    clip-path: ellipse(33% 50%);
+
     width: 15%;
-    height: 15%;
+    height: '4rem'; 
  
   
   }
@@ -180,9 +184,9 @@
   .bloc_titre_logo {
     margin-right: -52%;
     margin-left: -57%;
-    clip-path: ellipse(33% 50%);
+
     width: 20%;
-    height: 20%;
+    height: 10%;
  
   
   }
@@ -231,6 +235,7 @@
     display: flex;
 
     white-space: nowrap;
+    height: 90px;
 
     align-items: center;
     justify-content: center;
@@ -302,6 +307,7 @@
 
 .bloc_titre_boutonespace_image {
   width: 30px;
+  height: '4rem';
   margin-right: 5px;
   border-radius: 10px;
 }
@@ -396,5 +402,4 @@
 
 
 }
-
 

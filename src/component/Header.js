@@ -41,7 +41,7 @@ function Header() {
                   className="bloc_titre_boutonespace_image"
                   src={btn_on_connexion}
                   alt="bouton-space"
-                  style={{ width: '100px', height: '100px' }}
+                  style={{ width: '100px', height: '4rem' }}
                 />
               </div>
             ) : (
@@ -55,7 +55,7 @@ function Header() {
                     className="bloc_titre_boutonespace_image"
                     src={btn_off_connexion}
                     alt="bouton-space"
-                    style={{ width: '100px', height: '100px' } } onContextMenu={(e) => e.preventDefault()}
+                    style={{ width: '100px', height: '4rem' } } onContextMenu={(e) => e.preventDefault()}
                   />
                 </div>
               </Link>
