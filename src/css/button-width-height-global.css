@@ -21,3 +21,17 @@ input[type="button"] {
 .password-reset-form h4 {
   font-size: 19px;
 }
+
+/* Style pour les liens spécifiques */
+.link,
+.form-login .link,
+.formulaire .link {
+  font-style: italic;
+  text-decoration: underline;
+  text-align: center;
+  display: block;
+  margin: 10px auto; /* Centre le lien et ajoute un espacement */
+  font-size: 0.9em; /* Taille de police légèrement plus petite que le texte du bouton */
+  color: black; /* Couleur du texte */
+  cursor: pointer; /* Curseur en forme de main */
+}
