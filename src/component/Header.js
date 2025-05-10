@@ -8,7 +8,7 @@ import ResetPassword from './ResetPassword.js';
 import ResetPwdReady from './ResetPwdReady.js'; // Importer le nouveau composant
 import { AuthContext } from './AuthContext';
 import logos from '../images/Logo-app.png'; // Importer l'image du logo
-import btn_off_connexion from '../images/connexion_off.jpg'; // Importer l'image du bouton de connexion off
+import btn_off_connexion from '../images/connexion_off.png'; // Importer l'image du bouton de connexion off
 import btn_on_connexion from '../images/connexion_on.png'; // Importer l'image du bouton de connexion on
 
 function Header() {
