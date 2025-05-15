@@ -41,7 +41,7 @@ function Header() {
                   className="bloc_titre_boutonespace_image"
                   src={btn_on_connexion}
                   alt="bouton-space"
-                  style={{ width: '100px', height: '4rem' }}
+                  style={{ width: '100px', height: '70px' }}
                 />
               </div>
             ) : (

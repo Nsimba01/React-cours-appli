@@ -34,4 +34,13 @@ input[type="button"] {
   font-size: 0.9em; /* Taille de police légèrement plus petite que le texte du bouton */
   color: black; /* Couleur du texte */
   cursor: pointer; /* Curseur en forme de main */
+  padding-bottom: 4px; /* Ajoute un espacement en bas */
+  
+}
+
+.linkHoverForm{
+
+   padding-bottom: 4px; /* Ajoute un espacement en bas */
+   font-style: italic;
+
 }

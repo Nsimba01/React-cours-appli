@@ -168,11 +168,11 @@ function LoginHover() {
 
           <br/><br/>
 
-          <p onClick={handleCreateAccount} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
+          <p onClick={handleCreateAccount}  className="linkHoverForm" style={{ cursor: 'pointer', textDecoration: 'underline' }}>
             Pas encore d'espace ?
           </p>
 
-          <p onClick={() => navigate('/reset_password')} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
+          <p onClick={() => navigate('/reset_password')}  className="linkHoverForm" style={{ cursor: 'pointer', textDecoration: 'underline' }}>
             Mot de passe oublié ?
           </p>
 
