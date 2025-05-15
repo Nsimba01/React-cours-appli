@@ -10,7 +10,7 @@
     flex-direction: column; /* Permet de mettre la mention légale sous le contenu */
     align-items: center;
     background-color:rgb(153, 102, 51);
-    margin-left: 2em;
+    margin-left: 20px;
     margin-right: 2em;
     margin-bottom: 1em;
     border-radius: 13px;
