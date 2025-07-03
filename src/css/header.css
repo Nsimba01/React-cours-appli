@@ -1,357 +1,377 @@
 /* Styles généraux du menu et de la présentation */
 .row {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  border: 1px solid black;
-  background-color: rgb(153, 102, 51);
-  min-height: 40px; 
-  height: auto; /* Changé de 80px à auto pour s'adapter au contenu */
-  padding: 10px; /* Simplifié le padding */
-  margin: 0.6em;
-  margin-bottom: 0;
-  border-radius: 13px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border: 1px solid black;
+    background-color: rgb(153, 102, 51);
+    min-height: 40px;
+    height: auto; /* Changé de 80px à auto pour s'adapter au contenu */
+    padding: 10px; /* Simplifié le padding */
+    margin: 0.6em;
+    margin-bottom: 0;
+    border-radius: 13px;
 }
 
 .presentation img {
-  width: 200px;
-  height: 100px;
-  padding-left: 4%;
-  padding-top: 4%;
+    width: 200px;
+    height: 100px;
+    padding-left: 4%;
+    padding-top: 4%;
 }
 
 .presentation p {
-  font-size: 13px;
-  margin-left: -13%;
+    font-size: 13px;
+    margin-left: -13%;
 }
 
 /* Media Queries pour responsive design */
 @media screen and (min-width: 200px) and (max-width: 1000px) {
-  .row {
-    flex-direction: column;
-    margin: auto;
-    width: 100%; /* Changé de 1000px à 100% */
-    background-color: rgb(153, 102, 51);
-  }
+    .row {
+        flex-direction: column;
+        margin: auto;
+        width: 100%; /* Changé de 1000px à 100% */
+        background-color: rgb(153, 102, 51);
+    }
 }
 
 /* iPhone SE en portrait */
 @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait) {
-  .row {
-    flex-direction: column;
-    margin: auto;
-    width: 100%; /* Changé de 1000px à 100% */
-    background-color: rgb(153, 102, 51);
-  }
+    .row {
+        flex-direction: column;
+        margin: auto;
+        width: 100%; /* Changé de 1000px à 100% */
+        background-color: rgb(153, 102, 51);
+    }
 }
 
 /* iPad Mini */
 @media only screen and (device-width: 768px) and (device-height: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
-  .row {
-    flex-direction: column;
-    margin: auto;
-    width: 100%; /* Changé de 1000px à 100% */
-    background-color: rgb(153, 102, 51);
-  }
+    .row {
+        flex-direction: column;
+        margin: auto;
+        width: 100%; /* Changé de 1000px à 100% */
+        background-color: rgb(153, 102, 51);
+    }
 }
 
 /* Samsung Galaxy A51 */
 @media only screen and (device-width: 720px) and (device-height: 1560px) and (-webkit-device-pixel-ratio: 2) {
-  .row {
-    flex-direction: column;
-    margin: auto;
-    width: 100%; /* Changé de 1000px à 100% */
-    background-color: rgb(153, 102, 51);
-  }
+    .row {
+        flex-direction: column;
+        margin: auto;
+        width: 100%; /* Changé de 1000px à 100% */
+        background-color: rgb(153, 102, 51);
+    }
 }
 
 @media only screen and (max-width: 1780px) {
-  .presentation {
+    .presentation {
+        background-color: rgba(199, 216, 67, 0.699);
+        float: left;
+        margin: auto;
+        color: black;
+        border: 1px solid white;
+        margin-bottom: 3%;
+        margin-top: -3%;
+        width: 100%;
+        height: 300px;
+    }
+}
+
+.presentation {
     background-color: rgba(199, 216, 67, 0.699);
-    float: left;
+    justify-content: space-between;
     margin: auto;
     color: black;
     border: 1px solid white;
     margin-bottom: 3%;
-    margin-top: -3%;
+    margin-top: -0.3%;
     width: 100%;
-    height: 300px;
-  }
+    display: flex;
+    flex-wrap: wrap;
 }
 
-.presentation {
-  background-color: rgba(199, 216, 67, 0.699);
-  justify-content: space-between;
-  margin: auto;
-  color: black;
-  border: 1px solid white;
-  margin-bottom: 3%;
-  margin-top: -0.3%;
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.row:before,
-.row:after {
-  content: '';
-  flex: 0.5;
+.row:before, .row:after {
+    content: '';
+    flex: 0.5;
 }
 
 .col {
-  text-align: center;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+    text-align: center;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .col:nth-child(1) {
-  order: -1;
+    order: -1;
 }
 
 .col:nth-child(3) {
-  order: 1;
+    order: 1;
 }
 
-/* LOGO - Styles corrigés */
+/* LOGO - Styles identiques à bloc_titre_boutonespace_image */
 @media screen and (min-width: 1001px) and (max-width: 1024px) {
-  .bloc_titre_logo {
-    width: 20%;
-    height: auto; /* Changé de '4rem' à auto */
-    margin-left: -37%; /* Remis comme avant */
-    padding-top: 2px;
-  }
+    .bloc_titre_logo {
+        width: 30px; /* Même logique que bloc_titre_boutonespace_image */
+        height: 40px; /* Ajustement de la hauteur pour correspondre au bouton de connexion */
+        margin-left: -98%;
+        padding-top: 0;   /* Supprimer le padding supérieur */
+        padding-bottom: 0; /* Supprimer le padding inférieur */
+        margin-top: 0;    /* Supprimer la marge supérieure */
+        margin-bottom: 0; /* Supprimer la marge inférieure */
+        border-radius: 10px;
+    }
 }
 
 @media screen and (min-width: 1024px) {
-  .bloc_titre_logo {
-    width: 20%;
-    height: auto; /* Changé de 4rem à auto */
-    margin-left: -83%; /* Remis comme avant */
-    padding-top: 4px;
-  }
+    .bloc_titre_logo {
+        width: 30px; /* Même logique que bloc_titre_boutonespace_image */
+        height: 40px; /* Ajustement de la hauteur pour correspondre au bouton de connexion */
+        margin-left: -90%; /* Ajustement pour déplacer plus à gauche */
+        padding-top: 0;   /* Supprimer le padding supérieur */
+        padding-bottom: 0; /* Supprimer le padding inférieur */
+        margin-top: 0;    /* Supprimer la marge supérieure */
+        margin-bottom: 0; /* Supprimer la marge inférieure */
+        border-radius: 10px;
+    }
 }
 
 @media screen and (min-width: 300px) and (max-width: 700px) {
-  .bloc_titre_logo {
-    margin-right: -52%; /* Remis comme avant */
-    margin-left: -57%; /* Remis comme avant */
-    width: 15%;
-    height: auto; /* Changé de '4rem' à auto */
-    padding-top: 4px;
-  }
+    .bloc_titre_logo {
+        margin-right: -52%;
+        margin-left: -57%;
+        width: 30px; /* Même logique que bloc_titre_boutonespace_image */
+        height: 40px; /* Ajustement de la hauteur pour correspondre au bouton de connexion */
+        padding-top: 0;   /* Supprimer le padding supérieur */
+        padding-bottom: 0; /* Supprimer le padding inférieur */
+        margin-top: 0;    /* Supprimer la marge supérieure */
+        margin-bottom: 0; /* Supprimer la marge inférieure */
+        border-radius: 10px;
+    }
 }
 
 @media screen and (min-width: 700px) and (max-width: 1008px) {
-  .bloc_titre_logo {
-    margin-right: -52%; /* Remis comme avant */
-    margin-left: -57%; /* Remis comme avant */
-    width: 20%;
-    height: auto; /* Changé de 10% à auto */
-    padding-top: 4px;
-  }
-  
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: rgb(153, 102, 51);
-    width: 100%;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    padding: 12px 16px;
-    align-items: center;
-    z-index: 1;
-  }
+    .bloc_titre_logo {
+        margin-right: -52%;
+        margin-left: -57%;
+        width: 30px; /* Même logique que bloc_titre_boutonespace_image */
+        height: 40px; /* Ajustement de la hauteur pour correspondre au bouton de connexion */
+        padding-top: 0;   /* Supprimer le padding supérieur */
+        padding-bottom: 0; /* Supprimer le padding inférieur */
+        margin-top: 0;    /* Supprimer la marge supérieure */
+        margin-bottom: 0; /* Supprimer la marge inférieure */
+        border-radius: 10px;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: rgb(153, 102, 51);
+        width: 100%;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        padding: 12px 16px;
+        align-items: center;
+        z-index: 1;
+    }
+}
+
+/* Règle générale pour l'image du logo - comportement identique aux autres éléments */
+.bloc_titre_logo img {
+    width: auto;  /* Permet à la largeur de s'ajuster selon la hauteur */
+    height: 100%; /* Remplit toute la hauteur du bloc */
+    object-fit: contain; /* Garde les proportions de l'image */
 }
 
 /* BOUTON ESPACE - Styles corrigés */
 @media screen and (min-width: 1001px) and (max-width: 1024px) {
-  .bloc_titre_boutonespace_image {
-    width: 30px;
-    height: auto; /* Changé de '4rem' à auto */
-    border-radius: 10px;
-  }
+    .bloc_titre_boutonespace_image {
+        width: 30px;
+        height: auto; /* Changé de '4rem' à auto */
+        border-radius: 10px;
+    }
 }
 
 @media screen and (min-width: 1024px) {
-  .bloc_titre_boutonespace_image {
-    width: 30px;
-    height: auto; /* Changé de '2rem' à auto */
-    border-radius: 10px;
-  }
+    .bloc_titre_boutonespace_image {
+        width: 30px;
+        height: auto; /* Changé de '2rem' à auto */
+        border-radius: 10px;
+    }
 }
 
 @media screen and (min-width: 300px) and (max-width: 1008px) {
-  .row {
-    flex-direction: column;
-    margin: auto;
-    width: 100%;
-    background-color: rgb(153, 102, 51);
-  }
+    .row {
+        flex-direction: column;
+        margin: auto;
+        width: 100%;
+        background-color: rgb(153, 102, 51);
+    }
 }
 
 /* TITRE - Styles corrigés pour éviter la disparition au zoom */
 .button_espace {
-  flex: 1;
-  display: flex;
-  justify-content: right;
-  align-items: center;
-  color: black;
-  background-color: rgb(153, 102, 51);
-  text-decoration: none;
-  margin: 5px 0;
+    flex: 1;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    color: black;
+    background-color: rgb(153, 102, 51);
+    text-decoration: none;
+    margin: 5px 0;
 }
 
 @media screen and (min-width: 1024px) {
-  .titre {
-    flex: 1;
-    display: flex;
-    white-space: nowrap;
-    min-height: 60px; /* Hauteur minimum au lieu de height fixe */
-    align-items: center;
-    justify-content: center;
-    font-family: "Comic Sans MS", sans-serif;
-    font-weight: bold;
-    color: black;
-    font-size: clamp(24px, 4vw, 45px); /* Taille responsive */
-    padding: 4px;
-    text-decoration: none;
-    margin: 5px 0;
-    overflow: visible; /* Assure que le texte reste visible */
-  }
+    .titre {
+        flex: 1;
+        display: flex;
+        white-space: nowrap;
+        min-height: 60px; /* Hauteur minimum au lieu de height fixe */
+        align-items: center;
+        justify-content: center;
+        font-family: "Comic Sans MS", sans-serif;
+        font-weight: bold;
+        color: black;
+        font-size: clamp(24px, 4vw, 45px); /* Taille responsive */
+        padding: 4px;
+        text-decoration: none;
+        margin: 5px 0;
+        overflow: visible; /* Assure que le texte reste visible */
+    }
 }
 
 @media screen and (min-width: 768px) and (max-width: 1023px) {
-  .titre {
-    flex: 1;
-    display: flex;
-    white-space: nowrap;
-    align-items: center;
-    justify-content: center;
-    font-family: "Comic Sans MS", sans-serif;
-    font-weight: bold;
-    color: black;
-    font-size: clamp(20px, 3.5vw, 30px); /* Taille responsive */
-    padding: 4px 8px;
-    text-decoration: none;
-    margin: 5px 0;
-    overflow: visible;
-  }
+    .titre {
+        flex: 1;
+        display: flex;
+        white-space: nowrap;
+        align-items: center;
+        justify-content: center;
+        font-family: "Comic Sans MS", sans-serif;
+        font-weight: bold;
+        color: black;
+        font-size: clamp(20px, 3.5vw, 30px); /* Taille responsive */
+        padding: 4px 8px;
+        text-decoration: none;
+        margin: 5px 0;
+        overflow: visible;
+    }
 }
 
 @media screen and (max-width: 768px) {
-  .titre {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: "Comic Sans MS", sans-serif;
-    font-weight: bold;
-    color: black;
-    font-size: clamp(18px, 3vw, 24px); /* Taille responsive */
-    padding: 4px 8px;
-    text-decoration: none;
-    margin: 5px 0;
-    overflow: visible;
-  }
+    .titre {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Comic Sans MS", sans-serif;
+        font-weight: bold;
+        color: black;
+        font-size: clamp(18px, 3vw, 24px); /* Taille responsive */
+        padding: 4px 8px;
+        text-decoration: none;
+        margin: 5px 0;
+        overflow: visible;
+    }
 }
 
-.row,
-.presentation {
-  color: black;
+.row, .presentation {
+    color: black;
 }
 
 .presentation p {
-  padding: 10px;
-  text-align: justify;
-  overflow-wrap: break-word;
+    padding: 10px;
+    text-align: justify;
+    overflow-wrap: break-word;
 }
 
 .bloc_titre_boutonespace_image {
-  width: 30px;
-  height: auto; /* Changé de '4rem' à auto */
-  margin-right: 5px;
-  border-radius: 10px;
+    width: 30px;
+    height: auto; /* Changé de '4rem' à auto */
+    margin-right: 5px;
+    border-radius: 10px;
 }
 
 .dropdown {
-  position: relative;
-  display: inline-block;
+    position: relative;
+    display: inline-block;
 }
 
 .dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: rgb(153, 102, 51);
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  padding: 12px 16px;
-  z-index: 1;
-  width: 100%;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-  background-color: rgb(153, 102, 51);
-  width: 100%;
-}
-
-.divexterne {
-  background-color: rgba(199, 216, 67, 0.699);
-  width: 100%;
-}
-
-.divexterne img {
-  width: 300px;
-  height: 300px;
-}
-
-.tableau {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.cellule {
-  text-align: center;
-  padding: 20px;
-}
-
-.cellule img {
-  max-width: 100%;
-  height: auto;
-}
-
-.HideShow {
-  position: absolute;
-  z-index: 2;
-  padding: 10px 20px;
-  background-color: rgba(199, 216, 67, 0.699);
-  color: black;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.divexterne {
-  background-color: rgba(199, 216, 67, 0.699);
-  width: 100%;
-  position: relative;
-  z-index: 1;
-}
-
-@media screen and (min-width: 300px) and (max-width: 1444px) {
-  .dropdown-content {
     display: none;
     position: absolute;
     background-color: rgb(153, 102, 51);
-    width: 100%;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     padding: 12px 16px;
-    align-items: center;
     z-index: 1;
-  }
+    width: 100%;
+}
 
-  .dropdown:hover .dropdown-content {
-    display: none;
+.dropdown:hover .dropdown-content {
+    display: block;
     background-color: rgb(153, 102, 51);
     width: 100%;
-  }
+}
+
+.divexterne {
+    background-color: rgba(199, 216, 67, 0.699);
+    width: 100%;
+}
+
+.divexterne img {
+    width: 300px;
+    height: 300px;
+}
+
+.tableau {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.cellule {
+    text-align: center;
+    padding: 20px;
+}
+
+.cellule img {
+    max-width: 100%;
+    height: auto;
+}
+
+.HideShow {
+    position: absolute;
+    z-index: 2;
+    padding: 10px 20px;
+    background-color: rgba(199, 216, 67, 0.699);
+    color: black;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.divexterne {
+    background-color: rgba(199, 216, 67, 0.699);
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+@media screen and (min-width: 300px) and (max-width: 1444px) {
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: rgb(153, 102, 51);
+        width: 100%;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        padding: 12px 16px;
+        align-items: center;
+        z-index: 1;
+    }
+    .dropdown:hover .dropdown-content {
+        display: none;
+        background-color: rgb(153, 102, 51);
+        width: 100%;
+    }
 }
