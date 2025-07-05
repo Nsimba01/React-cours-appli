@@ -96,7 +96,7 @@ function Header() {
                     className="bloc_titre_boutonespace_image"
                     src={btn_off_connexion}
                     alt="bouton-space"
-                    style={{ width: '100px', height: '3rem' }}
+                    style={{ width: '60px', height: '3rem' }}
                     onContextMenu={e => e.preventDefault()}
                   />
                 </div>
