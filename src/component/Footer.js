@@ -39,7 +39,7 @@ function Footer() {
     </div>
 
     <div className="footer-legal">
-        @2024 arbredusavoir.fr (tous droits réservés)
+        ©2024 arbredusavoir.fr (tous droits réservés)
     </div>
 </div>
 
