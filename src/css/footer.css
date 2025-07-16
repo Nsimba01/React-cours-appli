@@ -39,6 +39,8 @@
     text-align: center;
     width: 100%;
     margin-top: 40px; /* Crée un espace entre le contenu et la mention légale */
+    font-style: italic;
+    
 }
 
 
