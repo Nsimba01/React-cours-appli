@@ -333,7 +333,8 @@ function Creation() {
             cursor: 'pointer',
             textDecoration: 'underline',
             color: 'black',
-            fontStyle: 'italic'
+            fontStyle: 'italic',
+            fontSize: '13px',
           }}
         >
           Déjà un espace ?

@@ -78,7 +78,7 @@
   flex: 0 0 100px;  /* Largeur fixe pour aligner tous les labels */
   margin-right: 6px;
   text-align: left; /* Assure que le texte démarre à gauche */
-  font-size: 12px;
+  font-size: 15px;
 }
 
 /* Conteneur pour les champs d'entrée */
@@ -96,7 +96,7 @@
   border: 1px solid #ccc;
   border-radius: 3px;
   box-sizing: border-box;
-  font-size: 12px;
+  font-size: 15px;
 }
 
 /* Positionnement de l'icône pour afficher/cacher le mot de passe */
@@ -114,11 +114,19 @@
   color: #fff;
   border: none;
   border-radius: 3px;
-  display: block;
+  display: flex;                /* activé Flexbox */
+  align-items: center;          /* centrage vertical */
+  justify-content: center;      /* centrage horizontal */
   margin: 0 auto;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 15px;
+  font-weight: bold;
+  height: 40px;                 /* hauteur du bouton */
+  padding: 0 20px;              /* padding horizontal */
 }
+
+
+
 
 /* Bouton désactivé */
 .submit-btn:disabled {
@@ -183,6 +191,8 @@
 #aligner-button {
   display: block;
   margin: 0 auto;
+  font-size: 15px;
+  font-weight: bold; 
   
   box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.75);
 }

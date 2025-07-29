@@ -93,7 +93,7 @@ function Connexion() {
   <p>Connexion à mon espace</p>
   <form onSubmit={handleSubmit}>
     <div className="form-row">
-      <label htmlFor="pseudo">Pseudo :</label>
+      <label htmlFor="pseudo">Pseudo:</label>
       <div className="input-container">
         <input 
           type="text" 
@@ -116,7 +116,7 @@ function Connexion() {
       </div>
     )}
     <div className="form-row">
-      <label htmlFor="motdepasse">Mot de passe :</label>
+      <label htmlFor="motdepasse">Mot de passe:</label>
       <div className="input-container">
         <input 
           type={showPassword ? "text" : "password"} 
@@ -127,6 +127,7 @@ function Connexion() {
           aria-label="Mot de passe" 
           onFocus={() => setIsPasswordFocused(true)} 
           onBlur={() => setIsPasswordFocused(false)} 
+          
           required 
         />
         <span className="toggle-password" onClick={toggleShowPassword}>
@@ -149,14 +150,16 @@ function Connexion() {
         </span>
       </div>
     )}
-    <div className="form-row">
-      <input
-        type="submit"
-        value="Connexion"
-        className="submit-btn"
-        disabled={!Object.values(passwordValidation).every(value => value) || !pseudoValidation}
-      />
-    </div>
+   <div className="form-row">
+  <button
+    type="submit"
+    className="submit-btn"
+    disabled={!Object.values(passwordValidation).every(v => v) || !pseudoValidation}
+  >
+    Connexion
+  </button>
+</div>
+
     <p onClick={() => navigate('/creation')} className="link">
       Pas encore d'espace ?
     </p>

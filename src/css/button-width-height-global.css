@@ -1,3 +1,14 @@
+
+body {
+  font-family: "Comic Sans MS", cursive, sans-serif;  /* Police de caractères par défaut */
+}
+
+h1, h2, h3, h4, h5, h6,
+p, a, button, input, select, textarea {
+  font-family: inherit; /* Hérite de la police de caractères par défaut */
+}
+
+
 /* src/index.css (ou App.css importé une fois au démarrage) */
 button,
 input[type="submit"],
@@ -29,12 +40,13 @@ input[type="button"] {
   font-style: italic;
   text-decoration: underline;
   text-align: center;
+  font-size: 13px;
   display: block;
   margin: 10px auto; /* Centre le lien et ajoute un espacement */
   font-size: 0.9em; /* Taille de police légèrement plus petite que le texte du bouton */
   color: black; /* Couleur du texte */
   cursor: pointer; /* Curseur en forme de main */
-  padding-bottom: 4px; /* Ajoute un espacement en bas */
+
   
 }
 
@@ -42,5 +54,7 @@ input[type="button"] {
 
    padding-bottom: 4px; /* Ajoute un espacement en bas */
    font-style: italic;
+   font-size: 13px;
+   font-weight: bold;
 
 }

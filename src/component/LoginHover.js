@@ -158,13 +158,15 @@ function LoginHover() {
           )}
 
           {/* Bouton Connexion */}
-          <input
+
+          <button
             type="submit"
-            value="Connexion"
-  
-            disabled={!Object.values(passwordValidation).every(v => v) || !pseudoValidation}
             style={{ backgroundColor: isUserExists ? 'rgb(146,208,80)' : undefined}}
-          />
+          >
+            Connexion
+          </button>
+         
+      
 
           <br/><br/>
 
