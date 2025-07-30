@@ -5,7 +5,6 @@
   padding: 10px;
   background-color: rgba(206, 207, 200, 0.897);
   color: black;
-  font-family: Arial, sans-serif;
   border-radius: 5px;
   margin-top: 10px;
   margin-bottom: 30px;
@@ -20,7 +19,7 @@
   padding: 10px;
   background-color: rgba(206, 207, 200, 0.897);
   color: black;
-  font-family: Arial, sans-serif;
+  
   border-radius: 5px;
   margin-top: 20px;
   margin-bottom: 30px;
@@ -79,6 +78,7 @@
   margin-right: 6px;
   text-align: left; /* Assure que le texte démarre à gauche */
   font-size: 15px;
+  
 }
 
 /* Conteneur pour les champs d'entrée */
@@ -168,7 +168,7 @@
     padding: 10px;
     background-color: rgba(206, 207, 200, 0.897);
     color: black;
-    font-family: Arial, sans-serif;
+
     border-radius: 5px;
     margin-top: 20px;
     margin-bottom: 30px;
