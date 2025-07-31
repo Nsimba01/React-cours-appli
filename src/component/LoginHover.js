@@ -120,25 +120,28 @@ function LoginHover() {
           {/* Mot de passe */}
           <label>
             Mot de passe
-            <div style={{ position: "relative", display: "inline-block" }}>
-              <input
-                type={showPassword ? "text" : "password"}
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                onFocus={() => setIsPasswordFocused(true)}
-                onBlur={handlePasswordBlur}
-                aria-invalid={!Object.values(passwordValidation).every(Boolean)}
-                aria-describedby="password-validation"
-              />
-              <span
-                onClick={toggleShowPassword}
-                style={{ position: "absolute", right: 10, top: 7, cursor: "pointer" }}
-                aria-label={showPassword ? "Masquer le mot de passe" : "Afficher le mot de passe"}
-              >
-                {showPassword ? <FaEyeSlash /> : <FaEye />}
-              </span>
-            </div>
+            <div style={{ position: "relative", display: "inline-block", width: "100%" }}>
+  <input
+    type={showPassword ? "text" : "password"}
+    name="password"
+    value={formData.password}
+    onChange={handleChange}
+    onFocus={() => setIsPasswordFocused(true)}
+    onBlur={handlePasswordBlur}
+    aria-invalid={!Object.values(passwordValidation).every(Boolean)}
+    aria-describedby="password-validation"
+    style={{ width: "100%", paddingRight: "30px" }} // Ajout du padding à droite
+  />
+  <span
+    onClick={toggleShowPassword}
+    style={{ position: "absolute", right: 10, top: "40%", transform: "translateY(-50%)", cursor: "pointer" }}
+    className="toggle-password-login-hover"
+    aria-label={showPassword ? "Masquer le mot de passe" : "Afficher le mot de passe"}
+  >
+    {showPassword ? <FaEyeSlash /> : <FaEye />}
+  </span>
+</div>
+
           </label>
           <br />
           {isPasswordFocused && (
