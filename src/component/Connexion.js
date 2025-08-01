@@ -160,10 +160,10 @@ function Connexion() {
   </button>
 </div>
 
-    <p onClick={() => navigate('/creation')} className="link">
+    <p onClick={() => navigate('/creation')} className="link" style={{marginBottom:"0px"}}>
       Pas encore d'espace ?
     </p>
-    <p onClick={() => navigate('/reset_password')} className="link">
+    <p onClick={() => navigate('/reset_password')} className="link" style={{marginTop:"0px"}}>
       Mot de passe oublié ?
     </p>
   </form>

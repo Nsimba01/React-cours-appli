@@ -95,7 +95,7 @@ function LoginHover() {
       <form onSubmit={handleSubmit}>
         <div>
           {/* Pseudo */}
-          <label>
+          <label  style={{ fontSize: '15px' }}>
             Pseudo
             <input
               type="text"
@@ -118,8 +118,10 @@ function LoginHover() {
           <br />
 
           {/* Mot de passe */}
-          <label>
-            Mot de passe
+           <label style={{ fontSize: '15px' }} >
+            Mot de passe <br/>
+
+            </label>
             <div style={{ position: "relative", display: "inline-block", width: "100%" }}>
   <input
     type={showPassword ? "text" : "password"}
@@ -134,7 +136,7 @@ function LoginHover() {
   />
   <span
     onClick={toggleShowPassword}
-    style={{ position: "absolute", right: 10, top: "40%", transform: "translateY(-50%)", cursor: "pointer" }}
+    style={{ position: "absolute", right: 10, top: "30%", transform: "translateY(-50%)", cursor: "pointer" }}
     className="toggle-password-login-hover"
     aria-label={showPassword ? "Masquer le mot de passe" : "Afficher le mot de passe"}
   >
@@ -142,7 +144,7 @@ function LoginHover() {
   </span>
 </div>
 
-          </label>
+          
           <br />
           {isPasswordFocused && (
             <div id="password-validation">
@@ -164,7 +166,7 @@ function LoginHover() {
 
           <button
             type="submit"
-            style={{ backgroundColor: isUserExists ? 'rgb(146,208,80)' : undefined}}
+            style={{ backgroundColor: isUserExists ? 'rgb(146,208,80)' : undefined,fontSize: '15px',fontWeight:"bold" }}
           >
             Connexion
           </button>
@@ -173,11 +175,14 @@ function LoginHover() {
 
           <br/><br/>
 
-          <p onClick={handleCreateAccount}  className="linkHoverForm" style={{ cursor: 'pointer', textDecoration: 'underline' }}>
+          <p onClick={handleCreateAccount}  className="linkHoverForm" 
+      
+          style={{ cursor: 'pointer',marginBottom:"0px" ,textDecoration: 'underline' }}>
             Pas encore d'espace ?
           </p>
 
-          <p onClick={() => navigate('/reset_password')}  className="linkHoverForm" style={{ cursor: 'pointer', textDecoration: 'underline' }}>
+          <p onClick={() => navigate('/reset_password')}  className="linkHoverForm" 
+          style={{ cursor: 'pointer',marginTop:"0px",textDecoration: 'underline' }}>
             Mot de passe oublié ?
           </p>
 

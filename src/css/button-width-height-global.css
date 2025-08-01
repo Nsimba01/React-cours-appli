@@ -36,7 +36,7 @@ input[type="button"] {
   font-style: italic;
   text-decoration: underline;
   text-align: center;
-  font-size: 15px!important;
+  font-size: 13px!important;
   display: block;
   margin: 10px auto; /* Centre le lien et ajoute un espacement */
   font-size: 0.9em; /* Taille de police légèrement plus petite que le texte du bouton */

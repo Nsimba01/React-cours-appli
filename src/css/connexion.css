@@ -124,11 +124,14 @@
 
 .input-container select {
   width: 100%;
-  height: 25px;
+  height: 30px;
   padding: 4px;
   border: 1px solid #ccc;
   border-radius: 3px;
   box-sizing: border-box;
+  font-size: 15px;
+  line-height: 1.2;
+ 
 
 }
 
