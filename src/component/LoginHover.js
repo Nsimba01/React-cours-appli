@@ -95,8 +95,15 @@ function LoginHover() {
       <form onSubmit={handleSubmit}>
         <div>
           {/* Pseudo */}
-          <label  style={{ fontSize: '15px' }}>
+
+          <p> 
+
+          <label  style={{ fontSize: '15px',marginBottom:"10px" }}>  
             Pseudo
+
+            </label>
+
+            </p>
             <input
               type="text"
               name="username"
@@ -106,8 +113,11 @@ function LoginHover() {
               onBlur={() => setIsPseudoFocused(false)}
               aria-invalid={!pseudoValidation}
               aria-describedby="pseudo-validation"
+              style={{marginTop:"-5px",width:"100%" }} 
+                
+          
             />
-          </label>
+        
           {isPseudoFocused && (
             <div id="pseudo-validation">
               <span style={{ color: pseudoValidation ? "white" : "red" }}>
@@ -118,7 +128,7 @@ function LoginHover() {
           <br />
 
           {/* Mot de passe */}
-           <label style={{ fontSize: '15px' }} >
+           <label style={{ fontSize: '15px',marginTop:"-5px" }} >
             Mot de passe <br/>
 
             </label>
@@ -133,10 +143,11 @@ function LoginHover() {
     aria-invalid={!Object.values(passwordValidation).every(Boolean)}
     aria-describedby="password-validation"
     style={{ width: "100%", paddingRight: "30px" }} // Ajout du padding à droite
+ 
   />
   <span
     onClick={toggleShowPassword}
-    style={{ position: "absolute", right: 10, top: "30%", transform: "translateY(-50%)", cursor: "pointer" }}
+    style={{ position: "absolute", right: 10, top: "33%", transform: "translateY(-50%)", cursor: "pointer" }}
     className="toggle-password-login-hover"
     aria-label={showPassword ? "Masquer le mot de passe" : "Afficher le mot de passe"}
   >
@@ -166,7 +177,10 @@ function LoginHover() {
 
           <button
             type="submit"
-            style={{ backgroundColor: isUserExists ? 'rgb(146,208,80)' : undefined,fontSize: '15px',fontWeight:"bold" }}
+            style={{ backgroundColor: isUserExists ? 'rgb(146,208,80)' : undefined,fontSize: '15px',cursor: 'pointer',fontWeight:"bold",
+              width:"100%",borderRadius: '3px' 
+    
+            }}
           >
             Connexion
           </button>
