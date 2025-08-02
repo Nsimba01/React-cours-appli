@@ -1,5 +1,10 @@
 
 /* création.css */
+
+#creation-form{
+
+  height: 380px;
+}
 .criteria {
     transition: opacity 1s ease;
     opacity: 1;

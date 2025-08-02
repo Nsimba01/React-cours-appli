@@ -15,7 +15,7 @@ function Creation() {
     email: "",
     nom: "",
     prenom: "",
-    sexe: "homme",
+    sexe: "vide",
     dateNaissance: "",
   });
 
@@ -65,6 +65,15 @@ function Creation() {
     setEmailValidation(email.includes('@'));
   };
 
+   const handleChangeSexe = (e) => {
+    const { value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      sexe: value,
+    }));
+  };
+
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevState) => ({ ...prevState, [name]: value }));
@@ -78,17 +87,23 @@ function Creation() {
     }
   };
 
-  const handleNomBlur = () => {
-    setFormData((prevState) => ({
-      ...prevState,
-      nom: prevState.nom.toUpperCase()
-    }));
-  };
+ const handleNomChange = (e) => {
+  const { value } = e.target;
+  setFormData((prevState) => ({
+    ...prevState,
+    nom: value.toUpperCase(), // Convertit la valeur en majuscules
+  }));
+};
 
-  const handlePrenomBlur = () => {
-    setFormData((prevState) => ({
-      ...prevState,
-      prenom: prevState.prenom.charAt(0).toUpperCase() + prevState.prenom.slice(1)
+  const handlePrenomChange = (e) => {
+    const { value } = e.target;
+    // Majuscule sur la 1ère lettre, le reste inchangé
+    const formatted = value.length > 0
+      ? value.charAt(0).toUpperCase() + value.slice(1)
+      : '';
+    setFormData((prev) => ({
+      ...prev,
+      prenom: formatted
     }));
   };
 
@@ -154,7 +169,7 @@ function Creation() {
   };
 
   return (
-    <div className="formulaire">
+    <div className="formulaire" id="creation-form">
       <p>Création de mon espace</p>
       <form onSubmit={handleSubmit}>
         {/* Pseudo */}
@@ -226,36 +241,37 @@ function Creation() {
         )}
 
         {/* Nom */}
-        <div className="form-row">
-          <label>Nom:</label>
-          <div className="input-container">
-            <input
-              type="text"
-              name="nom"
-              value={formData.nom}
-              onChange={handleChange}
-              aria-label="Nom"
-              required
-              onBlur={handleNomBlur}
-            />
-          </div>
-        </div>
+       <div className="form-row">
+  <label>Nom:</label>
+  <div className="input-container">
+    <input
+      type="text"
+      name="nom"
+      value={formData.nom}
+      onChange={handleNomChange}
+      aria-label="Nom"
+      required
+    />
+  </div>
+</div>
+
 
         {/* Prénom */}
-        <div className="form-row">
-          <label>Prénom:</label>
-          <div className="input-container">
-            <input
-              type="text"
-              name="prenom"
-              value={formData.prenom}
-              onChange={handleChange}
-              aria-label="Prénom"
-              required
-              onBlur={handlePrenomBlur}
-            />
-          </div>
+            <div className="form-row">
+        <label htmlFor="prenom">Prénom :</label>
+        <div className="input-container">
+          <input
+            id="prenom"
+            type="text"
+            name="prenom"
+            value={formData.prenom}
+            onChange={handlePrenomChange}   // ← ici
+            aria-label="Prénom"
+            required
+            style={{ width: '100%' }}
+          />
         </div>
+      </div>
 
         {/* Sexe */}
         <div className="form-row">
@@ -264,12 +280,12 @@ function Creation() {
             <select
               name="sexe"
               value={formData.sexe}
-              onChange={handleChange}
+              onChange={handleChangeSexe}
               required
             >
-              <option value="vide"> (vide) </option>
-              <option value="homme">Homme</option>
-              <option value="femme">Femme</option>
+              <option value="vide">(vide)</option>
+              <option value="homme">Garçon</option>
+              <option value="femme">Fille</option>
             </select>
           </div>
         </div>
@@ -302,6 +318,7 @@ function Creation() {
               required
               onFocus={() => setIsEmailFocused(true)}
               onBlur={() => setIsEmailFocused(false)}
+           
             />
           </div>
         </div>
