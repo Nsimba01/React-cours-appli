@@ -54,3 +54,7 @@ input[type="button"] {
    
 
 }
+
+input[type="password"]::-ms-reveal {
+  display: none;
+}

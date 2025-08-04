@@ -169,13 +169,13 @@ function Creation() {
   };
 
   return (
-    <div className="formulaire" id="creation-form">
+    <div className="formulaireCreate" id="creation-form">
       <p>Création de mon espace</p>
       <form onSubmit={handleSubmit}>
         {/* Pseudo */}
         <div className="form-row">
           <label>Pseudo:</label>
-          <div className="input-container">
+          <div className="input-container-create">
             <input
               type="text"
               name="pseudo"
@@ -203,7 +203,7 @@ function Creation() {
         {/* Mot de passe */}
         <div className="form-row">
           <label>Mot de passe:</label>
-          <div className="input-container" style={{ position: "relative", width: "100%" }}>
+          <div className="input-container-create" style={{ position: "relative", width: "100%" }}>
             <input
               type={showPassword ? "text" : "password"}
               name="password"
@@ -211,7 +211,7 @@ function Creation() {
               onChange={handleChange}
               aria-label="Mot de passe"
               required
-              style={{ width: "100%" }}
+              style={{ width: "87%" }}
               onFocus={handlePasswordFocus}
               onBlur={handlePasswordBlur}
             />
@@ -243,7 +243,7 @@ function Creation() {
         {/* Nom */}
        <div className="form-row">
   <label>Nom:</label>
-  <div className="input-container">
+  <div className="input-container-create">
     <input
       type="text"
       name="nom"
@@ -259,7 +259,7 @@ function Creation() {
         {/* Prénom */}
             <div className="form-row">
         <label htmlFor="prenom">Prénom :</label>
-        <div className="input-container">
+        <div className="input-container-create">
           <input
             id="prenom"
             type="text"
@@ -268,7 +268,7 @@ function Creation() {
             onChange={handlePrenomChange}   // ← ici
             aria-label="Prénom"
             required
-            style={{ width: '100%' }}
+            style={{ width: '87%' }}
           />
         </div>
       </div>
@@ -276,7 +276,7 @@ function Creation() {
         {/* Sexe */}
         <div className="form-row">
           <label>Sexe:</label>
-          <div className="input-container">
+          <div className="input-container-create">
             <select
               name="sexe"
               value={formData.sexe}
@@ -291,9 +291,9 @@ function Creation() {
         </div>
 
         {/* Date de naissance */}
-        <div className="form-row">
-          <label>Date de naissance:</label>
-          <div className="input-container">
+        <div className="form-row-create">
+          <label>  Date de naissance: </label>
+          <div className="input-container-create">
             <input
               type="date"
               name="dateNaissance"
@@ -308,7 +308,7 @@ function Creation() {
         {/* Mail */}
         <div className="form-row">
           <label>Mail:</label>
-          <div className="input-container">
+          <div className="input-container-create">
             <input
               type="email"
               name="email"
@@ -318,6 +318,7 @@ function Creation() {
               required
               onFocus={() => setIsEmailFocused(true)}
               onBlur={() => setIsEmailFocused(false)}
+              style={{marginBottom: '10px'}}
            
             />
           </div>

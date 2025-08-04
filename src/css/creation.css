@@ -1,10 +1,107 @@
-
 /* création.css */
-
-#creation-form{
-
-  height: 380px;
+#creation-form {
+  width: 80%;
 }
+
+.formulaireCreate {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 10px;
+  background-color: rgba(206, 207, 200, 0.897);
+  color: black;
+  border-radius: 5px;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  text-align: center; /* Centre le texte et les éléments inline/inline-block */
+}
+
+.formulaireCreate p {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 19px;
+  font-weight: bold;
+}
+
+.form-row-create {
+  display: flex;
+  align-items: center; /* Aligne verticalement les éléments au centre */
+  justify-content: flex-start; /* Aligne les éléments à gauche au sein du conteneur flex */
+  margin-bottom: 8px;
+}
+
+.input-container-create {
+  flex: 1;
+  position: relative;
+
+  width: 70%; /* Ajustez cette largeur en pourcentage selon vos besoins */
+
+}
+
+.input-container-create input[type="password"] {
+
+ 
+  height: 25px;
+  padding: 4px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box; /* Cela inclut le padding et la bordure dans la largeur totale */
+  font-size: 15px;
+  margin-right: -15%;
+
+}
+
+.input-container-create input[type="text"] {
+  width: 87%;
+  margin-right:  -15%;
+  height: 25px;
+  padding: 4px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box; /* Cela inclut le padding et la bordure dans la largeur totale */
+  font-size: 15px;
+
+}
+
+.input-container-create input[type="email"] {
+  width: 85.9%;
+  margin-right: -15%;
+  height: 25px;
+  padding: 4px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box; /* Cela inclut le padding et la bordure dans la largeur totale */
+  font-size: 15px;
+
+}
+
+.input-container-create select {
+  width: 87%;
+  margin-right: -15%;
+  height: 30px;
+  padding: 4px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box;
+  font-size: 15px;
+  line-height: 1.2;
+  
+}
+
+.input-container-create input[type="date"] {
+   width: 100.8%;
+  padding: 4px;
+  box-sizing: border-box;
+
+}
+
+.form-row-create label {
+  display: inline-block;
+  width: 25%; /* Réduire la largeur du label si nécessaire */
+  white-space: nowrap;
+  margin-right: 5%; /* Ajuster la marge à droite pour le label */
+  text-align: left;
+}
+
 .criteria {
     transition: opacity 1s ease;
     opacity: 1;
