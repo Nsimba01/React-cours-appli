@@ -178,7 +178,7 @@ function LoginHover() {
           <button
             type="submit"
             style={{ backgroundColor: isUserExists ? 'rgb(146,208,80)' : undefined,fontSize: '15px',cursor: 'pointer',fontWeight:"bold",
-              width:"100%",borderRadius: '3px' 
+              width:"100%",borderRadius: '7px' 
     
             }}
           >

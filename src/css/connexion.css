@@ -65,6 +65,11 @@
   font-weight: bold;
 }
 
+.formulaire p.link {
+
+  font-weight: normal;
+}
+
 /* Ligne du formulaire en flex */
 .form-row {
   display: flex;
