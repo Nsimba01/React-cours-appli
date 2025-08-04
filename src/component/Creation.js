@@ -8,7 +8,6 @@ import '../css/creation.css';
 
 function Creation() {
   const navigate = useNavigate();
-
   const [formData, setFormData] = useState({
     pseudo: "",
     password: "",
@@ -18,28 +17,24 @@ function Creation() {
     sexe: "vide",
     dateNaissance: "",
   });
-
   const [successMessage, setSuccessMessage] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
-
   const [passwordValidation, setPasswordValidation] = useState({
     length: false,
     uppercase: false,
     number: false
   });
-
   const [pseudoValidation, setPseudoValidation] = useState({
     length: false,
     available: false
   });
-
   const [emailValidation, setEmailValidation] = useState(false);
-
   const [showCriteria, setShowCriteria] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
   const [isPseudoFocused, setIsPseudoFocused] = useState(false);
   const [isEmailFocused, setIsEmailFocused] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(false);
 
   const validatePassword = (password) => ({
     length: password.length >= 10,
@@ -50,14 +45,12 @@ function Creation() {
   const validatePseudo = async (pseudo) => {
     const lengthValid = pseudo.length >= 5;
     let available = false;
-
     if (lengthValid) {
       const db = getDatabase();
       const userRef = ref(db, `users/${pseudo}`);
       const snapshot = await get(userRef);
       available = !snapshot.exists();
     }
-
     setPseudoValidation({ length: lengthValid, available });
   };
 
@@ -65,14 +58,13 @@ function Creation() {
     setEmailValidation(email.includes('@'));
   };
 
-   const handleChangeSexe = (e) => {
+  const handleChangeSexe = (e) => {
     const { value } = e.target;
     setFormData((prevState) => ({
       ...prevState,
       sexe: value,
     }));
   };
-
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -87,61 +79,57 @@ function Creation() {
     }
   };
 
- const handleNomChange = (e) => {
-  const { value } = e.target;
-  setFormData((prevState) => ({
-    ...prevState,
-    nom: value.toUpperCase(), // Convertit la valeur en majuscules
-  }));
-};
- const handlePrenomChange = (e) => {
-    const value = e.target.value;
+  const handleNomChange = (e) => {
+    const { value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      nom: value.toUpperCase(),
+    }));
+  };
 
-    // Diviser la chaîne tout en conservant les espaces et les tirets
+  const handlePrenomChange = (e) => {
+    const value = e.target.value;
     const formatted = value
-      .split(/([\s-])/) // Diviser en conservant les séparateurs (espace ou tiret)
-      .map((part, index) => {
-        // On formate uniquement les parties qui sont des mots (pas des espaces ou tirets)
+      .split(/([\s-])/)  // conserve espaces et traits d'union
+      .map((part) => {
         if (part.trim().length > 0 && !/[\s-]/.test(part)) {
           return part.charAt(0).toUpperCase() + part.slice(1).toLowerCase();
         }
-        return part; // Retourner tel quel pour les espaces et les tirets
+        return part;
       })
-      .join(''); // Rejoindre sans ajout de séparateurs supplémentaires
-
-    setFormData({
-      ...formData,
-      prenom: formatted
-    });
+      .join('');
+    setFormData((prevState) => ({ ...prevState, prenom: formatted }));
   };
 
-  useEffect(() => {
-    if (Object.values(passwordValidation).every(Boolean)) {
-      const timer = setTimeout(() => {
-        setShowCriteria(false);
-      }, 500);
-      return () => clearTimeout(timer);
-    } else {
-      setShowCriteria(true);
-    }
-  }, [passwordValidation]);
+useEffect(() => {
+  const { nom, prenom, sexe, dateNaissance } = formData;
+  const isPseudoValid = pseudoValidation.length && pseudoValidation.available;
+  const isPasswordValid = Object.values(passwordValidation).every(Boolean);
+  const isEmailValid = emailValidation;
+
+  const isFormValid = isPseudoValid && isPasswordValid && isEmailValid &&
+                      nom && prenom && sexe !== "vide" && dateNaissance;
+  setIsFormValid(isFormValid);
+}, [pseudoValidation, passwordValidation, emailValidation, formData]);
+
 
   const toggleShowPassword = () => {
-    setShowPassword(prevState => !prevState);
+    setShowPassword(prev => !prev);
   };
 
   const handlePasswordFocus = () => {
     setIsPasswordFocused(true);
+    setShowCriteria(true);
   };
 
   const handlePasswordBlur = () => {
     setIsPasswordFocused(false);
+    setShowCriteria(false);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    if (!Object.values(passwordValidation).every(Boolean) || !pseudoValidation.length || !pseudoValidation.available || !emailValidation) {
+    if (!isFormValid) {
       setErrorMessage("Veuillez vérifier que tous les critères sont remplis.");
       return;
     }
@@ -149,9 +137,7 @@ function Creation() {
     try {
       const db = getDatabase();
       const userRef = ref(db, 'users/' + formData.pseudo);
-
       const hashedPassword = await bcrypt.hash(formData.password, 10);
-
       const userData = {
         email: formData.email,
         nom: formData.nom,
@@ -160,16 +146,10 @@ function Creation() {
         dateNaissance: formData.dateNaissance,
         password: hashedPassword,
       };
-
       await set(userRef, userData);
-
       setSuccessMessage("Votre compte a été créé avec succès !");
       setErrorMessage(null);
-
-      setTimeout(() => {
-        navigate('/connexion');
-      }, 2000);
-
+      setTimeout(() => navigate('/connexion'), 2000);
     } catch (error) {
       console.error("Erreur lors de la création du compte :", error);
       setErrorMessage("Une erreur s'est produite lors de la création du compte. Veuillez réessayer.");
@@ -231,7 +211,6 @@ function Creation() {
             </span>
           </div>
         </div>
-
         {isPasswordFocused && showCriteria && (
           <div className="validation-message">
             <span style={{ color: passwordValidation.length ? "green" : "red" }}>
@@ -249,37 +228,36 @@ function Creation() {
         )}
 
         {/* Nom */}
-       <div className="form-row">
-  <label>Nom:</label>
-  <div className="input-container-create">
-    <input
-      type="text"
-      name="nom"
-      value={formData.nom}
-      onChange={handleNomChange}
-      aria-label="Nom"
-      required
-    />
-  </div>
-</div>
-
+        <div className="form-row">
+          <label>Nom:</label>
+          <div className="input-container-create">
+            <input
+              type="text"
+              name="nom"
+              value={formData.nom}
+              onChange={handleNomChange}
+              aria-label="Nom"
+              required
+            />
+          </div>
+        </div>
 
         {/* Prénom */}
-            <div className="form-row">
-        <label htmlFor="prenom">Prénom :</label>
-        <div className="input-container-create">
-          <input
-            id="prenom"
-            type="text"
-            name="prenom"
-            value={formData.prenom}
-            onChange={handlePrenomChange}   // ← ici
-            aria-label="Prénom"
-            required
-            style={{ width: '87%' }}
-          />
+        <div className="form-row">
+          <label htmlFor="prenom">Prénom :</label>
+          <div className="input-container-create">
+            <input
+              id="prenom"
+              type="text"
+              name="prenom"
+              value={formData.prenom}
+              onChange={handlePrenomChange}
+              aria-label="Prénom"
+              required
+              style={{ width: '87%' }}
+            />
+          </div>
         </div>
-      </div>
 
         {/* Sexe */}
         <div className="form-row">
@@ -294,14 +272,13 @@ function Creation() {
               <option value="vide">(vide)</option>
               <option value="femme">Fille</option>
               <option value="homme">Garçon</option>
-              
             </select>
           </div>
         </div>
 
         {/* Date de naissance */}
         <div className="form-row-create">
-          <label>  Date de naissance: </label>
+          <label>Date de naissance: </label>
           <div className="input-container-create">
             <input
               type="date"
@@ -327,15 +304,14 @@ function Creation() {
               required
               onFocus={() => setIsEmailFocused(true)}
               onBlur={() => setIsEmailFocused(false)}
-              style={{marginBottom: '10px'}}
-           
+              style={{ marginBottom: '10px' }}
             />
           </div>
         </div>
         {isEmailFocused && (
           <div className="validation-message">
             <span style={{ color: emailValidation ? "green" : "red" }}>
-              Une adresse email
+              Une adresse email valide
             </span>
           </div>
         )}
@@ -346,9 +322,13 @@ function Creation() {
             type="submit"
             value="Création"
             id="aligner-button"
-           
-            
-
+            style={{
+              backgroundColor: isFormValid ? 'rgb(146,208,80)': 'lightgray',
+    
+              cursor: isFormValid ? 'pointer' : 'not-allowed',
+              transition: 'background-color 0.2s ease'
+            }}
+            disabled={!isFormValid}
           />
         </div>
 
