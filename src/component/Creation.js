@@ -94,17 +94,25 @@ function Creation() {
     nom: value.toUpperCase(), // Convertit la valeur en majuscules
   }));
 };
+ const handlePrenomChange = (e) => {
+    const value = e.target.value;
 
-  const handlePrenomChange = (e) => {
-    const { value } = e.target;
-    // Majuscule sur la 1ère lettre, le reste inchangé
-    const formatted = value.length > 0
-      ? value.charAt(0).toUpperCase() + value.slice(1)
-      : '';
-    setFormData((prev) => ({
-      ...prev,
+    // Diviser la chaîne tout en conservant les espaces et les tirets
+    const formatted = value
+      .split(/([\s-])/) // Diviser en conservant les séparateurs (espace ou tiret)
+      .map((part, index) => {
+        // On formate uniquement les parties qui sont des mots (pas des espaces ou tirets)
+        if (part.trim().length > 0 && !/[\s-]/.test(part)) {
+          return part.charAt(0).toUpperCase() + part.slice(1).toLowerCase();
+        }
+        return part; // Retourner tel quel pour les espaces et les tirets
+      })
+      .join(''); // Rejoindre sans ajout de séparateurs supplémentaires
+
+    setFormData({
+      ...formData,
       prenom: formatted
-    }));
+    });
   };
 
   useEffect(() => {
@@ -284,8 +292,9 @@ function Creation() {
               required
             >
               <option value="vide">(vide)</option>
-              <option value="homme">Garçon</option>
               <option value="femme">Fille</option>
+              <option value="homme">Garçon</option>
+              
             </select>
           </div>
         </div>
