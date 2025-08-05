@@ -104,12 +104,20 @@ function Header() {
             )}
 
             <div className="dropdown-content">
-              {isAuthenticated && (isHovered || isDropdownHovered) ? (
-                <button onClick={handleLogout}  style={{ borderRadius: '7px', fontWeight: 'bold' }}   >Déconnexion</button>
-              ) : (
-                !isAuthenticated && <LoginHover />
-              )}
-            </div>
+  {isAuthenticated && (isHovered || isDropdownHovered) ? (
+    <div className="dropdown-content-deconnexion">
+      <button
+        onClick={handleLogout}
+        style={{ borderRadius: '7px', fontWeight: 'bold' }}
+      >
+        Déconnexion
+      </button>
+    </div>
+  ) : (
+    !isAuthenticated && <LoginHover />
+  )}
+</div>
+
           </div>
         </div>
       </div>

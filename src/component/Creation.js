@@ -321,7 +321,7 @@ useEffect(() => {
           <input
             type="submit"
             value="Création"
-            id="aligner-button"
+            id="aligner-button-create"
             style={{
               backgroundColor: isFormValid ? 'rgb(146,208,80)': 'lightgray',
     
@@ -334,6 +334,7 @@ useEffect(() => {
 
         {/* Lien "Déjà un espace ?" */}
         <p
+         className="link"
           onClick={() => navigate('/connexion')}
           style={{
             textAlign: 'center',

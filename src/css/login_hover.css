@@ -3,11 +3,15 @@
 
 
     
-    width: 50%;
+    width: 60%;
     max-width: 300px;
     margin: 0 auto;
     background-color:rgb(153, 102, 51);
-;
+    margin-right: -4%;
+    padding: 5%;
+    margin-top: -3%;
+    border-radius: 15px;
+
    
 
 

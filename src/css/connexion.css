@@ -153,6 +153,30 @@
   cursor: pointer;
 }
 
+
+.validation-message{
+
+  margin-bottom: 10px;
+
+  margin-top: 10px;
+
+  font-family: 'Comic Sans MS';
+
+  font-weight: normal;
+
+  font-size: 15px;
+}
+
+.formulaire p.error-message{
+
+  font-family: 'Comic Sans MS';
+
+  font-weight: normal;
+
+  font-size: 15px;
+
+}
+
 /* Bouton de soumission */
 .submit-btn {
   background-color: #007BFF;
@@ -163,6 +187,8 @@
   align-items: center;          /* centrage vertical */
   justify-content: center;      /* centrage horizontal */
   margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
   cursor: pointer;
   font-size: 15px;
   font-weight: bold;

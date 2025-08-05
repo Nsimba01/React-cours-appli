@@ -10,19 +10,15 @@ import '../css/button-width-height-global.css';
 function LoginHover() {
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
-
   const [formData, setFormData] = useState({
     username: "",
     password: ""
   });
-
-  const [isUserExists, setIsUserExists] = useState(false);
   const [passwordValidation, setPasswordValidation] = useState({
     length: false,
     uppercase: false,
     number: false
   });
-
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
   const [isPseudoFocused, setIsPseudoFocused] = useState(false);
   const [pseudoValidation, setPseudoValidation] = useState(false);
@@ -30,47 +26,54 @@ function LoginHover() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
 
-  // Vérifie si l'utilisateur existe en base lorsque l'on sort du champ mot de passe
-  const checkUserExists = async () => {
-    if (validatePseudo(formData.username)) {
+  const checkUserExists = async (username) => {
+    if (username) {
       try {
         const db = getDatabase();
-        const userRef = ref(db, `users/${formData.username}`);
+        const userRef = ref(db, `users/${username}`);
         const snapshot = await get(userRef);
-        setIsUserExists(snapshot.exists());
+        return snapshot.exists();
       } catch (error) {
         console.error('Erreur lors de la vérification de l\'utilisateur :', error);
-        setIsUserExists(false);
+        return false;
       }
-    } else {
-      setIsUserExists(false);
     }
+    return false;
   };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+
     if (name === "password") {
       setPasswordValidation(validatePassword(value));
     } else if (name === "username") {
       setPseudoValidation(validatePseudo(value));
     }
-    // Si le pseudo change, on réinitialise l'état
-    if (name === 'username') setIsUserExists(false);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+
     if (!Object.values(passwordValidation).every(v => v)) {
       setErrorMessage("Le mot de passe ne remplit pas les critères de validation.");
       setSuccessMessage(null);
       return;
     }
+
     if (!pseudoValidation) {
-      setErrorMessage("Le pseudo ne remplit pas les critères de validation.");
+      setErrorMessage("Le pseudo doit avoir au moins 5 caractères.");
       setSuccessMessage(null);
       return;
     }
+
+    const userExists = await checkUserExists(formData.username);
+    if (!userExists) {
+      setErrorMessage("Ton pseudo est incorrect.");
+      setSuccessMessage(null);
+      return;
+    }
+
     handleLogin(
       formData.username,
       formData.password,
@@ -83,41 +86,35 @@ function LoginHover() {
 
   const handlePasswordBlur = () => {
     setIsPasswordFocused(false);
-    checkUserExists();
   };
 
   const toggleShowPassword = () => setShowPassword(prev => !prev);
-
   const handleCreateAccount = () => navigate('/creation');
+
+  // Vérifie si le formulaire est prêt pour la soumission
+  const isFormValid = pseudoValidation && Object.values(passwordValidation).every(v => v);
 
   return (
     <div className="form-login">
       <form onSubmit={handleSubmit}>
         <div>
           {/* Pseudo */}
-
-          <p> 
-
-          <label  style={{ fontSize: '15px',marginBottom:"10px" }}>  
-            Pseudo
-
+          <p>
+            <label style={{ fontSize: '15px', marginBottom: "10px" }}>
+              Pseudo
             </label>
-
-            </p>
-            <input
-              type="text"
-              name="username"
-              value={formData.username}
-              onChange={handleChange}
-              onFocus={() => setIsPseudoFocused(true)}
-              onBlur={() => setIsPseudoFocused(false)}
-              aria-invalid={!pseudoValidation}
-              aria-describedby="pseudo-validation"
-              style={{marginTop:"-5px",width:"100%" }} 
-                
-          
-            />
-        
+          </p>
+          <input
+            type="text"
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
+            onFocus={() => setIsPseudoFocused(true)}
+            onBlur={() => setIsPseudoFocused(false)}
+            aria-invalid={!pseudoValidation}
+            aria-describedby="pseudo-validation"
+            style={{ marginTop: "-5px", width: "100%" }}
+          />
           {isPseudoFocused && (
             <div id="pseudo-validation">
               <span style={{ color: pseudoValidation ? "white" : "red" }}>
@@ -126,36 +123,31 @@ function LoginHover() {
             </div>
           )}
           <br />
-
           {/* Mot de passe */}
-           <label style={{ fontSize: '15px',marginTop:"-5px" }} >
-            Mot de passe <br/>
-
-            </label>
-            <div style={{ position: "relative", display: "inline-block", width: "100%" }}>
-  <input
-    type={showPassword ? "text" : "password"}
-    name="password"
-    value={formData.password}
-    onChange={handleChange}
-    onFocus={() => setIsPasswordFocused(true)}
-    onBlur={handlePasswordBlur}
-    aria-invalid={!Object.values(passwordValidation).every(Boolean)}
-    aria-describedby="password-validation"
-    style={{ width: "100%", paddingRight: "30px" }} // Ajout du padding à droite
- 
-  />
-  <span
-    onClick={toggleShowPassword}
-    style={{ position: "absolute", right: 10, top: "33%", transform: "translateY(-50%)", cursor: "pointer" }}
-    className="toggle-password-login-hover"
-    aria-label={showPassword ? "Masquer le mot de passe" : "Afficher le mot de passe"}
-  >
-    {showPassword ? <FaEyeSlash /> : <FaEye />}
-  </span>
-</div>
-
-          
+          <label style={{ fontSize: '15px', marginTop: "-5px" }}>
+            Mot de passe <br />
+          </label>
+          <div style={{ position: "relative", display: "inline-block", width: "100%" }}>
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              onFocus={() => setIsPasswordFocused(true)}
+              onBlur={handlePasswordBlur}
+              aria-invalid={!Object.values(passwordValidation).every(Boolean)}
+              aria-describedby="password-validation"
+              style={{ width: "100%", paddingRight: "30px" }}
+            />
+            <span
+              onClick={toggleShowPassword}
+              style={{ position: "absolute", right: 10, top: "33%", transform: "translateY(-50%)", cursor: "pointer" }}
+              className="toggle-password-login-hover"
+              aria-label={showPassword ? "Masquer le mot de passe" : "Afficher le mot de passe"}
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </span>
+          </div>
           <br />
           {isPasswordFocused && (
             <div id="password-validation">
@@ -172,34 +164,30 @@ function LoginHover() {
               </span>
             </div>
           )}
-
           {/* Bouton Connexion */}
-
           <button
             type="submit"
-            style={{ backgroundColor: isUserExists ? 'rgb(146,208,80)' : undefined,fontSize: '15px',cursor: 'pointer',fontWeight:"bold",
-              width:"100%",borderRadius: '7px' 
-    
+            style={{
+              backgroundColor: isFormValid ? '#4caf50' : undefined,
+              fontSize: '15px',
+              cursor: 'pointer',
+              color: isFormValid ?'white' : 'black',
+              width: "100%",
+              borderRadius: '7px'
             }}
           >
             Connexion
           </button>
-         
-      
 
-          <br/><br/>
-
-          <p onClick={handleCreateAccount}  className="linkHoverForm" 
-      
-          style={{ cursor: 'pointer',marginBottom:"0px" ,textDecoration: 'underline' }}>
+          <br /><br />
+          <p onClick={handleCreateAccount} className="linkHoverForm"
+            style={{ cursor: 'pointer', marginBottom: "0px", textDecoration: 'underline' }}>
             Pas encore d'espace ?
           </p>
-
-          <p onClick={() => navigate('/reset_password')}  className="linkHoverForm" 
-          style={{ cursor: 'pointer',marginTop:"0px",textDecoration: 'underline' }}>
+          <p onClick={() => navigate('/reset_password')} className="linkHoverForm"
+            style={{ cursor: 'pointer', marginTop: "0px",marginBottom:"18px", textDecoration: 'underline' }}>
             Mot de passe oublié ?
           </p>
-
           {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
         </div>
       </form>
