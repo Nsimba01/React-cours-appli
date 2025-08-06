@@ -199,13 +199,19 @@ useEffect(() => {
               onChange={handleChange}
               aria-label="Mot de passe"
               required
-              style={{ width: "87%" }}
+           
               onFocus={handlePasswordFocus}
               onBlur={handlePasswordBlur}
             />
             <span
               onClick={toggleShowPassword}
-              style={{ position: "absolute", right: 10, top: 2, cursor: "pointer" }}
+               style={{
+    position: "absolute",
+    right: 130,
+    top: "55%",
+    transform: "translateY(-50%)",
+    cursor: "pointer"
+  }}
             >
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </span>
@@ -254,7 +260,7 @@ useEffect(() => {
               onChange={handlePrenomChange}
               aria-label="Prénom"
               required
-              style={{ width: '87%' }}
+         
             />
           </div>
         </div>
