@@ -191,30 +191,45 @@ useEffect(() => {
         {/* Mot de passe */}
         <div className="form-row">
           <label>Mot de passe:</label>
-          <div className="input-container-create" style={{ position: "relative", width: "100%" }}>
-            <input
-              type={showPassword ? "text" : "password"}
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              aria-label="Mot de passe"
-              required
+          <div className="input-container-create" style={{ position: "relative" }}>
            
-              onFocus={handlePasswordFocus}
-              onBlur={handlePasswordBlur}
-            />
-            <span
-              onClick={toggleShowPassword}
-               style={{
-    position: "absolute",
-    right: 130,
-    top: "55%",
-    transform: "translateY(-50%)",
-    cursor: "pointer"
+            <div style={{ position: 'relative', display: 'inline-block' }}>
+  <input
+    type={showPassword ? "text" : "password"}
+    name="password"
+    value={formData.password}
+    onChange={handleChange}
+    aria-label="Mot de passe"
+    required
+    onFocus={handlePasswordFocus}
+    onBlur={handlePasswordBlur}
+    style={{
+      height: '30px',
+      padding: '4px 35px 4px 8px', // espace à droite pour l'icône
+      border: '1px solid #ccc',
+      borderRadius: '3px',
+      boxSizing: 'border-box',
+      fontSize: '15px',
+      width: '220px' // fixe la largeur pour que l'icône se place bien
+    }}
+  />
+<span
+  onClick={toggleShowPassword}
+  style={{
+    position: 'absolute',
+    right: '10px',
+    top: '50%',
+    transform: 'translateY(-49.8%)',
+    cursor: 'pointer',
+    color: '#333', // plus foncé que #888
+    fontSize: '18px', // taille plus grande
+    fontWeight: 'bold' // pas obligatoire mais peut aider
   }}
-            >
-              {showPassword ? <FaEyeSlash /> : <FaEye />}
-            </span>
+>
+  {showPassword ? <FaEyeSlash /> : <FaEye />}
+</span>
+</div>
+
           </div>
         </div>
         {isPasswordFocused && showCriteria && (

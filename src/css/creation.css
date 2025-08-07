@@ -18,12 +18,10 @@
 
 
 /* création.css */
-#creation-form {
-  width: 100%;
-}
+
 
 .formulaireCreate {
-  max-width: 600px;
+  max-width: 400px;  /* 400px */
   margin: 0 auto;
   padding: 10px;
   background-color: rgba(206, 207, 200, 0.897);
@@ -81,6 +79,8 @@
   border-radius: 3px;
   box-sizing: border-box; /* Cela inclut le padding et la bordure dans la largeur totale */
   font-size: 15px;
+ 
+
 
 
 }
@@ -94,7 +94,7 @@
   border-radius: 3px;
   box-sizing: border-box; /* Cela inclut le padding et la bordure dans la largeur totale */
   font-size: 15px;
-
+  width:80%;
 }
 
 .input-container-create input[type="email"] {
@@ -106,29 +106,32 @@
   border-radius: 3px;
   box-sizing: border-box; /* Cela inclut le padding et la bordure dans la largeur totale */
   font-size: 15px;
+  width:78%;
+  margin-left: -0.8%;
+  margin-right: -2%;
 
 }
 
 .input-container-create select {
- width: 48.3%;
+
 
   height: 30px;
   padding: 4px;
   border: 1px solid #ccc;
   border-radius: 3px;
-  box-sizing: border-box;
+  box-sizing: border-box; /* Cela inclut le padding et la bordure dans la largeur totale */
   font-size: 15px;
-  line-height: 1.2;
+  width:80%;
   
   
 }
 
 .input-container-create input[type="date"] {
-  width: 56%;
+
   padding: 4px;
   box-sizing: border-box;
-  margin-left: -15%; /* Ajoute un espace entre les deux sélecteurs */
-  margin-right: 1%;
+   width:80%;
+
 
 
 }
