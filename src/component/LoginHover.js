@@ -185,7 +185,7 @@ function LoginHover() {
             Pas encore d'espace ?
           </p>
           <p onClick={() => navigate('/reset_password')} className="linkHoverForm"
-            style={{ cursor: 'pointer', marginTop: "0px",marginBottom:"18px", textDecoration: 'underline' }}>
+            style={{ cursor: 'pointer', marginTop: "0px",marginBottom:"-3px", textDecoration: 'underline' }}>
             Mot de passe oublié ?
           </p>
           {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
