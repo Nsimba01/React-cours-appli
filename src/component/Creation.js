@@ -218,7 +218,7 @@ useEffect(() => {
   style={{
     position: 'absolute',
     right: '10px',
-    top: '50%',
+    top: '56.3%',
     transform: 'translateY(-49.8%)',
     cursor: 'pointer',
     color: '#333', // plus foncé que #888

@@ -71,10 +71,12 @@
   box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.75);
 }
 
+@-moz-document url-prefix() {
+
 .input-container-create input[type="password"] {
 
  
-  height: 25px;
+
   padding: 4px;
   border: 1px solid #ccc;
   border-radius: 3px;
@@ -85,6 +87,43 @@
 
 
 }
+  
+.input-container-create input[type="password"]+span{
+
+
+  top:59.8% !important;
+
+ 
+}
+
+
+}
+
+
+
+
+
+
+
+
+.input-container-create input[type="password"] {
+
+ 
+  height: 30px;
+  padding: 4px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box; /* Cela inclut le padding et la bordure dans la largeur totale */
+  font-size: 15px;
+ 
+
+
+
+}
+
+
+
+
 
 .input-container-create input[type="text"] {
 
