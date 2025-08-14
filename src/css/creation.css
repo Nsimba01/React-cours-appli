@@ -1,27 +1,6 @@
-.form-row {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.form-row label {
-  display: inline-block;
-  width: 150px; /* même valeur partout */
-  margin-right: 10px;
-  text-align: left;
-  white-space: nowrap;
-}
-
-
-
-
-
-
-/* création.css */
-
-
+/* Vos styles existants pour le formulaire */
 .formulaireCreate {
-  max-width: 400px;  /* 400px */
+  max-width: 400px;
   margin: 0 auto;
   padding: 10px;
   background-color: rgba(206, 207, 200, 0.897);
@@ -29,7 +8,13 @@
   border-radius: 5px;
   margin-top: 10px;
   margin-bottom: 30px;
-  text-align: center; /* Centre le texte et les éléments inline/inline-block */
+  text-align: center;
+}
+
+.formulaireCreate form {
+
+  padding-left: 10%;
+  padding-right: 10%;
 }
 
 .formulaireCreate p {
@@ -39,178 +24,134 @@
   font-weight: bold;
 }
 
-.form-row-create {
+/* Styles pour les lignes du formulaire */
+.form-row, .form-row-create {
   display: flex;
-  align-items: center; /* Aligne verticalement les éléments au centre */
-  justify-content: flex-start; /* Aligne les éléments à gauche au sein du conteneur flex */
-  margin-bottom: 8px;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
+/* Styles pour les labels */
+.form-row label, .form-row-create label {
+  min-width: 150px; /* Largeur fixe plus grande pour aligner les labels */
+  margin-right: 10px;
+  text-align: left;
+}
+
+/* Styles pour les conteneurs d'entrée */
 .input-container-create {
   flex: 1;
   position: relative;
-
-  width: 100%; /* Ajustez cette largeur en pourcentage selon vos besoins */
-
+  width: 100%;
 }
 
-.formulaireCreate p.link {
-
-  font-weight: normal;
+/* Assurez-vous que les champs prennent toute la largeur disponible */
+.input-container-create input,
+.input-container-create select {
+  width: 100%; /* Assure que le champ prend toute la largeur disponible */
+  padding: 4px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur */
+  font-size: 15px;
+  height: 30px; /* Hauteur fixe pour tous les champs */
 }
 
+/* Ajustements spécifiques pour les champs de type password */
+.input-container-create input[type="password"] {
+  padding-right: 35px; /* Espace pour l'icône */
+}
+
+/* Ajuster le champ de date pour inclure la hauteur uniforme */
+.input-container-create input[type="date"] {
+  width: 100%; /* Assure que le champ de date prend toute la largeur disponible */
+  padding: 4px;
+  box-sizing: border-box;
+}
+
+/* Ajustements spécifiques pour Mozilla/Firefox */
+@-moz-document url-prefix() {
+  .input-container-create input[type="password"] {
+    padding: 4px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+    font-size: 15px;
+    height: 30px;
+  }
+  .input-container-create input[type="password"] + span {
+    top: 50% !important;
+    transform: translateY(-50%);
+  }
+
+
+  .input-container-create select {
+  background-color: white;
+  width: 100%; /* Assure que le champ prend toute la largeur disponible */
+  padding: 4px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur */
+  font-size: 15px;
+  height: 30px; /* Hauteur fixe pour tous les champs */
+}
+}
+
+/* Styles pour le bouton de soumission */
 #aligner-button-create {
   display: block;
   margin: 0 auto;
   font-size: 15px;
-  color:black;
+  color: black;
   margin-bottom: 10px;
   font-weight: bold;
-  
   margin-top: 10px;
   box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.75);
 }
 
-@-moz-document url-prefix() {
-
-.input-container-create input[type="password"] {
-
- 
-
-  padding: 4px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  box-sizing: border-box; /* Cela inclut le padding et la bordure dans la largeur totale */
-  font-size: 15px;
- 
-
-
-
-}
-  
-.input-container-create input[type="password"]+span{
-
-
-  top:59.8% !important;
-
- 
+/* Style pour le lien "Déjà un espace ?" */
+.formulaireCreate p.link {
+  font-weight: normal;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: underline;
+  color: black;
+  font-style: italic;
+  font-size: 13px;
 }
 
-
+/* Styles pour les messages de validation */
+.validation-message {
+  font-size: 14px;
+  margin-top: 5px;
 }
 
-
-
-
-
-
-
-
-.input-container-create input[type="password"] {
-
- 
-  height: 30px;
-  padding: 4px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  box-sizing: border-box; /* Cela inclut le padding et la bordure dans la largeur totale */
-  font-size: 15px;
- 
-
-
-
-}
-
-
-
-
-
-.input-container-create input[type="text"] {
-
- 
-  height: 25px;
-  padding: 4px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  box-sizing: border-box; /* Cela inclut le padding et la bordure dans la largeur totale */
-  font-size: 15px;
-  width:80%;
-}
-
-.input-container-create input[type="email"] {
-
-
-  height: 25px;
-  padding: 4px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  box-sizing: border-box; /* Cela inclut le padding et la bordure dans la largeur totale */
-  font-size: 15px;
-  width:78%;
-  margin-left: -0.8%;
-  margin-right: -2%;
-
-}
-
-.input-container-create select {
-
-
-  height: 30px;
-  padding: 4px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  box-sizing: border-box; /* Cela inclut le padding et la bordure dans la largeur totale */
-  font-size: 15px;
-  width:80%;
-  
-  
-}
-
-.input-container-create input[type="date"] {
-
-  padding: 4px;
-  box-sizing: border-box;
-   width:80%;
-
-
-
-}
-
-.form-row-create label {
-  display: inline-block;
-  width: 25%; /* Réduire la largeur du label si nécessaire */
-  white-space: nowrap;
-  margin-right: 5%; /* Ajuster la marge à droite pour le label */
-  text-align: left;
-}
-
+/* Critères et validation */
 .criteria {
-    transition: opacity 1s ease;
-    opacity: 1;
-    font-size: 11px; /* Taille encore réduite pour les critères */
-    margin-top: 8px; /* Réduction de l'espace entre le champ et les critères */
-  }
-  
-  /* Masquer les critères lorsque non remplis */
-  .criteria.hidden {
-    opacity: 0;
-  }
-  
-  .criteria span {
-    display: block;
-    margin-bottom: 4px;
-  }
-  
-  .criteria span.green {
-    color: green;
-  }
-  
-  .criteria span.red {
-    color: red;
-  }
-  
-  .validation-message {
-    font-size: 14px; /* Définissez la taille de police souhaitée */
-    margin-top: 5px; /* Ajoutez une marge pour espacer les messages */
-  }
-  
+  transition: opacity 1s ease;
+  opacity: 1;
+  font-size: 11px;
+  margin-top: 8px;
+}
+
+.criteria.hidden {
+  opacity: 0;
+}
+
+.criteria span {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.criteria span.green {
+  color: green;
+}
+
+.criteria span.red {
+  color: red;
+}
+
+.validation-message {
+  font-size: 14px;
+  margin-top: 5px;
+}
