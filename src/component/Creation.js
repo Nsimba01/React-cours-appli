@@ -217,7 +217,7 @@ useEffect(() => {
         position: 'absolute',
         right: '10px',
         top: '50%',
-        transform: 'translateY(-50%)',
+        transform: 'translateY(-39%)',
         cursor: 'pointer',
         color: '#333',
         fontSize: '18px',

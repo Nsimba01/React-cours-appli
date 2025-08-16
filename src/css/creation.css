@@ -107,6 +107,7 @@
   font-weight: bold;
   margin-top: 10px;
   box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.75);
+  border-radius: 8px;
 }
 
 /* Style pour le lien "Déjà un espace ?" */
@@ -118,6 +119,7 @@
   color: black;
   font-style: italic;
   font-size: 13px;
+  margin-bottom: 5%;
 }
 
 /* Styles pour les messages de validation */

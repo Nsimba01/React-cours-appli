@@ -156,7 +156,7 @@ function Connexion() {
         <p onClick={() => navigate('/creation')} className="link" style={{marginBottom:"0px"}}>
           Pas encore d'espace ?
         </p>
-        <p onClick={() => navigate('/reset_password')} className="link" style={{marginTop:"0px"}}>
+        <p onClick={() => navigate('/reset_password')} className="link" style={{marginTop:"0px, margin-bottom: 7%"}}>
           Mot de passe oublié ?
         </p>
         {successMessage && <p className="success">{successMessage}</p>}
