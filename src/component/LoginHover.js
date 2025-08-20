@@ -170,10 +170,12 @@ function LoginHover() {
             style={{
               backgroundColor: isFormValid ? '#4caf50' : undefined,
               fontSize: '15px',
-              cursor: 'pointer',
+            
               color: isFormValid ?'white' : 'black',
               width: "100%",
-              borderRadius: '7px'
+              borderRadius: '7px',
+              cursor:   isFormValid ? 'pointer' : 'not-allowed',
+              fontWeight: 'bold'
             }}
           >
             Connexion
