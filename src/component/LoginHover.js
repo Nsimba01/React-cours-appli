@@ -190,7 +190,7 @@ function LoginHover() {
             style={{ cursor: 'pointer', marginTop: "0px",marginBottom:"-4px", textDecoration: 'underline' }}>
             Mot de passe oublié ?
           </p>
-          {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+          {errorMessage && <p style={{ color: "red",fontStyle:"italic" ,marginBottom:"10px",marginTop:"10px"}}>{errorMessage}</p>}
         </div>
       </form>
       {successMessage && <p style={{ color: "white" }}>{successMessage}</p>}

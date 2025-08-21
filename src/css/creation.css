@@ -25,14 +25,14 @@
 }
 
 /* Styles pour les lignes du formulaire */
-.form-row, .form-row-create {
+.form-row-creation, .form-row-create {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
 }
 
 /* Styles pour les labels */
-.form-row label, .form-row-create label {
+.form-row-creation label, .form-row-create label {
   min-width: 150px; /* Largeur fixe plus grande pour aligner les labels */
   margin-right: 10px;
   text-align: left;

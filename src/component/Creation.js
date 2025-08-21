@@ -161,7 +161,7 @@ useEffect(() => {
       <p>Création de mon espace</p>
       <form onSubmit={handleSubmit}>
         {/* Pseudo */}
-        <div className="form-row">
+        <div className="form-row-creation">
           <label>Pseudo:</label>
           <div className="input-container-create">
             <input
@@ -189,7 +189,7 @@ useEffect(() => {
         )}
 
         {/* Mot de passe */}
-<div className="form-row">
+<div className="form-row-creation">
   <label>Mot de passe:</label>
   <div className="input-container-create">
     <input
@@ -246,7 +246,7 @@ useEffect(() => {
         )}
 
         {/* Nom */}
-        <div className="form-row">
+        <div className="form-row-creation">
           <label>Nom:</label>
           <div className="input-container-create">
             <input
@@ -261,7 +261,7 @@ useEffect(() => {
         </div>
 
         {/* Prénom */}
-        <div className="form-row">
+        <div className="form-row-creation">
           <label htmlFor="prenom">Prénom :</label>
           <div className="input-container-create">
             <input
@@ -278,7 +278,7 @@ useEffect(() => {
         </div>
 
         {/* Sexe */}
-        <div className="form-row">
+        <div className="form-row-creation">
           <label>Sexe:</label>
           <div className="input-container-create">
             <select
@@ -310,7 +310,7 @@ useEffect(() => {
         </div>
 
         {/* Mail */}
-        <div className="form-row">
+        <div className="form-row-creation">
           <label>Mail:</label>
           <div className="input-container-create">
             <input
@@ -335,7 +335,7 @@ useEffect(() => {
         )}
 
         {/* Bouton de soumission */}
-        <div className="form-row">
+        <div className="form-row-creation">
           <input
             type="submit"
             value="Création"

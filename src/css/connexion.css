@@ -68,6 +68,8 @@
 .formulaire p.link {
 
   font-weight: normal;
+
+
 }
 
 /* Ligne du formulaire en flex */
@@ -79,11 +81,12 @@
 }
 
 /* Réglage des labels pour un alignement à gauche cohérent */
-.form-row label {
+.form-row label  {
   flex: 0 0 100px;  /* Largeur fixe pour aligner tous les labels */
   margin-right: 6px;
   text-align: left; /* Assure que le texte démarre à gauche */
   font-size: 15px;
+  
   
 }
 
@@ -116,11 +119,13 @@
 .input-container input {
   width: 100%;
   height: 25px;
-  padding: 4px 30px 4px 4px; /* Ajoutez un espace à droite pour l'icône */
+  padding: 2px 30px 4px 4px; /* Ajoutez un espace à droite pour l'icône */
+
   border: 1px solid #ccc;
   border-radius: 3px;
   box-sizing: border-box;
   font-size: 15px;
+
 }
 
 

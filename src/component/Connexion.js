@@ -88,7 +88,7 @@ function Connexion() {
       <p>Connexion à mon espace</p>
       <form onSubmit={handleSubmit}>
         <div className="form-row">
-          <label htmlFor="pseudo">Pseudo:</label>
+          <label htmlFor="pseudo" >Pseudo:</label>
           <div className="input-container">
             <input
               type="text"
@@ -153,10 +153,10 @@ function Connexion() {
             Connexion
           </button>
         </div>
-        <p onClick={() => navigate('/creation')} className="link" style={{marginBottom:"0px"}}>
+        <p onClick={() => navigate('/creation')} className="link" style={{marginBottom:"0"}}>
           Pas encore d'espace ?
         </p>
-        <p onClick={() => navigate('/reset_password')} className="link" style={{marginTop:"0px, margin-bottom: 7%"}}>
+        <p onClick={() => navigate('/reset_password')} className="link" style={{marginTop:"0"}}>
           Mot de passe oublié ?
         </p>
         {successMessage && <p className="success">{successMessage}</p>}
