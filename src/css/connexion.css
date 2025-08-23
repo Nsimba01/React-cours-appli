@@ -180,6 +180,10 @@
 
   font-size: 15px;
 
+  color:red;
+
+  font-style: italic;
+
 }
 
 /* Bouton de soumission */
@@ -192,12 +196,12 @@
   align-items: center;          /* centrage vertical */
   justify-content: center;      /* centrage horizontal */
   margin: 0 auto;
-  margin-top: 20px;
+  margin-top: 15px;
   margin-bottom: 20px;
   cursor: pointer;
   font-size: 15px;
   font-weight: bold;
-  height: 40px;                 /* hauteur du bouton */
+  height: 30px;                 /* hauteur du bouton */
   padding: 0 20px;              /* padding horizontal */
 }
 
@@ -206,11 +210,12 @@
 
 /* Bouton désactivé */
 .submit-btn:disabled {
-  background-color: #f0f0f0;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  background-color: grey;
+  /* box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); */
   color: #0e0d0d;
-
+  border: 3px solid black;
 }
+
 
 /* Style des liens */
 .link {
