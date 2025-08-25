@@ -65,11 +65,11 @@ function Connexion() {
           login();
           navigate('/home');
         } else {
-          setErrorMessage("Ton mot de passe est incorrect.");
+          setErrorMessage("Ton mot de passe est incorrect");
           setSuccessMessage(null);
         }
       } else {
-        setErrorMessage("Ton pseudo est incorrect.");
+        setErrorMessage("Ton pseudo est incorrect");
         setSuccessMessage(null);
       }
     } catch (error) {
