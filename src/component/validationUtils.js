@@ -25,7 +25,7 @@ export const handleLogin = async (pseudo, password, loginCallback, navigateCallb
         loginCallback();
         navigateCallback('/home');
       } else {
-        setErrorMessage("Le mot de passe est incorrect.");
+        setErrorMessage("Ton mot de passe est incorrect");
         setSuccessMessage(null);
       }
     } else {

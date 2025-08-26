@@ -69,7 +69,7 @@ function LoginHover() {
 
     const userExists = await checkUserExists(formData.username);
     if (!userExists) {
-      setErrorMessage("Ton pseudo est incorrect.");
+      setErrorMessage("Ton pseudo est incorrect");
       setSuccessMessage(null);
       return;
     }
@@ -168,12 +168,13 @@ function LoginHover() {
           <button
             type="submit"
             style={{
-              backgroundColor: isFormValid ? '#4caf50' : undefined,
+              backgroundColor: isFormValid ? 'rgb(146,208,80)' : 'rgb(211,211,211)',
               fontSize: '15px',
             
-              color: isFormValid ?'white' : 'black',
+              color: 'black',
               width: "100%",
               borderRadius: '7px',
+              border: '1px solid black',
               cursor:   isFormValid ? 'pointer' : 'not-allowed',
               fontWeight: 'bold'
             }}
@@ -190,7 +191,7 @@ function LoginHover() {
             style={{ cursor: 'pointer', marginTop: "0px",marginBottom:"-4px", textDecoration: 'underline' }}>
             Mot de passe oublié ?
           </p>
-          {errorMessage && <p style={{ color: "red",fontStyle:"italic" ,marginBottom:"10px",marginTop:"10px"}}>{errorMessage}</p>}
+          {errorMessage && <p style={{ color: "red",fontStyle:"italic" ,fontSize: '13px',fontWeight: "normal",marginBottom:"25px",marginTop:"25px"}}>{errorMessage}</p>}
         </div>
       </form>
       {successMessage && <p style={{ color: "white" }}>{successMessage}</p>}
