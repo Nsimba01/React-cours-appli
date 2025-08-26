@@ -14,8 +14,8 @@
 
 /* Styles pour le formulaire de réinitialisation par exemple */
 .formulaire-reset-pwd {
-  max-width: 800px;
-  width: 70%;
+  max-width: 530px;
+  width: 67%;
   margin: 0 auto;
   padding: 10px;
   background-color: rgba(206, 207, 200, 0.897);
@@ -30,32 +30,28 @@
 /* Conteneur pour le formulaire de réinitialisation du mot de passe */
 .reset-pwd-form {
   display: flex;
+  flex-direction: row;   /* tout sur une seule ligne */
   justify-content: center;
   align-items: center;
+           /* espace réduit */
   margin-bottom: 50px;
+  flex-wrap: wrap;       /* repasse à la ligne si trop serré */
 }
 
-/* Ajustement pour .select-pseudo */
-.select-pseudo {
-  margin-right: -240%;
-}
 
 /* Styles pour les médias queries (exemple) */
+
+
+
+
 @media (min-width: 700px) {
-  .reset-pwd-form input[type="email"] {
-    margin-right: -105%;
+  .reset-pwd-form {
+    flex-direction: row;     /* bureau/tablette : en ligne */
+    justify-content: center; /* centre horizontalement */
+    gap: 4%;               /* espace horizontal */
   }
 }
 
-@media (min-width: 1000px) {
-  .reset-pwd-form input[type="email"] {
-    margin-right: -175%;
-  }
-  
-  .select-pseudo {
-    margin-right: -240%;
-  }
-}
 
 /* Titres et textes dans le formulaire */
 .formulaire p {
@@ -205,6 +201,7 @@
   font-weight: bold;
   height: 30px;                 /* hauteur du bouton */
   padding: 0 20px;              /* padding horizontal */
+  width:50%
 }
 
 
@@ -276,8 +273,10 @@
   margin: 0 auto;
   font-size: 15px;
   font-weight: bold; 
-  margin-bottom: 10px;
-  
+  margin-bottom: 10px; 
   margin-top: 10px;
-  box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.75);
+  border-radius: 5px;
+/*  box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.75);*/
+  width: 30%;
+  border:1px solid black;
 }
