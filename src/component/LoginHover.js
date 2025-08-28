@@ -117,7 +117,7 @@ function LoginHover() {
           />
           {isPseudoFocused && (
             <div id="pseudo-validation">
-              <span style={{ color: pseudoValidation ? "white" : "red" }}>
+              <span style={{ color: pseudoValidation ? "white" : "red", fontWeight: "normal" }}>
                 Au moins 5 caractères
               </span>
             </div>
@@ -151,11 +151,11 @@ function LoginHover() {
           <br />
           {isPasswordFocused && (
             <div id="password-validation">
-              <span style={{ color: passwordValidation.length ? "white" : "red" }}>
+              <span style={{ color: passwordValidation.length ? "white" : "red", fontWeight: "normal" }}>
                 Au moins 10 caractères
               </span>
               <br />
-              <span style={{ color: passwordValidation.uppercase ? "white" : "red" }}>
+              <span style={{ color: passwordValidation.uppercase ? "white" : "red", fontWeight: "normal" }}>
                 Au moins une majuscule
               </span>
               <br />
@@ -176,7 +176,8 @@ function LoginHover() {
               borderRadius: '7px',
               border: '1px solid black',
               cursor:   isFormValid ? 'pointer' : 'not-allowed',
-              fontWeight: 'bold'
+              fontWeight: 'bold',
+              marginTop: '15px'
             }}
           >
             Connexion
@@ -191,7 +192,7 @@ function LoginHover() {
             style={{ cursor: 'pointer', marginTop: "0px",marginBottom:"-4px", textDecoration: 'underline' }}>
             Mot de passe oublié ?
           </p>
-          {errorMessage && <p style={{ color: "red",fontStyle:"italic" ,fontSize: '13px',fontWeight: "normal",marginBottom:"25px",marginTop:"25px"}}>{errorMessage}</p>}
+          {errorMessage && <p style={{ color: "red",fontStyle:"italic" ,fontSize: '13px',fontWeight: "normal",marginBottom:"10px",marginTop:"25px"}}>{errorMessage}</p>}
         </div>
       </form>
       {successMessage && <p style={{ color: "white" }}>{successMessage}</p>}

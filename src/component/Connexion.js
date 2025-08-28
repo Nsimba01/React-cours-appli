@@ -136,7 +136,7 @@ function Connexion() {
             </span>
             <br />
             <span style={{ color: passwordValidation.uppercase ? "green" : "red" }}>
-              Au moins une majuscule
+              Au moins 1 majuscule
             </span>
             <br />
             <span style={{ color: passwordValidation.number ? "green" : "red" }}>

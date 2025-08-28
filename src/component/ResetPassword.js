@@ -219,7 +219,7 @@ function ResetPassword() {
         </>
       ) : (
         <div>
-          <p style={{ color: 'green',fontStyle:'italic' }}>{successMessage}</p>
+          <p style={{ color: 'green',fontWeight: 'normal',marginTop:"23px",marginBottom:"23px",fontSize:"13px" }}>{successMessage}</p>
         </div>
       )}
     </div>

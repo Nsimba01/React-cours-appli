@@ -144,7 +144,9 @@ function ResetPwdReady() {
           <h4>Réinitialisation du mot de passe</h4>
           {message && (
             <div>
-              <p style={message === 'Le lien est valide. Tu peux à présent réinitialiser ton mot de passe.' ? { color: 'green', fontStyle: 'italic' } : {}}>
+              <p style={message === 'Le lien est valide. Tu peux à présent réinitialiser ton mot de passe.' ? { color: 'green', fontStyle: 'italic',
+                marginBottom: '25px'
+               } : {}}>
                 {message}
               </p>
               {message === 'Le lien est valide. Tu peux à présent réinitialiser ton mot de passe.' && (
@@ -229,9 +231,7 @@ function ResetPwdReady() {
               </span>
             </div>
           )}
-          {isConfirmPasswordFocused && confirmPassword !== newPassword && (
-            <p style={{ color: 'red' }}>Les mots de passe doivent être identiques.</p>
-          )}
+         
           {error && <p className="error">{error}</p>}
           <button
             type="submit"
@@ -240,10 +240,15 @@ function ResetPwdReady() {
             style={{
               opacity: isFormValid ? 1 : 0.5,
               cursor: isFormValid ? 'pointer' : 'not-allowed',
+              marginBottom: '15px'
             }}
           >
             Valider
           </button>
+
+           {isConfirmPasswordFocused && confirmPassword !== newPassword && (
+            <p style={{ color: 'red', fontWeight: 'normal' }}>Les mots de passe doivent être identiques.</p>
+          )}
         </form>
       )}
     </div>

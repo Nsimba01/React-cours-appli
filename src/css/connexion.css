@@ -3,7 +3,7 @@
   max-width: 300px;
   margin: 0 auto;
   padding: 10px;
-  background-color: rgba(206, 207, 200, 0.897);
+  background-color: rgb(153,102,51);
   color: black;
   border-radius: 5px;
   margin-top: 10px;
@@ -209,7 +209,7 @@
 
 /* Bouton désactivé */
 .submit-btn:disabled {
-  background-color: grey;
+  background-color: rgb(211,211,211);
   /* box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); */
   color: #0e0d0d;
   border: 3px solid black;
