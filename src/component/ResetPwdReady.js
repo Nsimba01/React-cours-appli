@@ -186,13 +186,13 @@ function ResetPwdReady() {
           </label>
           {isPasswordFocused && (
             <div id="password-validation">
-              <span style={{ color: passwordValidation.length ? "green" : "red" }}>
+              <span style={{ color: passwordValidation.length ? "green" : "red",fontStyle:'italic' }}>
                 Au moins 10 caractères
               </span><br />
-              <span style={{ color: passwordValidation.uppercase ? "green" : "red" }}>
-                Au moins une majuscule
+              <span style={{ color: passwordValidation.uppercase ? "green" : "red",fontStyle:'italic' }}>
+                Au moins 1 majuscule
               </span><br />
-              <span style={{ color: passwordValidation.number ? "green" : "red" }}>
+              <span style={{ color: passwordValidation.number ? "green" : "red",fontStyle:'italic' }}>
                 Au moins un chiffre
               </span>
             </div>
@@ -220,14 +220,14 @@ function ResetPwdReady() {
           </label>
           {isConfirmPasswordFocused && (
             <div id="confirm-password-validation">
-              <span style={{ color: confirmPasswordValidation.length ? "green" : "red" }}>
+              <span style={{ color: confirmPasswordValidation.length ? "green" : "red",fontStyle:'italic' }}>
                 Au moins 10 caractères
               </span><br />
-              <span style={{ color: confirmPasswordValidation.uppercase ? "green" : "red" }}>
-                Au moins une majuscule
+              <span style={{ color: confirmPasswordValidation.uppercase ? "green" : "red",fontStyle:'italic' }}>
+                Au moins 1 majuscule
               </span><br />
-              <span style={{ color: confirmPasswordValidation.number ? "green" : "red" }}>
-                Au moins un chiffre
+              <span style={{ color: confirmPasswordValidation.number ? "green" : "red",fontStyle:'italic' }}>
+                Au moins 1 chiffre
               </span>
             </div>
           )}
@@ -247,7 +247,7 @@ function ResetPwdReady() {
           </button>
 
            {isConfirmPasswordFocused && confirmPassword !== newPassword && (
-            <p style={{ color: 'red', fontWeight: 'normal' }}>Les mots de passe doivent être identiques.</p>
+            <p style={{ color: 'red', fontWeight: 'normal',fontStyle:'italic' }}>Les mots de passe doivent être identiques.</p>
           )}
         </form>
       )}

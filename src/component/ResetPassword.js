@@ -168,7 +168,7 @@ function ResetPassword() {
           <form onSubmit={handleSubmit} className="reset-pwd-form">
             <br />
             {step === 'email' && (
-              <label>
+              <label style={{fontSize: '13px' }}>
                 Mail : &nbsp;
                 <input
                   type="email"
@@ -182,7 +182,7 @@ function ResetPassword() {
 
             {step === 'pseudo' && (
               <div>
-                <label>
+                <label  style={{fontSize: '13px' }}>
                   Pseudo :
                   <select
                     className="select-pseudo"
@@ -215,7 +215,7 @@ function ResetPassword() {
             </button>
           </form>
 
-          {errorMessage && <p style={{ color: 'red', marginTop: '-5%' }}>{errorMessage}</p>}
+          {errorMessage && <p style={{ color: 'red', marginTop: '-5%', fontWeight: 'normal', fontSize: '13px' }}>{errorMessage}</p>}
         </>
       ) : (
         <div>
