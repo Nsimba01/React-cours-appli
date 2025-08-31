@@ -3,7 +3,7 @@
   max-width: 460px;
   margin: 0 auto;
   padding: 10px;
-  background-color: rgba(206, 207, 200, 0.897);
+  background-color:  rgb(153, 102, 51);
   color: black;
   border-radius: 5px;
   margin-top: 10px;
@@ -55,6 +55,7 @@
   box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur */
   font-size: 15px;
   height: 30px; /* Hauteur fixe pour tous les champs */
+  border:1px solid black;
 }
 
 /* Ajustements spécifiques pour les champs de type password */
@@ -106,7 +107,6 @@
   margin-bottom: 10px;
   font-weight: bold;
   margin-top: 10px;
-  box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.75);
   border-radius: 8px;
 }
 

@@ -341,11 +341,12 @@ useEffect(() => {
             value="Création"
             id="aligner-button-create"
             style={{
-              backgroundColor: isFormValid ? 'rgb(146,208,80)': 'gray',
+              backgroundColor: isFormValid ? 'rgb(146,208,80)': 'rgb(211, 211, 211)',
     
               cursor: isFormValid ? 'pointer' : 'not-allowed',
               transition: 'background-color 0.2s ease',
-              borderColor:'black'
+
+              border: "1px solid black",
             }}
             disabled={!isFormValid}
           />

@@ -165,10 +165,10 @@ function ResetPassword() {
             </p>
           )}
 
-          <form onSubmit={handleSubmit} className="reset-pwd-form">
+          <form onSubmit={handleSubmit} className="reset-pwd-form reset-pwd-form--reset">
             <br />
             {step === 'email' && (
-              <label style={{fontSize: '13px' }}>
+              <label style={{fontSize: '15px' }}>
                 Mail : &nbsp;
                 <input
                   type="email"
@@ -207,9 +207,13 @@ function ResetPassword() {
               id="aligner-button"
     
               disabled={step === 'pseudo' ? !selectedPseudo : isButtonDisabled}
-              style={{
-                backgroundColor: step === 'email' ? (emailExists ? 'rgb(146,208,80)' : 'rgb(211,211,211)') : undefined,
-              }} // Style conditionnel uniquement pour le bouton "Vérifier"
+          style={{
+  backgroundColor: step === 'email'
+    ? (email.includes('@') ? 'rgb(146,208,80)' : 'rgb(211,211,211)')
+    : undefined,
+}}
+
+ // Style conditionnel uniquement pour le bouton "Vérifier"
             >
               {buttonText}
             </button>

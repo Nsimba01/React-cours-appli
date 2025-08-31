@@ -9,7 +9,7 @@
 button,
 input[type="submit"],
 input[type="button"] {
-  width: 200px;   /* largeur fixe, identique partout */
+  width: 130px;   /* largeur fixe, identique partout */
   height: 30px;   /* hauteur fixe, identique partout */
 }
 

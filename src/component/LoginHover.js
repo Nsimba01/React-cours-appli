@@ -172,7 +172,7 @@ function LoginHover() {
               fontSize: '15px',
             
               color: 'black',
-              width: "100%",
+              width: "130px",
               borderRadius: '7px',
               border: '1px solid black',
               cursor:   isFormValid ? 'pointer' : 'not-allowed',

@@ -16,7 +16,8 @@
   display: flex;
   flex-direction: column; /* Permet de mettre la mention légale sous le contenu */
   align-items: center;
-  border-radius: 13px;
+  border-radius: 3px;
+  border: 1px solid black;
 }
 
 

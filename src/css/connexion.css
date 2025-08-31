@@ -9,18 +9,17 @@
   margin-top: 10px;
   margin-bottom: 30px;
   text-align: center;
- 
+  border: 1px solid black;
 }
 
-/* Styles pour le formulaire de réinitialisation par exemple */
+/* Styles pour le formulaire de réinitialisation */
 .formulaire-reset-pwd {
   max-width: 530px;
   width: 67%;
   margin: 0 auto;
   padding: 10px;
-  background-color: rgba(206, 207, 200, 0.897);
+  background-color: rgb(153,102,51);
   color: black;
-  
   border-radius: 5px;
   margin-top: 20px;
   margin-bottom: 30px;
@@ -30,28 +29,45 @@
 /* Conteneur pour le formulaire de réinitialisation du mot de passe */
 .reset-pwd-form {
   display: flex;
-  flex-direction: row;   /* tout sur une seule ligne */
+  flex-direction: row; /* par défaut sur ligne */
   justify-content: center;
   align-items: center;
-           /* espace réduit */
   margin-bottom: 50px;
-  flex-wrap: wrap;       /* repasse à la ligne si trop serré */
+  flex-wrap: wrap;
 }
 
+/* Version spécifique pour formulaire reset : vertical et boutons sous champs */
+.reset-pwd-form--reset {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* espace entre champs et bouton */
+}
+
+.reset-pwd-form--reset label {
+  display: flex;
+  flex-direction: column;
+  font-size: 15px;
+}
+
+.reset-pwd-form--reset input[type="email"],
+.reset-pwd-form--reset select.select-pseudo {
+  width: 100%;
+  height: 25px;
+  padding: 2px 4px;
+  border: 1px solid black;
+  border-radius: 3px;
+  font-size: 15px;
+  box-sizing: border-box;
+}
 
 /* Styles pour les médias queries (exemple) */
-
-
-
-
 @media (min-width: 700px) {
   .reset-pwd-form {
-    flex-direction: row;     /* bureau/tablette : en ligne */
-    justify-content: center; /* centre horizontalement */
-    gap: 4%;               /* espace horizontal */
+    flex-direction: row;
+    justify-content: center;
+    gap: 4%;
   }
 }
-
 
 /* Titres et textes dans le formulaire */
 .formulaire p {
@@ -62,10 +78,7 @@
 }
 
 .formulaire p.link {
-
   font-weight: normal;
-
-
 }
 
 /* Ligne du formulaire en flex */
@@ -77,13 +90,11 @@
 }
 
 /* Réglage des labels pour un alignement à gauche cohérent */
-.form-row label  {
-  flex: 0 0 100px;  /* Largeur fixe pour aligner tous les labels */
+.form-row label {
+  flex: 0 0 100px;
   margin-right: 6px;
-  text-align: left; /* Assure que le texte démarre à gauche */
+  text-align: left;
   font-size: 15px;
-  
-  
 }
 
 .input-container {
@@ -91,43 +102,15 @@
   position: relative;
 }
 
-/* Conteneur pour les champs d'entrée */
-
-/* 
-
-
-
-
 .input-container input {
   width: 100%;
   height: 25px;
-  padding: 4px;
-  border: 1px solid #ccc;
+  padding: 2px 30px 4px 4px;
+  border: 1px solid black;
   border-radius: 3px;
   box-sizing: border-box;
   font-size: 15px;
 }
-
-
-*/
-
-
-.input-container input {
-  width: 100%;
-  height: 25px;
-  padding: 2px 30px 4px 4px; /* Ajoutez un espace à droite pour l'icône */
-
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  box-sizing: border-box;
-  font-size: 15px;
-
-}
-
-
-
-
-
 
 .input-container select {
   width: 100%;
@@ -138,14 +121,9 @@
   box-sizing: border-box;
   font-size: 15px;
   line-height: 1.2;
- 
-
 }
 
-
-
-
-/* Positionnement de l'icône pour afficher/cacher le mot de passe */
+/* Icône pour afficher/cacher le mot de passe */
 .toggle-password {
   position: absolute;
   right: 8px;
@@ -154,78 +132,59 @@
   cursor: pointer;
 }
 
-
-.validation-message{
-
+.validation-message {
   margin-bottom: 10px;
-
   margin-top: 10px;
-
   font-family: 'Comic Sans MS';
-
   font-weight: normal;
-
   font-size: 15px;
 }
 
-.formulaire p.error-message{
-
+.formulaire p.error-message {
   font-family: 'Comic Sans MS';
-
   font-weight: normal;
-
   font-size: 15px;
-
-  color:red;
-
+  color: red;
   font-style: italic;
-
-  margin-bottom: 4%
-
+  margin-bottom: 4%;
 }
 
-/* Bouton de soumission */
+/* Bouton de soumission générique */
 .submit-btn {
   background-color: #007BFF;
   color: #fff;
   border: none;
   border-radius: 3px;
-  display: flex;                /* activé Flexbox */
-  align-items: center;          /* centrage vertical */
-  justify-content: center;      /* centrage horizontal */
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin: 0 auto;
   margin-top: 15px;
   margin-bottom: 20px;
   cursor: pointer;
   font-size: 15px;
   font-weight: bold;
-  height: 30px;                 /* hauteur du bouton */
-  padding: 0 20px;              /* padding horizontal */
-  width:50%
+  height: 30px;
+  padding: 0 20px;
+  width: 130px;
 }
-
-
-
 
 /* Bouton désactivé */
 .submit-btn:disabled {
   background-color: rgb(211,211,211);
-  /* box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); */
   color: #0e0d0d;
   border: 3px solid black;
 }
 
-
 /* Style des liens */
 .link {
- 
   cursor: pointer;
   margin-top: 6px;
   font-style: italic;
   text-decoration: underline;
 }
 
-/* Responsive : sur écrans étroits, empiler label et champ */
+/* Responsive pour écrans étroits */
 @media (max-width: 600px) {
   .form-row {
     flex-direction: column;
@@ -246,9 +205,8 @@
     width: 70%;
     margin: 0 auto;
     padding: 10px;
-    background-color: rgba(206, 207, 200, 0.897);
+    background-color: rgb(153,102,51);
     color: black;
-
     border-radius: 5px;
     margin-top: 20px;
     margin-bottom: 30px;
@@ -267,16 +225,28 @@
   }
 }
 
-/* Style optionnel pour centrer un bouton par exemple */
+/* Bouton spécifique du formulaire de réinitialisation */
 #aligner-button {
   display: block;
-  margin: 0 auto;
+  margin: 10px auto 0 auto; /* bouton sous le champ */
   font-size: 15px;
-  font-weight: bold; 
-  margin-bottom: 10px; 
-  margin-top: 10px;
+  font-weight: bold;
   border-radius: 5px;
-/*  box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.75);*/
   width: 30%;
-  border:1px solid black;
+  border: 1px solid black;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Bouton activé : vert si email contient @ */
+.formulaire-reset-pwd #aligner-button:enabled {
+  background-color: rgb(146,208,80);
+}
+
+/* Bouton désactivé : gris */
+.formulaire-reset-pwd #aligner-button:disabled {
+  background-color: rgb(211,211,211);
+  color: #0e0d0d;
+  border: 3px solid black;
+  cursor: not-allowed;
 }
