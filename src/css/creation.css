@@ -9,6 +9,7 @@
   margin-top: 10px;
   margin-bottom: 30px;
   text-align: center;
+  border:1px solid black; 
 }
 
 .formulaireCreate form {
@@ -51,11 +52,27 @@
   width: 100%; /* Assure que le champ prend toute la largeur disponible */
   padding: 4px;
   border: 1px solid #ccc;
-  border-radius: 3px;
+  border-radius: 5px;
   box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur */
-  font-size: 15px;
-  height: 30px; /* Hauteur fixe pour tous les champs */
+  font-size: 10px;
+  height: 25px; /* Hauteur fixe pour tous les champs */
   border:1px solid black;
+}
+
+.input-container-create input:focus {
+
+  border: 2px solid rgb(146, 208, 80);
+  outline: none;
+
+}
+
+
+
+.input-container-create select:focus {
+
+  border: 2px solid rgb(146, 208, 80);
+  outline: none;
+
 }
 
 /* Ajustements spécifiques pour les champs de type password */

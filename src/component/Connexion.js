@@ -40,13 +40,17 @@ function Connexion() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    
+    // Validation du mot de passe
     if (!Object.values(passwordValidation).every(value => value)) {
-      setErrorMessage("Le mot de passe ne remplit pas les critères de validation.");
+      setErrorMessage("Ton mot de passe n'est pas valide.");
       setSuccessMessage(null);
       return;
     }
+    
+    // Validation du pseudo
     if (!pseudoValidation) {
-      setErrorMessage("Le pseudo ne remplit pas les critères de validation.");
+      setErrorMessage("Ton pseudo n'est pas valide.");
       setSuccessMessage(null);
       return;
     }
@@ -83,12 +87,15 @@ function Connexion() {
     setShowPassword(prevState => !prevState);
   };
 
+  // Vérifie si le formulaire est prêt pour la soumission
+  const isFormValid = pseudoValidation && Object.values(passwordValidation).every(v => v);
+
   return (
     <div className="formulaire">
       <p>Connexion à mon espace</p>
       <form onSubmit={handleSubmit}>
         <div className="form-row">
-          <label htmlFor="pseudo" >Pseudo:</label>
+          <label htmlFor="pseudo">Pseudo:</label>
           <div className="input-container">
             <input
               type="text"
@@ -97,6 +104,8 @@ function Connexion() {
               value={formData.pseudo}
               onChange={handleChange}
               aria-label="Pseudo"
+              aria-invalid={!pseudoValidation}
+              aria-describedby="pseudo-validation"
               onFocus={() => setIsPseudoFocused(true)}
               onBlur={() => setIsPseudoFocused(false)}
               required
@@ -104,8 +113,8 @@ function Connexion() {
           </div>
         </div>
         {isPseudoFocused && (
-          <div className="validation-message">
-            <span style={{ color: pseudoValidation ? "green" : "red" }}>
+          <div id="pseudo-validation" className="validation-message">
+            <span style={{ color: pseudoValidation ? "RGB(146,208,80)" : "red", fontWeight: "normal" }}>
               Au moins 5 caractères
             </span>
           </div>
@@ -120,26 +129,32 @@ function Connexion() {
               value={formData.password}
               onChange={handleChange}
               aria-label="Mot de passe"
+              aria-invalid={!Object.values(passwordValidation).every(Boolean)}
+              aria-describedby="password-validation"
               onFocus={() => setIsPasswordFocused(true)}
               onBlur={() => setIsPasswordFocused(false)}
               required
             />
-            <span className="toggle-password" onClick={toggleShowPassword}>
+            <span 
+              className="toggle-password" 
+              onClick={toggleShowPassword}
+              aria-label={showPassword ? "Masquer le mot de passe" : "Afficher le mot de passe"}
+            >
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </span>
           </div>
         </div>
         {isPasswordFocused && (
-          <div className="validation-message">
-            <span style={{ color: passwordValidation.length ? "green" : "red" }}>
+          <div id="password-validation" className="validation-message">
+            <span style={{ color: passwordValidation.length ? "RGB(146,208,80)" : "red", fontWeight: "normal" }}>
               Au moins 10 caractères
             </span>
             <br />
-            <span style={{ color: passwordValidation.uppercase ? "green" : "red" }}>
+            <span style={{ color: passwordValidation.uppercase ? "RGB(146,208,80)" : "red", fontWeight: "normal" }}>
               Au moins 1 majuscule
             </span>
             <br />
-            <span style={{ color: passwordValidation.number ? "green" : "red" }}>
+            <span style={{ color: passwordValidation.number ? "RGB(146,208,80)" : "red", fontWeight: "normal" }}>
               Au moins 1 chiffre
             </span>
           </div>
@@ -148,15 +163,19 @@ function Connexion() {
           <button
             type="submit"
             className="submit-btn"
-            disabled={!Object.values(passwordValidation).every(v => v) || !pseudoValidation}
+            style={{
+              backgroundColor: isFormValid ? 'rgb(146,208,80)' : 'rgb(211,211,211)',
+              cursor: isFormValid ? 'pointer' : 'not-allowed',
+         
+            }}
           >
             Connexion
           </button>
         </div>
-        <p onClick={() => navigate('/creation')} className="link" style={{marginBottom:"0"}}>
+        <p onClick={() => navigate('/creation')} className="link" style={{marginBottom:"0", cursor: 'pointer'}}>
           Pas encore d'espace ?
         </p>
-        <p onClick={() => navigate('/reset_password')} className="link" style={{marginTop:"0"}}>
+        <p onClick={() => navigate('/reset_password')} className="link" style={{marginTop:"0", cursor: 'pointer'}}>
           Mot de passe oublié ?
         </p>
         {successMessage && <p className="success">{successMessage}</p>}

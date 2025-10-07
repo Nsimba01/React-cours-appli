@@ -117,7 +117,7 @@ function LoginHover() {
           />
           {isPseudoFocused && (
             <div id="pseudo-validation">
-              <span style={{ color: pseudoValidation ? "white" : "red", fontWeight: "normal" }}>
+              <span style={{ color: pseudoValidation ? "RGB(146,208,80)" : "red", fontWeight: "normal" }}>
                 Au moins 5 caractères
               </span>
             </div>
@@ -151,15 +151,15 @@ function LoginHover() {
           <br />
           {isPasswordFocused && (
             <div id="password-validation">
-              <span style={{ color: passwordValidation.length ? "white" : "red", fontWeight: "normal" }}>
+              <span style={{ color: passwordValidation.length ? "RGB(146,208,80)" : "red", fontWeight: "normal" }}>
                 Au moins 10 caractères
               </span>
               <br />
-              <span style={{ color: passwordValidation.uppercase ? "white" : "red", fontWeight: "normal" }}>
+              <span style={{ color: passwordValidation.uppercase ? "RGB(146,208,80)" : "red", fontWeight: "normal" }}>
                 Au moins une majuscule
               </span>
               <br />
-              <span style={{ color: passwordValidation.number ? "white" : "red" }}>
+              <span style={{ color: passwordValidation.number ? "RGB(146,208,80)" : "red" }}>
                 Au moins 1 chiffre
               </span>
             </div>

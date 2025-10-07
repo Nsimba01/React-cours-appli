@@ -40,6 +40,16 @@
     font-size: 15px;
   }
 
+  
+
+
+
+ .form-login input:focus {
+
+  border: 2px solid rgb(146, 208, 80);
+  outline:none;
+}
+
 
   .form-login input[type="password"]{
     width: 100%;
