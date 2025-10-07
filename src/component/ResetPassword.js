@@ -165,11 +165,11 @@ function ResetPassword() {
             </p>
           )}
 
-          <form onSubmit={handleSubmit} className="reset-pwd-form reset-pwd-form--reset">
+          <form onSubmit={handleSubmit} className="reset-pwd-form reset-pwd-form-reset">
             <br />
             {step === 'email' && (
               <label style={{fontSize: '15px' }}>
-                Mail : &nbsp;
+                Mail  &nbsp;
                 <input
                   type="email"
                   value={email}

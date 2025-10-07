@@ -56,13 +56,13 @@ function LoginHover() {
     event.preventDefault();
 
     if (!Object.values(passwordValidation).every(v => v)) {
-      setErrorMessage("Le mot de passe ne remplit pas les critères de validation.");
+      setErrorMessage("Ton mot de passe n'est pas valide.");
       setSuccessMessage(null);
       return;
     }
 
     if (!pseudoValidation) {
-      setErrorMessage("Le pseudo doit avoir au moins 5 caractères.");
+      setErrorMessage("Ton pseudo n'est pas valide.");
       setSuccessMessage(null);
       return;
     }
@@ -192,7 +192,7 @@ function LoginHover() {
             style={{ cursor: 'pointer', marginTop: "0px",marginBottom:"-4px", textDecoration: 'underline' }}>
             Mot de passe oublié ?
           </p>
-          {errorMessage && <p style={{ color: "red",fontStyle:"italic" ,fontSize: '13px',fontWeight: "normal",marginBottom:"10px",marginTop:"25px"}}>{errorMessage}</p>}
+          {errorMessage && <p style={{ color: "red" ,fontSize: '15px',fontWeight: "normal",marginBottom:"10px",marginTop:"25px"}}>{errorMessage}</p>}
         </div>
       </form>
       {successMessage && <p style={{ color: "white" }}>{successMessage}</p>}
