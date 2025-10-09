@@ -1,4 +1,8 @@
-/* Conteneur principal du formulaire */
+/* =====================================================
+   connexion.css — styles pour la page / formulaire
+   ===================================================== */
+
+/* Conteneur générique */
 .formulaire {
   max-width: 300px;
   margin: 0 auto;
@@ -12,7 +16,7 @@
   border: 1px solid black;
 }
 
-/* Styles pour le formulaire de réinitialisation */
+/* Conteneur principal du formulaire de réinitialisation */
 .formulaire-reset-pwd {
   max-width: 530px;
   width: 67%;
@@ -24,64 +28,147 @@
   margin-top: 20px;
   margin-bottom: 30px;
   text-align: center;
+  border: 1px solid black;
+
 }
 
-/* Conteneur pour le formulaire de réinitialisation du mot de passe */
+/* Conteneur global du formulaire */
 .reset-pwd-form {
   display: flex;
-  flex-direction: row; /* par défaut sur ligne */
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   margin-bottom: 50px;
   flex-wrap: wrap;
 }
 
-/* Version spécifique pour formulaire reset : vertical et boutons sous champs */
+/* Mode "reset" : colonne et éléments centrés par défaut */
 .reset-pwd-form--reset {
   display: flex;
   flex-direction: column;
-  gap: 12px; /* espace entre champs et bouton */
+  gap: 12px;
 }
 
-.reset-pwd-form--reset label {
+/* Classe additionnelle pour forcer centrage et largeur */
+.reset-pwd-form--reset.centered-form {
   display: flex;
   flex-direction: column;
-  font-size: 15px;
-}
-
-.reset-pwd-form--reset input[type="email"],
-.reset-pwd-form--reset select.select-pseudo {
+  align-items: center;
   width: 100%;
-  height: 25px;
-  padding: 2px 4px;
-  border: 1px solid black;
-  border-radius: 3px;
-  font-size: 15px;
-  box-sizing: border-box;
+  gap: 12px;
 }
 
-/* Styles pour les médias queries (exemple) */
-@media (min-width: 700px) {
-  .reset-pwd-form {
-    flex-direction: row;
-    justify-content: center;
-    gap: 4%;
-  }
-}
-
-/* Titres et textes dans le formulaire */
-.formulaire p {
+/* Label centré par défaut (texte au-dessus du champ) */
+.centered-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  margin-bottom: 30px;
-  font-size: 19px;
+  font-size: 15px;
+  width: 100%;
+  max-width: 480px;
+}
+
+/* --- Variante inline : label et champ sur la même ligne --- */
+.inline-label {
+  flex-direction: row;        /* texte et champ sur une seule ligne */
+  justify-content: center;   /* centre l'ensemble horizontalement */
+  gap: 10px;                 /* espace entre texte et champ */
+  align-items: center;
+}
+
+/* Texte du label (utile pour spacing ou style) */
+.label-text {
+  white-space: nowrap;
+  font-size: 15px;
+}
+
+/* Champs input / select commun */
+.centered-input {
+  width: 100%;
+  max-width: 360px;
+  height: 36px;
+  padding: 6px 8px;
+  margin-top: 6px;
+  border: 1px solid black;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 15px;
+}
+
+/* Overrides pour les inputs placés en inline (pas d'espacement vertical) */
+.inline-input {
+  margin-top: 0;
+  max-width: 340px;
+}
+
+/* Focus styles */
+.centered-input:focus,
+.input-container input:focus {
+  border: 2px solid RGB(51,204,51);
+  outline: none;
+}
+
+/* Styles pour select afin qu'il ressemble à l'input */
+.select-pseudo {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: none;
+  padding-right: 10px;
+}
+
+/* Bouton centré sous le champ */
+#aligner-button {
+  align-self: center;
+  margin-top: 8px;
+  width: 160px;
+  height: 38px;
+  font-size: 15px;
   font-weight: bold;
+  border-radius: 5px;
+  border: 1px solid black;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.formulaire p.link {
+/* Couleurs du bouton (enabled / disabled) */
+.formulaire-reset-pwd #aligner-button:enabled {
+  background-color: rgb(146,208,80);
+}
+.formulaire-reset-pwd #aligner-button:disabled {
+  background-color: rgb(211,211,211);
+  color: #0e0d0d;
+  border: 1px solid black;
+  cursor: not-allowed;
+}
+
+/* Messages (success / error / info) */
+.message-success {
+  color:  RGB(51,204,51);
   font-weight: normal;
+  margin-top: 23px;
+  margin-bottom: 23px;
+  font-size: 13px;
+  text-align: center;
 }
 
-/* Ligne du formulaire en flex */
+.message-error {
+  color: red;
+  margin-top: -5%;
+  font-weight: normal;
+  font-size: 13px;
+  text-align: center;
+}
+
+.info-message {
+  color: green;
+  margin-bottom: 10px;
+  font-size: 13px;
+  text-align: center;
+}
+
+/* Conteneur / layout réutilisables */
 .form-row {
   display: flex;
   align-items: center;
@@ -89,7 +176,6 @@
   flex-wrap: wrap;
 }
 
-/* Réglage des labels pour un alignement à gauche cohérent */
 .form-row label {
   flex: 0 0 100px;
   margin-right: 6px;
@@ -112,23 +198,6 @@
   font-size: 15px;
 }
 
-.input-container input:focus {
-  border: 2px solid rgb(146, 208, 80);
-  outline:none;
-}
-
-.input-container select {
-  width: 100%;
-  height: 30px;
-  padding: 4px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  box-sizing: border-box;
-  font-size: 15px;
-  line-height: 1.2;
-}
-
-/* Icône pour afficher/cacher le mot de passe */
 .toggle-password {
   position: absolute;
   right: 8px;
@@ -137,6 +206,7 @@
   cursor: pointer;
 }
 
+/* Messages de validation */
 .validation-message {
   margin-bottom: 10px;
   margin-top: 10px;
@@ -145,6 +215,7 @@
   font-size: 13px;
 }
 
+/* Ancien style d'erreur (si utilisé) */
 .formulaire p.error-message {
   font-family: 'Comic Sans MS';
   font-weight: normal;
@@ -154,7 +225,14 @@
   margin-bottom: 4%;
 }
 
-/* Bouton de soumission générique */
+.formulaire p{
+  
+  margin-bottom: 30px;
+  font-size: 19px;
+  font-weight: bold;
+}
+
+/* Bouton générique (au cas où utilisé ailleurs) */
 .submit-btn {
   background-color: #007BFF;
   color: #fff;
@@ -174,7 +252,7 @@
   width: 130px;
 }
 
-/* Bouton désactivé */
+/* Bouton désactivé générique */
 .submit-btn:disabled {
   background-color: rgb(211,211,211);
   color: #0e0d0d;
@@ -189,7 +267,7 @@
   text-decoration: underline;
 }
 
-/* Responsive pour écrans étroits */
+/* Responsive : adaptatif pour écrans étroits */
 @media (max-width: 600px) {
   .form-row {
     flex-direction: column;
@@ -210,6 +288,7 @@
     width: 70%;
     margin: 0 auto;
     padding: 10px;
+    border: 1px solid black;
     background-color: rgb(153,102,51);
     color: black;
     border-radius: 5px;
@@ -228,30 +307,43 @@
   .select-pseudo {
     margin-right: -25%;
   }
+
+  /* Inline input reduced width so label + input fit on small screens */
+  .inline-input {
+    max-width: 70%;
+  }
+
+  /* Make button larger on small devices */
+  #aligner-button {
+    width: 90%;
+    max-width: 320px;
+  }
+
+  .formulaire-reset-pwd {
+    width: 90%;
+  }
+
+  .centered-input {
+    max-width: 100%;
+  }
 }
 
-/* Bouton spécifique du formulaire de réinitialisation */
+/* Petits ajustements finaux */
 #aligner-button {
-  display: block;
-  margin: 10px auto 0 auto; /* bouton sous le champ */
-  font-size: 15px;
-  font-weight: bold;
-  border-radius: 5px;
-  width: 30%;
-  border: 1px solid black;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: transform 0.08s ease;
+}
+#aligner-button:active {
+  transform: translateY(1px);
 }
 
-/* Bouton activé : vert si email contient @ */
-.formulaire-reset-pwd #aligner-button:enabled {
-  background-color: rgb(146,208,80);
-}
 
-/* Bouton désactivé : gris */
-.formulaire-reset-pwd #aligner-button:disabled {
-  background-color: rgb(211,211,211);
-  color: #0e0d0d;
-  border: 1px solid black;
-  cursor: not-allowed;
-}
+
+
+
+
+
+
+
+
+
+

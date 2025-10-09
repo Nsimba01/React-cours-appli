@@ -43,14 +43,14 @@ function Connexion() {
     
     // Validation du mot de passe
     if (!Object.values(passwordValidation).every(value => value)) {
-      setErrorMessage("Ton mot de passe n'est pas valide.");
+      setErrorMessage("Ton mot de passe n'est pas valide");
       setSuccessMessage(null);
       return;
     }
     
     // Validation du pseudo
     if (!pseudoValidation) {
-      setErrorMessage("Ton pseudo n'est pas valide.");
+      setErrorMessage("Ton pseudo n'est pas valide");
       setSuccessMessage(null);
       return;
     }
@@ -114,7 +114,7 @@ function Connexion() {
         </div>
         {isPseudoFocused && (
           <div id="pseudo-validation" className="validation-message">
-            <span style={{ color: pseudoValidation ? "RGB(146,208,80)" : "red", fontWeight: "normal" }}>
+            <span style={{ color: pseudoValidation ? "RGB(51,204,51)" : "red", fontWeight: "normal" }}>
               Au moins 5 caractères
             </span>
           </div>
@@ -146,15 +146,15 @@ function Connexion() {
         </div>
         {isPasswordFocused && (
           <div id="password-validation" className="validation-message">
-            <span style={{ color: passwordValidation.length ? "RGB(146,208,80)" : "red", fontWeight: "normal" }}>
+            <span style={{ color: passwordValidation.length ? "RGB(51,204,51)" : "red", fontWeight: "normal" }}>
               Au moins 10 caractères
             </span>
             <br />
-            <span style={{ color: passwordValidation.uppercase ? "RGB(146,208,80)" : "red", fontWeight: "normal" }}>
+            <span style={{ color: passwordValidation.uppercase ? "RGB(51,204,51)" : "red", fontWeight: "normal" }}>
               Au moins 1 majuscule
             </span>
             <br />
-            <span style={{ color: passwordValidation.number ? "RGB(146,208,80)" : "red", fontWeight: "normal" }}>
+            <span style={{ color: passwordValidation.number ? "RGB(51,204,51)" : "red", fontWeight: "normal" }}>
               Au moins 1 chiffre
             </span>
           </div>
