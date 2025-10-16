@@ -46,7 +46,7 @@
 
  .form-login input:focus {
 
-  border: 2px solid rgb(146, 208, 80);
+  border: 2px solid  RGB(51,204,51) ;
   outline:none;
 }
 
@@ -84,7 +84,7 @@
 
      .form-login input:focus {
 
-      border: 2px solid rgb(146, 208, 80);
+      border: 2px solid RGB(51,204,51);
       outline:none;
     }
 

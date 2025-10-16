@@ -368,7 +368,7 @@ function ResetPassword() {
           <div className="messages-space" aria-live="polite" style={{ minHeight: '3rem' }}>
             <p
               className="message-error invalid-click-msg"
-              style={{ margin: 0, fontSize:"15px", visibility: invalidClickMsg ? 'visible' : 'hidden' }}
+              style={{ marginTop: '2px', marginBottom: '10px', fontSize: "15px", visibility: invalidClickMsg ? 'visible' : 'hidden' }}
             >
               {invalidClickMsg || '\u00A0'}
             </p>
