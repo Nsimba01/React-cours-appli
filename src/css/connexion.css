@@ -208,6 +208,12 @@
   font-size: 15px;
 }
 
+#motdepasse{
+
+  padding-right: 35px;
+  
+}
+
 .toggle-password {
   position: absolute;
   right: 8px;
