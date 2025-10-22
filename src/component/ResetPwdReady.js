@@ -18,6 +18,7 @@ function ResetPwdReady() {
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [showInvalidMessage, setShowInvalidMessage] = useState(false);
   const [passwordValidation, setPasswordValidation] = useState({
     length: false,
     uppercase: false,
@@ -36,7 +37,7 @@ function ResetPwdReady() {
   useEffect(() => {
     const query = new URLSearchParams(location.search);
     const token = query.get('token');
-    const emailFromUrl = query.get('email'); // Récupération de l'email de l'URL
+    const emailFromUrl = query.get('email');
     setEmail(emailFromUrl);
 
     if (token) {
@@ -78,6 +79,7 @@ function ResetPwdReady() {
     const { value } = e.target;
     setNewPassword(value);
     setPasswordValidation(validatePassword(value));
+    setShowInvalidMessage(false);
 
     if (confirmPassword) {
       setConfirmPasswordValidation(validatePassword(confirmPassword));
@@ -93,6 +95,8 @@ function ResetPwdReady() {
     const { value } = e.target;
     setConfirmPassword(value);
     setConfirmPasswordValidation(validatePassword(value));
+    setShowInvalidMessage(false);
+    
     if (value !== newPassword) {
    
     } else {
@@ -103,7 +107,6 @@ function ResetPwdReady() {
   const handlePasswordReset = async (e) => {
     e.preventDefault();
     if (newPassword !== confirmPassword) {
-   
       return;
     }
     if (
@@ -116,7 +119,7 @@ function ResetPwdReady() {
     try {
       const db = getDatabase();
       const userRef = ref(db, `users/${pseudo}`);
-      setConfirmationEmail(email); // Conserver l'email pour l'affichage
+      setConfirmationEmail(email);
       const hashedPassword = await bcrypt.hash(newPassword, 10);
       await update(userRef, { password: hashedPassword });
       setMessage("Ton mot de passe a été modifié avec succès.");
@@ -131,6 +134,15 @@ function ResetPwdReady() {
     }
   };
 
+  const handleButtonClick = (e) => {
+    if (!isFormValid) {
+      e.preventDefault();
+      setShowInvalidMessage(true);
+    } else {
+      handlePasswordReset(e);
+    }
+  };
+
   const isFormValid =
     newPassword === confirmPassword &&
     Object.values(passwordValidation).every(Boolean) &&
@@ -140,19 +152,19 @@ function ResetPwdReady() {
     <div className="reset-pwd-ready">
 
       {isValidToken && (
-        <form onSubmit={handlePasswordReset} className="password-reset-form">
+        <form className="password-reset-form">
           <h4>Réinitialisation du mot de passe</h4>
           {message && (
             <div>
-              <p style={message === 'Le lien est valide. Tu peux à présent réinitialiser ton mot de passe.' ? { color: 'green', fontStyle: 'italic',
-                marginBottom: '25px'
+              <p style={message === 'Le lien est valide. Tu peux à présent réinitialiser ton mot de passe.' ? { color: 'RGB(51,204,51)',
+                marginBottom: '25px',fontWeight:'normal',fontSize:'15px'
                } : {}}>
                 {message}
               </p>
               {message === 'Le lien est valide. Tu peux à présent réinitialiser ton mot de passe.' && (
                 <div className="user-info">
-                  <p><strong>Pseudo :</strong> {pseudo}</p>
-                  <p><strong>Mail :</strong> {email}</p>
+                  <p>Pseudo :<strong style={{fontSize:'15px'}}> {pseudo}  </strong></p>
+                  <p>Mail : <strong style={{fontSize:'15px'}}> {email}</strong></p>
                 </div>
               )}
               {confirmationEmail && (
@@ -186,13 +198,13 @@ function ResetPwdReady() {
           </label>
           {isPasswordFocused && (
             <div id="password-validation">
-              <span style={{ color: passwordValidation.length ? "green" : "red",fontStyle:'italic' }}>
+              <span style={{ color: passwordValidation.length ? "RGB(51,204,51)" : "red",fontStyle:'normal',fontSize:'13px' }}>
                 Au moins 10 caractères
               </span><br />
-              <span style={{ color: passwordValidation.uppercase ? "green" : "red",fontStyle:'italic' }}>
+              <span style={{ color: passwordValidation.uppercase ? "RGB(51,204,51)" : "red",fontStyle:'normal',fontSize:'13px' }}>
                 Au moins 1 majuscule
               </span><br />
-              <span style={{ color: passwordValidation.number ? "green" : "red",fontStyle:'italic' }}>
+              <span style={{ color: passwordValidation.number ? "RGB(51,204,51)" : "red",fontStyle:'normal',fontSize:'13px' }}>
                 Au moins un chiffre
               </span>
             </div>
@@ -220,13 +232,13 @@ function ResetPwdReady() {
           </label>
           {isConfirmPasswordFocused && (
             <div id="confirm-password-validation">
-              <span style={{ color: confirmPasswordValidation.length ? "green" : "red",fontStyle:'italic' }}>
+              <span style={{ color: confirmPasswordValidation.length ? "RGB(51,204,51)" : "red",fontStyle:'normal',fontSize:'13px' }}>
                 Au moins 10 caractères
               </span><br />
-              <span style={{ color: confirmPasswordValidation.uppercase ? "green" : "red",fontStyle:'italic' }}>
+              <span style={{ color: confirmPasswordValidation.uppercase ? "RGB(51,204,51)" : "red",fontStyle:'normal',fontSize:'13px' }}>
                 Au moins 1 majuscule
               </span><br />
-              <span style={{ color: confirmPasswordValidation.number ? "green" : "red",fontStyle:'italic' }}>
+              <span style={{ color: confirmPasswordValidation.number ? "RGB(51,204,51)" : "red",fontStyle:'normal',fontSize:'13px' }}>
                 Au moins 1 chiffre
               </span>
             </div>
@@ -234,20 +246,23 @@ function ResetPwdReady() {
          
           {error && <p className="error">{error}</p>}
           <button
-            type="submit"
+            type="button"
             className="submit-btn"
-            disabled={!isFormValid}
+            onClick={handleButtonClick}
             style={{
-              opacity: isFormValid ? 1 : 0.5,
               cursor: isFormValid ? 'pointer' : 'not-allowed',
-              marginBottom: '15px'
+              marginBottom: '15px',
+              backgroundColor: isFormValid ? 'RGB(51,204,51)' : ''
+             
             }}
           >
             Valider
           </button>
 
-           {isConfirmPasswordFocused && confirmPassword !== newPassword && (
-            <p style={{ color: 'red', fontWeight: 'normal',fontStyle:'italic' }}>Les mots de passe doivent être identiques.</p>
+          {showInvalidMessage && (
+            <p style={{ color: 'red', fontWeight: 'normal', fontStyle: 'italic' }}>
+              Ton nouveau mot de passe est invalide ou les 2 saisies ne sont pas identiques
+            </p>
           )}
         </form>
       )}

@@ -7,6 +7,7 @@
 .reset-pwd-ready {
   text-align: center;
   margin-top: 10px;
+
 }
 
 .reset-pwd-ready .user-info {
@@ -35,6 +36,7 @@
   padding: 20px;
   background-color: rgb(153,102,51);
   border-radius: 10px;
+  border: 1px solid black;
 }
 
 .password-reset-form label {
@@ -51,6 +53,12 @@
   border-radius: 5px;
 }
 
+.password-reset-form input:focus {
+  border: 2px solid RGB(51,204,51);
+  outline: none;
+}
+
+
 .error {
   color: red;
   margin-bottom: 15px;
@@ -59,7 +67,7 @@
 .submit-btn {
 
   padding: 10px;
-  background-color:rgb(146, 208, 80);  
+
   color: black;
   border: 1px solid black;
   border-radius: 5px;
@@ -96,7 +104,7 @@
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
-  color: #888;
+  color:black;
 }
 
 .validation {

@@ -281,7 +281,7 @@ function ResetPassword() {
 
   return (
     <div className="formulaire-reset-pwd">
-      <h2>Réinitialisation du mot de passe</h2>
+      <h2 style={{fontSize:'20px'}}>Réinitialisation du mot de passe</h2>
 
       {!emailSent ? (
         <>

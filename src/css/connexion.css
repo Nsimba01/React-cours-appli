@@ -36,6 +36,7 @@
 
 
     margin-top: 10px;
+  
  
 
 }
@@ -251,7 +252,7 @@
 
 /* Bouton générique (au cas où utilisé ailleurs) */
 .submit-btn {
-  background-color: #007BFF;
+
   color: #fff;
   border: none;
   border-radius: 3px;

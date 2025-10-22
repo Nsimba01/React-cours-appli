@@ -108,7 +108,7 @@ function Connexion() {
               aria-describedby="pseudo-validation"
               onFocus={() => setIsPseudoFocused(true)}
               onBlur={() => setIsPseudoFocused(false)}
-              required
+           
             />
           </div>
         </div>
@@ -133,7 +133,7 @@ function Connexion() {
               aria-describedby="password-validation"
               onFocus={() => setIsPasswordFocused(true)}
               onBlur={() => setIsPasswordFocused(false)}
-              required
+            
             />
             <span 
               className="toggle-password" 
@@ -172,10 +172,10 @@ function Connexion() {
             Connexion
           </button>
         </div>
-        <p onClick={() => navigate('/creation')} className="link" style={{marginBottom:"0", cursor: 'pointer'}}>
+        <p onClick={() => navigate('/creation')} className="link" style={{marginBottom:"0", cursor: 'pointer',fontWeight: "normal"}}>
           Pas encore d'espace ?
         </p>
-        <p onClick={() => navigate('/reset_password')} className="link" style={{marginTop:"0", cursor: 'pointer'}}>
+        <p onClick={() => navigate('/reset_password')} className="link" style={{marginTop:"0", cursor: 'pointer',fontWeight: "normal"}}>
           Mot de passe oublié ?
         </p>
         {successMessage && <p className="success">{successMessage}</p>}
