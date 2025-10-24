@@ -41,16 +41,16 @@ function Connexion() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     
-    // Validation du mot de passe
-    if (!Object.values(passwordValidation).every(value => value)) {
-      setErrorMessage("Ton mot de passe n'est pas valide");
+    // 1. Validation du pseudo EN PREMIER
+    if (!pseudoValidation) {
+      setErrorMessage("Ton pseudo n'est pas valide");
       setSuccessMessage(null);
       return;
     }
     
-    // Validation du pseudo
-    if (!pseudoValidation) {
-      setErrorMessage("Ton pseudo n'est pas valide");
+    // 2. Validation du mot de passe ENSUITE (seulement si le pseudo est valide)
+    if (!Object.values(passwordValidation).every(value => value)) {
+      setErrorMessage("Ton mot de passe n'est pas valide");
       setSuccessMessage(null);
       return;
     }
