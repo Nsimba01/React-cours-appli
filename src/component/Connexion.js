@@ -30,6 +30,9 @@ function Connexion() {
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevState) => ({ ...prevState, [name]: value }));
+    
+    // Effacer le message d'erreur lors de la modification
+    setErrorMessage(null);
 
     if (name === "password") {
       setPasswordValidation(validatePassword(value));
