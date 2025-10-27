@@ -51,7 +51,7 @@ function ResetPwdReady() {
 
             if (now < data.expiration) {
               setIsValidToken(true);
-              setMessage('Le lien est valide. Tu peux à présent réinitialiser ton mot de passe.');
+              setMessage('Le lien est valide.\nTu peux à présent réinitialiser ton mot de passe.');
               if (data.pseudo) {
                 setPseudo(data.pseudo);
               } else {
@@ -148,6 +148,8 @@ function ResetPwdReady() {
     Object.values(passwordValidation).every(Boolean) &&
     Object.values(confirmPasswordValidation).every(Boolean);
 
+  const labelStyle = { display: 'inline-block', width: '120px' };
+ 
   return (
     <div className="reset-pwd-ready">
 
@@ -156,15 +158,26 @@ function ResetPwdReady() {
           <h4>Réinitialisation du mot de passe</h4>
           {message && (
             <div>
-              <p style={message === 'Le lien est valide. Tu peux à présent réinitialiser ton mot de passe.' ? { color: 'RGB(51,204,51)',
-                marginBottom: '25px',fontWeight:'normal',fontSize:'15px'
-               } : {}}>
+              <p style={message.includes('Le lien est valide') ? { 
+                color: 'RGB(51,204,51)',
+                marginBottom: '25px',
+                fontWeight:'normal',
+                fontSize:'15px',
+                whiteSpace: 'pre-line'
+              } : {}}>
                 {message}
               </p>
-              {message === 'Le lien est valide. Tu peux à présent réinitialiser ton mot de passe.' && (
+              {message.includes('Le lien est valide') && (
                 <div className="user-info">
-                  <p>Pseudo :<strong style={{fontSize:'15px'}}> {pseudo}  </strong></p>
-                  <p>Mail : <strong style={{fontSize:'15px'}}> {email}</strong></p>
+                  <p>
+                    <span style={labelStyle}>Pseudo :</span>
+                    <strong style={{ fontSize: '15px' }}>{pseudo}</strong>
+                  </p>
+
+                  <p>
+                    <span style={labelStyle}>Mail :</span>
+                    <strong style={{ fontSize: '15px' }}>{email}</strong>
+                  </p>
                 </div>
               )}
               {confirmationEmail && (
@@ -176,7 +189,8 @@ function ResetPwdReady() {
           )}
           <br />
           <label>
-            Nouveau mot de passe
+            <p style={{ fontSize: '15px' }}> Nouveau mot de passe  </p>
+
             <div className="password-field">
               <input
                 type={showPassword ? 'text' : 'password'}
@@ -210,7 +224,8 @@ function ResetPwdReady() {
             </div>
           )}
           <label>
-            Confirmation du nouveau mot de passe
+            <p style={{ fontSize: '15px' }}> Confirmation du nouveau mot de passe </p>
+
             <div className="password-field">
               <input
                 type={showConfirmPassword ? 'text' : 'password'}
@@ -252,7 +267,8 @@ function ResetPwdReady() {
             style={{
               cursor: isFormValid ? 'pointer' : 'not-allowed',
               marginBottom: '15px',
-              backgroundColor: isFormValid ? 'RGB(51,204,51)' : ''
+              backgroundColor: isFormValid ? 'RGB(51,204,51)' : '' ,
+              marginTop: '20px'
              
             }}
           >
@@ -260,7 +276,7 @@ function ResetPwdReady() {
           </button>
 
           {showInvalidMessage && (
-            <p style={{ color: 'red', fontWeight: 'normal', fontStyle: 'italic' }}>
+            <p style={{ color: 'red', fontWeight: 'normal', fontStyle: 'italic',fontSize:'15px' }}>
               Ton nouveau mot de passe est invalide ou les 2 saisies ne sont pas identiques
             </p>
           )}

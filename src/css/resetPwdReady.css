@@ -75,6 +75,7 @@
   opacity: 1;
   transition: opacity 0.2s;
   margin-bottom: 5px;
+  margin-top: 10px;
   width: 130px;
 }
 
@@ -84,8 +85,17 @@
   color:rgb(14, 5, 5);
   border: 1px solid black;
   background-color: rgb(211,211,211);
+  margin-top: 10px;
 
 }
+
+#password-validation {
+
+  margin-bottom: 13px;
+  margin-top: 10px;
+
+}
+
 
 .password-field {
   position: relative;
@@ -93,9 +103,12 @@
   align-items: center;
 }
 
+
+
 .password-field input {
   width: 100%;
   padding-right: 30px;
+  margin-bottom: 10px;
 }
 
 .eye-icon {

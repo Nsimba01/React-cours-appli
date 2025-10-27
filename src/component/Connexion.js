@@ -167,7 +167,7 @@ function Connexion() {
             type="submit"
             className="submit-btn"
             style={{
-              backgroundColor: isFormValid ? 'rgb(146,208,80)' : 'rgb(211,211,211)',
+              backgroundColor: isFormValid ? 'rgb(146,208,80)' : ' rgb(211, 211, 211)',
               cursor: isFormValid ? 'pointer' : 'not-allowed',
          
             }}
