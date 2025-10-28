@@ -148,7 +148,7 @@ function ResetPwdReady() {
     Object.values(passwordValidation).every(Boolean) &&
     Object.values(confirmPasswordValidation).every(Boolean);
 
-  const labelStyle = { display: 'inline-block', width: '120px' };
+  const labelStyle = { display: 'inline-block', width: '120px',fontSize:'15px' };
  
   return (
     <div className="reset-pwd-ready">
@@ -171,12 +171,12 @@ function ResetPwdReady() {
                 <div className="user-info">
                   <p>
                     <span style={labelStyle}>Pseudo :</span>
-                    <strong style={{ fontSize: '15px' }}>{pseudo}</strong>
+                    <strong style={{ fontSize: '15px', marginLeft: '-27px' }}>{pseudo}</strong>
                   </p>
 
                   <p>
                     <span style={labelStyle}>Mail :</span>
-                    <strong style={{ fontSize: '15px' }}>{email}</strong>
+                    <strong style={{ fontSize: '15px', marginLeft: '-27px' }}>{email}</strong>
                   </p>
                 </div>
               )}
@@ -267,7 +267,7 @@ function ResetPwdReady() {
             style={{
               cursor: isFormValid ? 'pointer' : 'not-allowed',
               marginBottom: '15px',
-              backgroundColor: isFormValid ? 'RGB(51,204,51)' : '' ,
+              backgroundColor: isFormValid ? 'RGB(146,208,80)' : 'RGB(211,211,211)' ,
               marginTop: '20px'
              
             }}
