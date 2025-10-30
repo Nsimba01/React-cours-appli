@@ -150,6 +150,9 @@ function ResetPwdReady() {
 
   const labelStyle = { display: 'inline-block', width: '120px',fontSize:'15px' };
  
+  // Vérification si les mots de passe sont identiques
+  const isPasswordMatch = confirmPassword === newPassword && confirmPassword !== '';
+ 
   return (
     <div className="reset-pwd-ready">
 
@@ -247,14 +250,14 @@ function ResetPwdReady() {
           </label>
           {isConfirmPasswordFocused && (
             <div id="confirm-password-validation">
-              <span style={{ color: confirmPasswordValidation.length ? "RGB(51,204,51)" : "red",fontStyle:'normal',fontSize:'13px' }}>
-                Au moins 10 caractères
-              </span><br />
-              <span style={{ color: confirmPasswordValidation.uppercase ? "RGB(51,204,51)" : "red",fontStyle:'normal',fontSize:'13px' }}>
-                Au moins 1 majuscule
-              </span><br />
-              <span style={{ color: confirmPasswordValidation.number ? "RGB(51,204,51)" : "red",fontStyle:'normal',fontSize:'13px' }}>
-                Au moins 1 chiffre
+                 
+              <span style={{ 
+                color: isPasswordMatch && Object.values(confirmPasswordValidation).every(Boolean) ? "RGB(51,204,51)" : "red",
+                fontStyle:'normal',
+                fontSize:'13px',
+                fontWeight:'normal'
+              }}>
+                Identique au nouveau mot de passe
               </span>
             </div>
           )}
