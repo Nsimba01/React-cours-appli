@@ -287,8 +287,8 @@ function ResetPassword() {
         <>
           <br />
           {step === 'pseudo' && (
-            <p className="info-message">
-              Plusieurs comptes ont été identifiés. Choisis ton pseudo puis clique sur Valider.
+            <p id="info-message-id">
+              Plusieurs comptes ont été identifiés. <br />Choisis ton pseudo puis clique sur  « Valider ».
             </p>
           )}
 
