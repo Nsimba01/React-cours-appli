@@ -19,11 +19,11 @@ function ResetPassword() {
   const [emailSent, setEmailSent] = useState(false);
   const [isSending, setIsSending] = useState(false);
 
-  // --- nouveau état pour message "Ton mail n'est pas valide"
+  // --- nouveau état pour message "Ton mail n'est pas valide" ou "Indique ton pseudo"
   const [invalidClickMsg, setInvalidClickMsg] = useState('');
 
   // message persistant désiré
-  const NO_ACCOUNT_MSG = "Aucun compte n’est associé à ce mail";
+  const NO_ACCOUNT_MSG = "Aucun compte n'est associé à ce mail";
 
   // helper qui protège le message persistant (NO_ACCOUNT_MSG) contre écrasement par d'autres erreurs,
   // mais permet de le vider (msg === '') quand on veut.
@@ -138,7 +138,7 @@ function ResetPassword() {
         // vider l'erreur (y compris NO_ACCOUNT_MSG) uniquement en cas de succès
         setErrorSafe('');
         setEmailSent(true);
-        // vider le message "Ton mail n'est pas valide" si présent (en cas de succès)
+        // vider le message "Ton mail n'est pas valide" / "Indique ton pseudo" si présent (en cas de succès)
         setInvalidClickMsg('');
       } catch (mailError) {
         console.error('Erreur EmailJS:', mailError);
@@ -228,11 +228,12 @@ function ResetPassword() {
     e.preventDefault();
     // si envoie en cours, on ignore
     if (isSending) return;
-    // on n'affiche le message que si le bouton est effectivement disabled suivant l'étape
-    const disabledNow = step === 'pseudo' ? !selectedPseudo : isButtonDisabled;
-    if (disabledNow) {
+    
+    // on affiche le message approprié selon l'étape
+    if (step === 'pseudo' && !selectedPseudo) {
+      setInvalidClickMsg("Indique ton pseudo");
+    } else if (step === 'email' && isButtonDisabled) {
       setInvalidClickMsg("Ton mail n'est pas valide");
-      // le message persiste jusqu'à modification du champ (on ne met pas de timeout)
     }
   };
 
@@ -368,7 +369,13 @@ function ResetPassword() {
           <div className="messages-space" aria-live="polite" style={{ minHeight: '3rem' }}>
             <p
               className="message-error invalid-click-msg"
-              style={{ marginTop: '2px', marginBottom: '10px', fontSize: "15px", visibility: invalidClickMsg ? 'visible' : 'hidden' }}
+              style={{ 
+                marginTop: '2px', 
+                marginBottom: '10px', 
+                fontSize: "15px", 
+                color: 'rgb(238, 0, 0)',
+                visibility: invalidClickMsg ? 'visible' : 'hidden' 
+              }}
             >
               {invalidClickMsg || '\u00A0'}
             </p>
