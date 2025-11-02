@@ -304,15 +304,15 @@ function ResetPassword() {
                   onChange={handleEmailChange}
                   required
                   aria-required="true"
-                  className="centered-input inline-input"
+                  id="mail_process_reset_pwd"
                   title="Veuillez saisir une adresse e-mail valide"
                 />
               </label>
             )}
-
+            
             {step === 'pseudo' && (
-              <label className="centered-label">
-                Pseudo
+              <label className="centered-label label-inline">
+                <span>Pseudo</span>
                 <select
                   className="select-pseudo centered-input"
                   value={selectedPseudo}

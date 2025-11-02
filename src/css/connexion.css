@@ -79,6 +79,13 @@
   max-width: 480px;
 }
 
+.label-inline {
+  flex-direction: row;
+  justify-content: center;
+  gap: 10px;
+}
+
+
 /* --- Variante inline : label et champ sur la même ligne --- */
 .inline-label {
   flex-direction: row;        /* texte et champ sur une seule ligne */
@@ -91,19 +98,41 @@
 .label-text {
   white-space: nowrap;
   font-size: 15px;
+  margin-left:-10px;
 }
 
 /* Champs input / select commun */
 .centered-input {
-  width: 100%;
+  width: 40%;
   max-width: 360px;
-  height: 36px;
+  height: 28px;
+  padding: 6px 8px;
+  margin-top: 0;
+  border: 1px solid black;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 10px;
+}
+
+
+
+
+#mail_process_reset_pwd{
+
+  width: 40%;
+  max-width: 360px;
+  height: 28px;
   padding: 6px 8px;
   margin-top: 6px;
   border: 1px solid black;
   border-radius: 4px;
   box-sizing: border-box;
-  font-size: 15px;
+  font-size: 10px;
+  max-width: 340px;
+
+
+
+
 }
 
 /* Overrides pour les inputs placés en inline (pas d'espacement vertical) */
@@ -134,12 +163,13 @@
   padding-right: 10px;
 }
 
+
 /* Bouton centré sous le champ */
 #aligner-button {
   align-self: center;
   margin-top: 8px;
-  width: 160px;
-  height: 38px;
+  width: 130px;
+  height: 30px;
   font-size: 15px;
   font-weight: bold;
   border-radius: 5px;
