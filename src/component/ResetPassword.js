@@ -367,18 +367,18 @@ function ResetPassword() {
               On réserve un espace fixe pour les messages afin d'éviter le déplacement du layout
           */}
           <div className="messages-space" aria-live="polite" style={{ minHeight: '3rem' }}>
-            <p
-              className="message-error invalid-click-msg"
-              style={{ 
-                marginTop: '2px', 
-                marginBottom: '10px', 
-                fontSize: "15px", 
-                color: 'rgb(238, 0, 0)',
-                visibility: invalidClickMsg ? 'visible' : 'hidden' 
-              }}
-            >
-              {invalidClickMsg || '\u00A0'}
-            </p>
+                                      <p
+                      className="message-error invalid-click-msg"
+                      style={{ 
+                        marginTop: '2px', 
+                        marginBottom: '10px', 
+                        fontSize: "15px", 
+                        color: 'rgb(238, 0, 0)',
+                        display: invalidClickMsg ? 'block' : 'none' 
+                      }}
+                    >
+                      {invalidClickMsg || '\u00A0'}
+                    </p>
 
             {/* Message d'erreur général (on ne montre pas NO_ACCOUNT_MSG pendant l'étape 'pseudo') */}
             {!(errorMessage === NO_ACCOUNT_MSG && step === 'pseudo') && (
