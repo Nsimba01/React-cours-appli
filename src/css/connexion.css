@@ -106,13 +106,13 @@
 .centered-input {
   width: 40%;
   max-width: 360px;
-  height: 28px;
+  height: 33px;
   padding: 6px 8px;
   margin-top: 0;
   border: 1px solid black;
   border-radius: 4px;
   box-sizing: border-box;
-  font-size: 10px;
+  font-size: 15px;
 }
 
 
