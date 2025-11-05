@@ -378,7 +378,7 @@ function ResetPassword() {
                         display: invalidClickMsg ? 'block' : 'none' 
                       }}
                     >
-                      {invalidClickMsg || '\u00A0'}
+                      {invalidClickMsg || '\u00A0'} 
                     </p>
 
             {/* Message d'erreur général (on ne montre pas NO_ACCOUNT_MSG pendant l'étape 'pseudo') */}
