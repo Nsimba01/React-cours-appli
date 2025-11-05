@@ -370,7 +370,7 @@ function ResetPassword() {
                                       <p
                       className="message-error invalid-click-msg"
                       style={{ 
-                        marginTop: '2px', 
+                        marginTop: '23px', 
                         marginBottom: '10px', 
                         fontSize: "15px", 
                         color: 'rgb(238, 0, 0)',
