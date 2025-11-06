@@ -374,7 +374,7 @@ function ResetPassword() {
                         marginBottom: '10px', 
                         fontSize: "15px", 
                         color: 'rgb(238, 0, 0)',
-                        marginLeft: "3.8px",
+                        marginLeft: "1.5px",
                         display: invalidClickMsg ? 'block' : 'none' 
                       }}
                     >
