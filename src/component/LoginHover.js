@@ -45,6 +45,10 @@ function LoginHover() {
     const { name, value } = event.target;
     setFormData(prev => ({ ...prev, [name]: value }));
 
+    // Réinitialiser les messages d'erreur et de succès lors de la modification
+    setErrorMessage(null);
+    setSuccessMessage(null);
+
     if (name === "password") {
       setPasswordValidation(validatePassword(value));
     } else if (name === "username") {
@@ -55,14 +59,16 @@ function LoginHover() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (!Object.values(passwordValidation).every(v => v)) {
-      setErrorMessage("Ton mot de passe n'est pas valide");
+    // Vérifier d'abord le pseudo
+    if (!pseudoValidation) {
+      setErrorMessage("Ton pseudo n'est pas valide");
       setSuccessMessage(null);
       return;
     }
 
-    if (!pseudoValidation) {
-      setErrorMessage("Ton pseudo n'est pas valide");
+    // Ensuite vérifier le mot de passe
+    if (!Object.values(passwordValidation).every(v => v)) {
+      setErrorMessage("Ton mot de passe n'est pas valide");
       setSuccessMessage(null);
       return;
     }
@@ -117,7 +123,7 @@ function LoginHover() {
           />
           {isPseudoFocused && (
             <div id="pseudo-validation">
-              <span style={{ color: pseudoValidation ? "RGB(51,204,51)" : "red", fontWeight: "normal" }}>
+              <span style={{ color: pseudoValidation ? "RGB(51,204,51)" : "red", fontWeight: "normal",fontSize: '13px' }}>
                 Au moins 5 caractères
               </span>
             </div>
@@ -151,15 +157,15 @@ function LoginHover() {
           <br />
           {isPasswordFocused && (
             <div id="password-validation">
-              <span style={{ color: passwordValidation.length ? "RGB(51,204,51) " : "red", fontWeight: "normal" }}>
+              <span style={{ color: passwordValidation.length ? "RGB(51,204,51) " : "red", fontWeight: "normal",fontSize: '13px' }}>
                 Au moins 10 caractères
               </span>
               <br />
-              <span style={{ color: passwordValidation.uppercase ? "RGB(51,204,51)" : "red", fontWeight: "normal" }}>
+              <span style={{ color: passwordValidation.uppercase ? "RGB(51,204,51)" : "red", fontWeight: "normal",fontSize: '13px' }}>
                 Au moins une majuscule
               </span>
               <br />
-              <span style={{ color: passwordValidation.number ? "RGB(51,204,51)" : "red" }}>
+              <span style={{ color: passwordValidation.number ? "RGB(51,204,51)" : "red", fontWeight: "normal",fontSize: '13px'}}>
                 Au moins 1 chiffre
               </span>
             </div>
