@@ -209,7 +209,8 @@
 
 .message-error {
   color: red;
-  margin-top: -5%;
+  margin-top: 10px;
+  
   font-weight: normal;
   font-size: 13px;
   text-align: center;

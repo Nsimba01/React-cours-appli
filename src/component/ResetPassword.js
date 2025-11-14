@@ -66,6 +66,32 @@ function ResetPassword() {
     }
   };
 
+  // Nouvelle fonction : Envoie un email de confirmation après réinitialisation réussie
+  const sendConfirmationEmail = async (userEmail, userName, userPseudo) => {
+    try {
+      const templateParams = {
+        to_name: userName || 'Utilisateur',
+        to_email: userEmail,
+        pseudo: userPseudo,
+        confirmation_message: 'Votre mot de passe a été réinitialisé avec succès.',
+      };
+
+      const userId = process.env.REACT_APP_EMAILJS_USER;
+
+      await emailjs.send(
+        process.env.REACT_APP_EMAILJS_SERVICE || 'service_z2vqh5i',
+        process.env.REACT_APP_EMAILJS_CONFIRMATION_TEMPLATE || 'template_confirmation', // Nouveau template pour confirmation
+        templateParams,
+        userId || 'k9E-hi9Gv6XCXnZWM'
+      );
+
+      console.log('Email de confirmation envoyé avec succès');
+    } catch (error) {
+      console.error('Erreur lors de l\'envoi de l\'email de confirmation:', error);
+      // On ne bloque pas le processus si l'email de confirmation échoue
+    }
+  };
+
   // Envoie l'email de réinitialisation et écrit le token en DB pour vérification côté serveur/endpoint
   const sendResetEmail = async (pseudo) => {
     if (isSending) return;
@@ -140,6 +166,10 @@ function ResetPassword() {
         setEmailSent(true);
         // vider le message "Ton mail n'est pas valide" / "Indique ton pseudo" si présent (en cas de succès)
         setInvalidClickMsg('');
+
+        // *** NOUVEAU : Envoyer l'email de confirmation après le succès ***
+        await sendConfirmationEmail(email, userData.name, pseudo);
+
       } catch (mailError) {
         console.error('Erreur EmailJS:', mailError);
         setErrorSafe(`Erreur lors de l'envoi de l'email : ${mailError?.text || mailError?.message || 'inconnue'}`);
@@ -367,19 +397,19 @@ function ResetPassword() {
               On réserve un espace fixe pour les messages afin d'éviter le déplacement du layout
           */}
           <div className="messages-space" aria-live="polite" style={{ minHeight: '3rem' }}>
-                                      <p
-                      className="message-error invalid-click-msg"
-                      style={{ 
-                        marginTop: '23px', 
-                        marginBottom: '10px', 
-                        fontSize: "15px", 
-                        color: 'rgb(238, 0, 0)',
-                        marginLeft: "1.5px",
-                        display: invalidClickMsg ? 'block' : 'none' 
-                      }}
-                    >
-                      {invalidClickMsg || '\u00A0'} 
-                    </p>
+            <p
+              className="message-error invalid-click-msg"
+              style={{ 
+                marginTop: '23px', 
+                marginBottom: '10px', 
+                fontSize: "15px", 
+                color: 'rgb(238, 0, 0)',
+                marginLeft: "1.5px",
+                display: invalidClickMsg ? 'block' : 'none' 
+              }}
+            >
+              {invalidClickMsg || '\u00A0'} 
+            </p>
 
             {/* Message d'erreur général (on ne montre pas NO_ACCOUNT_MSG pendant l'étape 'pseudo') */}
             {!(errorMessage === NO_ACCOUNT_MSG && step === 'pseudo') && (
