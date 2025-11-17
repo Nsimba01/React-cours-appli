@@ -56,13 +56,14 @@
   border-radius: 5px;
   box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur */
   font-size: 10px;
-  height: 25px; /* Hauteur fixe pour tous les champs */
+
   border:1px solid black;
+
 }
 
 .input-container-create input:focus {
 
-  border: 2px solid rgb(146, 208, 80);
+  border: 2px solid RGB(51,204,51);
   outline: none;
 
 }

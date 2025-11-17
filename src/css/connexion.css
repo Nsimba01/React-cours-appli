@@ -36,6 +36,8 @@
 
 
     margin-top: 10px;
+
+    margin-bottom: 30px;
   
  
 
@@ -128,7 +130,7 @@
   border: 1px solid black;
   border-radius: 4px;
   box-sizing: border-box;
-  font-size: 10px;
+  font-size: 15px;
   max-width: 340px;
 
 

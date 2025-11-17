@@ -377,11 +377,11 @@ function Creation() {
         </div>
         {isPseudoFocused && (
           <div className="validation-message" aria-live="polite">
-            <span style={{ color: pseudoValidation.length ? "green" : "red" }}>
+            <span style={{ color: pseudoValidation.length ? "RGB(51,204,51)" : "red" }}>
               Au moins 5 caractères
             </span>
             <br />
-            <span style={{ color: pseudoValidation.available ? "green" : pseudoValidation.checking ? "orange" : "red" }}>
+            <span style={{ color: pseudoValidation.available ? "RGB(51,204,51)" : pseudoValidation.checking ? "orange" : "red" }}>
               {pseudoValidation.checking ? "Vérification en cours..." : (pseudoValidation.available ? "Pseudo disponible" : "Pseudo indisponible")}
             </span>
           </div>
@@ -431,15 +431,15 @@ function Creation() {
 
         {isPasswordFocused && (
           <div className="validation-message" aria-live="polite">
-            <span style={{ color: passwordValidation.length ? "green" : "red" }}>
+            <span style={{ color: passwordValidation.length ? "RGB(51,204,51)" : "red" }}>
               Au moins 10 caractères
             </span>
             <br />
-            <span style={{ color: passwordValidation.uppercase ? "green" : "red" }}>
+            <span style={{ color: passwordValidation.uppercase ? "RGB(51,204,51)" : "red" }}>
               Au moins une majuscule
             </span>
             <br />
-            <span style={{ color: passwordValidation.number ? "green" : "red" }}>
+            <span style={{ color: passwordValidation.number ? "RGB(51,204,51)" : "red" }}>
               Au moins 1 chiffre
             </span>
           </div>
@@ -532,7 +532,7 @@ function Creation() {
         </div>
         {isEmailFocused && (
           <div className="validation-message" aria-live="polite">
-            <span style={{ color: emailValidation ? "green" : "red" }}>
+            <span style={{ color: emailValidation ? "RGB(51,204,51)" : "red" }}>
               Une adresse email valide
             </span>
           </div>
@@ -547,7 +547,7 @@ function Creation() {
             aria-disabled={(!isFormValid || isSubmitting).toString()}
             tabIndex={0}
             style={{
-              backgroundColor: isFormValid && !isSubmitting ? 'rgb(146,208,80)' : 'rgb(211, 211, 211)',
+              backgroundColor: isFormValid && !isSubmitting ? 'RGB(51,204,51)' : 'rgb(211, 211, 211)',
               cursor: isFormValid && !isSubmitting ? 'pointer' : 'not-allowed',
               transition: 'background-color 0.2s ease',
               border: "1px solid black",
@@ -586,7 +586,7 @@ function Creation() {
       </div>
 
       {/* Message de succès */}
-      {successMessage && <p role="status" aria-live="polite" style={{ color: "green" }}>{successMessage}</p>}
+      {successMessage && <p role="status" aria-live="polite" style={{ color: "RGB(51,204,51)" }}>{successMessage}</p>}
     </div>
   );
 }
