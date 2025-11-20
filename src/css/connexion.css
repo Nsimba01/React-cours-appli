@@ -27,8 +27,26 @@
   border-radius: 5px;
   margin-top: 20px;
   margin-bottom: 30px;
+
   text-align: center;
   border: 1px solid black;
+
+}
+
+
+@supports (-moz-appearance: none) {
+  .formulaire-reset-pwd{
+    height: 210px;
+  }  
+
+ 
+}  
+
+/* Cible Chrome, Edge, Opera (navigateurs Chromium) */
+@supports (-webkit-appearance: none) and (not (-moz-appearance: none)) {
+   .formulaire-reset-pwd{
+    height: 230px;
+  }  
 
 }
 
