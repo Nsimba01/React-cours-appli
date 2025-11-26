@@ -38,6 +38,7 @@
   min-width: 150px; /* Largeur fixe plus grande pour aligner les labels */
   margin-right: 10px;
   text-align: left;
+  font-weight: normal;
 }
 
 /* Styles pour les conteneurs d'entrée */
@@ -56,15 +57,24 @@
   border-radius: 5px;
   box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur */
   font-size: 10px;
+  height:25px;
 
   border:1px solid black;
 
 }
 
+.input-container-create input[type="text"],.input-container-create input[type="email"]{
+
+    font-size: 15px;
+
+}
+
 .input-container-create input:focus {
+
 
   border: 2px solid RGB(51,204,51);
   outline: none;
+  
 
 }
 
@@ -94,10 +104,11 @@
   .input-container-create input[type="password"] {
     padding: 4px;
     border: 1px solid #ccc;
-    border-radius: 3px;
+    border-radius: 5px;
     box-sizing: border-box;
     font-size: 15px;
-    height: 30px;
+    height:25px;
+    border:1px solid black;
   }
   .input-container-create input[type="password"] + span {
     top: 50% !important;
@@ -109,11 +120,19 @@
   background-color: white;
   width: 100%; /* Assure que le champ prend toute la largeur disponible */
   padding: 4px;
-  border: 1px solid #ccc;
+  border: 1px solid black;
   border-radius: 3px;
   box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur */
-  font-size: 15px;
-  height: 30px; /* Hauteur fixe pour tous les champs */
+  font-size: 10px;
+  height: 25px; /* Hauteur fixe pour tous les champs */
+}
+.input-container-create input:focus {
+
+
+  border: 2px solid RGB(51,204,51);
+  outline: none;
+  
+
 }
 }
 
