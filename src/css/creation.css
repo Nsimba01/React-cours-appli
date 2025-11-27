@@ -39,6 +39,7 @@
   margin-right: 10px;
   text-align: left;
   font-weight: normal;
+  font-size:15px;
 }
 
 /* Styles pour les conteneurs d'entrée */
@@ -49,19 +50,34 @@
 }
 
 /* Assurez-vous que les champs prennent toute la largeur disponible */
-.input-container-create input,
+
 .input-container-create select {
   width: 100%; /* Assure que le champ prend toute la largeur disponible */
   padding: 4px;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur */
-  font-size: 10px;
+  font-size: 15px;
+  height:30px;
+
+  border:1px solid black;
+
+}
+
+.input-container-create input {
+  width: 100%; /* Assure que le champ prend toute la largeur disponible */
+  padding: 4px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur */
+  font-size: 15px;
   height:25px;
 
   border:1px solid black;
 
 }
+
+
 
 .input-container-create input[type="text"],.input-container-create input[type="email"]{
 
@@ -97,6 +113,7 @@
   width: 100%; /* Assure que le champ de date prend toute la largeur disponible */
   padding: 4px;
   box-sizing: border-box;
+  height:30px;
 }
 
 /* Ajustements spécifiques pour Mozilla/Firefox */
@@ -121,10 +138,10 @@
   width: 100%; /* Assure que le champ prend toute la largeur disponible */
   padding: 4px;
   border: 1px solid black;
-  border-radius: 3px;
+  border-radius: 5px;
   box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur */
-  font-size: 10px;
-  height: 25px; /* Hauteur fixe pour tous les champs */
+  font-size: 15px;
+  height: 30px; /* Hauteur fixe pour tous les champs */
 }
 .input-container-create input:focus {
 
