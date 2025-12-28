@@ -1,26 +1,21 @@
 .footer {
   position: fixed;
-  left: 0.6em;         /* écart gauche */
-  right: 0.6em;        /* écart droite */
-  bottom: 0.6em;       /* écart bas */
-
-  /* plus besoin de width ni de margin-left/right/bottom */
+  left: 0.6em;
+  right: 0.6em;
+  bottom: 0.6em;
   margin: 0;
-
-  /* Couleurs d’origine */
   color: rgb(11, 10, 10);
   background-color: rgb(153, 102, 51);
-
   padding: 10px;
   box-sizing: border-box;
   display: flex;
-  flex-direction: column; /* Permet de mettre la mention légale sous le contenu */
+  flex-direction: column;
   align-items: center;
   border-radius: 5px;
   border: 1px solid black;
+  max-height: 40vh; /* Limite la hauteur du footer */
+  overflow-y: auto; /* Permet le scroll si nécessaire */
 }
-
-
 
 .footer-content {
     display: flex;
@@ -39,21 +34,76 @@
 .footer-legal {
     text-align: center;
     width: 100%;
-    margin-top: 40px; /* Crée un espace entre le contenu et la mention légale */
+    margin-top: 40px;
     font-style: italic;
-    
 }
 
-
 .title-design {
-    width: 200px; /* Largeur fixe pour que tous les éléments aient la même taille */
-    box-sizing: border-box; /* Inclut la bordure et le padding dans la largeur définie */
+    width: 200px;
+    box-sizing: border-box;
     border: 3px solid black;
     border-radius: 5px;
     padding: 3px;
     display: inline-block;
     margin-bottom: 10px;
     text-align: center;
-    white-space: nowrap; /* Empêche le retour à la ligne du contenu */
+    white-space: nowrap;
 }
 
+/* Media query pour les petits écrans (mobile) */
+@media (max-width: 576px) {
+  .footer {
+    padding: 5px;
+    max-height: 35vh; /* Réduit encore plus la hauteur max */
+  }
+  
+  .footer-content {
+    gap: 15px;
+    margin-top: 5px;
+  }
+  
+  .footer-legal {
+    margin-top: 15px; /* Réduit l'espace au-dessus */
+    font-size: 0.75em; /* Réduit la taille du texte */
+  }
+  
+  .title-design {
+    width: 140px; /* Réduit la largeur des titres */
+    font-size: 0.85em;
+    padding: 2px;
+    margin-bottom: 5px;
+  }
+  
+  .footer-position {
+    font-size: 0.8em; /* Réduit la taille du texte */
+  }
+}
+
+/* Media query spécifique pour les très petits écrans (320px) */
+@media (max-width: 360px) {
+  .footer {
+    padding: 3px;
+    left: 0.3em;
+    right: 0.3em;
+    bottom: 0.3em;
+  }
+  
+  .footer-content {
+    gap: 10px;
+  }
+  
+  .title-design {
+    width: 120px;
+    font-size: 0.75em;
+    border: 2px solid black;
+  }
+  
+  .footer-legal {
+    margin-top: 10px;
+    font-size: 0.7em;
+  }
+  
+  .footer-position {
+    font-size: 0.75em;
+  }
+}

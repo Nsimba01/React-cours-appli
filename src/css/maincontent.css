@@ -60,8 +60,32 @@
 
   margin-bottom: -1%;
 
-  background-color: antiquewhite;
+ 
 
+}
+
+
+.module_element{
+
+  padding: 8px 16px;
+  border-radius: 45px;
+  border: 4px solid black;
+  background-color:rgba(199, 216, 67, 0.699);
+  align-items: center;
+  width: 50%;
+
+
+}
+
+.module_element img{
+
+  padding: 8px 16px;
+
+
+  width:100px;
+
+  height:100px;
+  
 }
 
 
