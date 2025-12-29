@@ -166,6 +166,8 @@ function Connexion() {
           <button
             type="submit"
             className="submit-btn"
+            id="button-connexion"
+           
             style={{
               backgroundColor: isFormValid ? 'rgb(146,208,80)' : ' rgb(211, 211, 211)',
               cursor: isFormValid ? 'pointer' : 'not-allowed',
@@ -175,10 +177,10 @@ function Connexion() {
             Connexion
           </button>
         </div>
-        <p onClick={() => navigate('/creation')} className="link" style={{marginBottom:"0", cursor: 'pointer',fontWeight: "normal"}}>
+        <p onClick={() => navigate('/creation')} className="link"  id="link_form_top" style={{marginBottom:"0", cursor: 'pointer',fontWeight: "normal"}}>
           Pas encore d'espace ?
         </p>
-        <p onClick={() => navigate('/reset_password')} className="link" style={{marginTop:"0", cursor: 'pointer',fontWeight: "normal"}}>
+        <p onClick={() => navigate('/reset_password')} className="link" id="link_form_bottom" style={{marginTop:"0", cursor: 'pointer',fontWeight: "normal"}}>
           Mot de passe oublié ?
         </p>
         {successMessage && <p className="success">{successMessage}</p>}
