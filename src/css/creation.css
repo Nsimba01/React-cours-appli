@@ -177,6 +177,68 @@
   margin-bottom: 5%;
 }
 
+
+@media screen and (min-width:0px) and (max-width:570px){
+  
+  .formulaireCreate {
+    max-height: 35vh; /* Hauteur maximale du conteneur */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .formulaireCreate form {
+    overflow-y: auto; /* Active le scroll vertical */
+    flex: 1;
+    padding-right: 5%; /* Réduit le padding pour laisser place à la scrollbar */
+  }
+  
+  /* Style de la scrollbar (webkit - Chrome, Safari, Edge) */
+  .formulaireCreate form::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .formulaireCreate form::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+  }
+  
+  .formulaireCreate form::-webkit-scrollbar-thumb {
+    background: rgba(51, 204, 51, 0.6);
+    border-radius: 10px;
+  }
+  
+  .formulaireCreate form::-webkit-scrollbar-thumb:hover {
+    background: rgba(51, 204, 51, 0.8);
+  }
+  
+  /* Pour Firefox */
+  .formulaireCreate form {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(51, 204, 51, 0.6) rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Labels empilés sur mobile */
+  .form-row-creation {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .form-row-creation label {
+    min-width: auto;
+    margin-bottom: 5px;
+    width: 100%;
+  }
+
+  .msg-error-320px{
+
+    margin-top: "-10%" !important;
+  
+
+}
+
+}
+
+
 /* Styles pour les messages de validation */
 .validation-message {
   font-size: 14px;

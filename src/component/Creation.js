@@ -461,7 +461,7 @@ function Creation() {
     color: "red",
     fontSize: "15px",
     fontWeight: "normal",
-    marginTop: "15px"
+    marginTop: "-9px"
   };
 
   return (
@@ -699,7 +699,7 @@ function Creation() {
       {/* Affichage des messages sous le bouton avec transition */}
       <div style={{ minHeight: '22px',fontSize: '15px' }}>
         {errorMessage && (
-          <p role="alert" aria-live="assertive" style={errorStyle}>
+          <p role="alert" aria-live="assertive" style={errorStyle} className="msg-error-320px">
             {errorMessage}
           </p>
         )}
