@@ -232,7 +232,7 @@
   margin-top: 10px;
   
   font-weight: normal;
-  font-size: 13px;
+  font-size: 15px;
   text-align: center;
 }
 
@@ -401,6 +401,16 @@
   margin-top: -58px;
 
 }
+
+
+.message-error {
+  color: red;
+  margin-top: 10px;
+  font-weight: normal;
+  font-size: 11.7px !important;
+  text-align: center;
+}
+
 
 
 }   

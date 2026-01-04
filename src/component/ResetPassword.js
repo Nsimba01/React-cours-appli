@@ -402,7 +402,7 @@ function ResetPassword() {
               style={{ 
                
                
-                fontSize: "15px", 
+              
                 color: 'rgb(238, 0, 0)',
                 marginLeft: "1.5px",
                 display: invalidClickMsg ? 'block' : 'none' 
@@ -413,7 +413,7 @@ function ResetPassword() {
 
             {/* Message d'erreur général (on ne montre pas NO_ACCOUNT_MSG pendant l'étape 'pseudo') */}
             {!(errorMessage === NO_ACCOUNT_MSG && step === 'pseudo') && (
-              <p className="message-error" style={{ fontSize:"15px", visibility: errorMessage ? 'visible' : 'hidden' }}>
+              <p className="message-error" style={{ visibility: errorMessage ? 'visible' : 'hidden' }}>
                 {errorMessage || '\u00A0'}
               </p>
             )}
