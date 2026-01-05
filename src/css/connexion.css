@@ -227,6 +227,25 @@
   text-align: center;
 }
 
+
+
+@media screen and (min-width:0px) and (max-width:540px){
+
+  .message-success {
+
+    font-size: 0.8125rem !important;
+    margin-top: -2.0625rem !important;
+
+
+  }
+
+
+
+}
+
+
+
+
 .message-error {
   color: red;
   margin-top: 10px;
