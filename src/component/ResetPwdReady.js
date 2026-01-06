@@ -231,12 +231,12 @@ function ResetPwdReady() {
                     <div className="user-info">
                       <p>
                         <span style={labelStyle}>Pseudo :</span>
-                        <strong style={{ fontSize: '15px', marginLeft: '-27px' }}>{pseudo}</strong>
+                        <strong  className="pseudo_email">{pseudo}</strong>
                       </p>
 
                       <p>
                         <span style={labelStyle}>Mail :</span>
-                        <strong style={{ fontSize: '15px', marginLeft: '-27px' }}>{email}</strong>
+                        <strong className="pseudo_email">{email}</strong>
                       </p>
                     </div>
                   )}

@@ -17,7 +17,12 @@
 
 .reset-pwd-ready .user-info p {
   margin-bottom: 0px;
+  display: flex; /* Ajoute flexbox */
+  align-items: center; /* Centre verticalement */
+  gap: 8px; /* Espace entre le label et la valeur */
 }
+
+
 
 .reset-pwd-ready .success {
   color: green;
@@ -135,8 +140,79 @@
   color: red;
 }
 
+
+.pseudo_email{
+
+  font-size: 15px;
+  margin-left:  -27px ;
+}  
+
+
+
+
+
+@media screen and (min-width:0px) and (max-width:540px){
+
+  .password-reset-form {
+    max-height: 35vh; /* Même valeur que ton autre formulaire */
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-bottom: 10px;
+  }
+  
+  /* Style de la scrollbar (webkit - Chrome, Safari, Edge) */
+  .password-reset-form::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .password-reset-form::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+  }
+  
+  .password-reset-form::-webkit-scrollbar-thumb {
+    background: rgba(51, 204, 51, 0.6);
+    border-radius: 10px;
+  }
+  
+  .password-reset-form::-webkit-scrollbar-thumb:hover {
+    background: rgba(51, 204, 51, 0.8);
+  }
+  
+  /* Pour Firefox */
+  .password-reset-form {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(51, 204, 51, 0.6) rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Réduire les font-size pour mobile */
+  .password-reset-form p {
+    font-size: 0.875rem; /* 14px */
+  }
+  
+.pseudo_email {
+  font-size: 0.9375rem; /* 15px */
+  margin-left: 8px; /* Espace positif au lieu de négatif */
+  display: inline; /* Force l'affichage inline */
+}
+
+}
+
+
+
+
+
+
+
+
 @media (max-width: 600px) {
   .password-reset-form {
     padding: 10px;
   }
 }
+
+
+
+
+
+
