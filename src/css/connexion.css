@@ -229,21 +229,6 @@
 
 
 
-@media screen and (min-width:0px) and (max-width:540px){
-
-  .message-success {
-
-    font-size: 0.8125rem !important;
-    margin-top: -2.0625rem !important;
-
-
-  }
-
-
-
-}
-
-
 
 
 .message-error {
@@ -263,14 +248,29 @@
 }
 
 /* Conteneur / layout réutilisables */
-.form-row {
+.field-1 {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.1%;
+  flex-wrap: wrap;
+}
+
+.field-1 label {
+  flex: 0 0 100px;
+  margin-right: 6px;
+  text-align: left;
+  font-size: 15px;
+}
+
+
+.field-2 {
   display: flex;
   align-items: center;
   margin-bottom: 8px;
   flex-wrap: wrap;
 }
 
-.form-row label {
+.field-2 label {
   flex: 0 0 100px;
   margin-right: 6px;
   text-align: left;
@@ -386,53 +386,78 @@
 
 @media screen and (min-width:0px) and (max-width:540px){
 
-.formulaire {
+  .message-success {
+    font-size: 0.8125rem !important;
+    margin-top: -2.0625rem !important;
+  }
+
+  .formulaire {
+    height: 235px; /* Réduit pour forcer le scroll sur les 2 champs */
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
   
- 
-  height:250px;
- 
-}
+  /* Style de la scrollbar (webkit - Chrome, Safari, Edge) */
+  .formulaire::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .formulaire::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+  }
+  
+  .formulaire::-webkit-scrollbar-thumb {
+    background: rgba(51, 204, 51, 0.6);
+    border-radius: 10px;
+  }
+  
+  .formulaire::-webkit-scrollbar-thumb:hover {
+    background: rgba(51, 204, 51, 0.8);
+  }
+  
+  /* Pour Firefox */
+  .formulaire {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(51, 204, 51, 0.6) rgba(0, 0, 0, 0.1);
+  }
 
-#link_form_top{
+  #link_form_top {
+    margin-top: -10px;
+  }
 
-   margin-top:-10px;
+  #link_form_bottom {
+    margin-bottom: -18px;
+  }
 
+  #button-connexion {
+    margin-top: -10px;
+    margin-bottom: 15px;
+  }
 
-}
+  .reset-pwd-form {
+    margin-top: -58px;
+  }
 
-#link_form_bottom{
+  .message-error {
+    color: red;
+    margin-top: 10px;
+    font-weight: normal;
+    font-size: 11.7px !important;
+    text-align: center;
+  }
 
-   margin-bottom:-18px;
+  .field-2 {
+    margin-bottom: 15px;
+  }
 
-
-}
-
-
-
-#button-connexion {
-
-  margin-top:-10px;
-
-}
-
-.reset-pwd-form {
-
-  margin-top: -58px;
-
-}
-
-
-.message-error {
-  color: red;
-  margin-top: 10px;
-  font-weight: normal;
-  font-size: 11.7px !important;
-  text-align: center;
-}
+  .formulaire p.error-message {
 
 
+    margin-top: 8%
+  }
 
-}   
+} 
 
 /* Responsive : adaptatif pour écrans étroits */
 @media screen and (min-width: 600px)  and (max-width: 600px) {
@@ -507,6 +532,5 @@
 #aligner-button:active {
   transform: translateY(1px);
 }
-
 
 

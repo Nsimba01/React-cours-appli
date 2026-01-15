@@ -97,7 +97,7 @@ function Connexion() {
     <div className="formulaire">
       <p>Connexion à mon espace</p>
       <form onSubmit={handleSubmit}>
-        <div className="form-row">
+        <div className="field-1">
           <label htmlFor="pseudo">Pseudo:</label>
           <div className="input-container">
             <input
@@ -122,7 +122,7 @@ function Connexion() {
             </span>
           </div>
         )}
-        <div className="form-row">
+        <div className="field-2">
           <label htmlFor="motdepasse">Mot de passe:</label>
           <div className="input-container">
             <input

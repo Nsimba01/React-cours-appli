@@ -151,7 +151,7 @@
 
 
 
-@media screen and (min-width:0px) and (max-width:540px){
+@media screen and (min-width:0px) and (max-width:360px) {
 
   .password-reset-form {
     max-height: 35vh; /* Même valeur que ton autre formulaire */
@@ -199,6 +199,12 @@
 }
 
 
+
+@media screen and (min-width:361px) and (max-width:375) {
+
+
+
+}
 
 
 
