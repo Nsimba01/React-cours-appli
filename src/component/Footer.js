@@ -16,7 +16,7 @@ function Footer() {
         onClick={toggleFooter}
         aria-label={isOpen ? "Fermer le footer" : "Ouvrir le footer"}
       >
-        {isOpen ? '✕ Fermer' : 'ℹ️ Informations'}
+        {isOpen ? '✕' : 'Infos'}
       </button>
 
       <footer className={`footer ${isOpen ? 'footer-open' : 'footer-closed'}`}>
@@ -49,7 +49,7 @@ function Footer() {
         </div>
         
         <div className="footer-legal">
-          ©2024 arbredusavoir.fr (tous droits réservés)
+          ©2024 arbredusavoir.fr  <br/>(tous droits réservés)
         </div>
       </footer>
     </>

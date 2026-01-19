@@ -57,7 +57,7 @@
 }
 
 /* Media query pour les petits écrans (mobile) */
-@media (max-width: 560px) {
+@media (max-width: 768px) {
   /* Bouton pour ouvrir/fermer le footer */
   .footer-toggle-btn {
     display: block;
@@ -75,6 +75,8 @@
     z-index: 1001;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease;
+
+    width: 20%;
   }
 
   .footer-toggle-btn:hover {
@@ -119,7 +121,7 @@
   }
     
   .title-design {
-    width: 150px;
+
     padding: 1px;
     margin-bottom: 6px;
     border-width: 2px;
@@ -154,7 +156,7 @@
   }
     
   .title-design {
-    width: 130px;
+    
     border: 2px solid black;
     padding: 1px;
     margin-bottom: 5px;
