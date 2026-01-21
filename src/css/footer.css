@@ -57,7 +57,7 @@
 }
 
 /* Media query pour les petits écrans (mobile) */
-@media (max-width: 768px) {
+@media (max-width: 939px) {
   /* Bouton pour ouvrir/fermer le footer */
   .footer-toggle-btn {
     display: block;

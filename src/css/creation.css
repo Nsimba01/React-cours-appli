@@ -178,7 +178,7 @@
 }
 
 
-@media screen and (min-width:0px) and (max-width:570px){
+@media screen and (min-width:0px) and (max-width:1920px){
   
   .formulaireCreate {
     max-height: 35vh; /* Hauteur maximale du conteneur */
