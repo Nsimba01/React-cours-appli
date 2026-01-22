@@ -21,11 +21,12 @@ import btn_on_connexion  from '../images/connexion_on.png';
 
 function Header() {
   const { isAuthenticated, logout } = useContext(AuthContext);
-  const [isHovered, setIsHovered]               = useState(false);
-  const [isDropdownHovered, setIsDropdownHovered] = useState(false);
-  const [isZoomOut, setIsZoomOut]               = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isZoomOut, setIsZoomOut] = useState(false);
+  const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= 1009);
 
-  // 1. Détection du zoom via devicePixelRatio ou visualViewport.scale
+  // Détection du zoom
   useEffect(() => {
     const detectZoom = () => {
       const scaleVV = window.visualViewport?.scale;
@@ -39,7 +40,60 @@ function Header() {
     return () => window.removeEventListener('resize', detectZoom);
   }, []);
 
-  const handleLogout = () => logout();
+  // Détection de la largeur d'écran
+  useEffect(() => {
+    const handleResize = () => {
+      setIsLargeScreen(window.innerWidth >= 1009);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Fermer le dropdown au clic à l'extérieur (seulement pour petits écrans)
+  useEffect(() => {
+    if (!isLargeScreen) {
+      const handleClickOutside = (event) => {
+        if (!event.target.closest('.dropdown')) {
+          setIsDropdownOpen(false);
+        }
+      };
+
+      document.addEventListener('click', handleClickOutside);
+      return () => document.removeEventListener('click', handleClickOutside);
+    }
+  }, [isLargeScreen]);
+
+  const toggleDropdown = (e) => {
+    if (!isLargeScreen) {
+      e.preventDefault();
+      e.stopPropagation();
+      setIsDropdownOpen(!isDropdownOpen);
+    }
+  };
+
+  const handleMouseEnter = () => {
+    if (isLargeScreen) {
+      setIsHovered(true);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (isLargeScreen) {
+      setIsHovered(false);
+    }
+  };
+
+  const handleLogout = () => {
+    logout();
+    setIsDropdownOpen(false);
+    setIsHovered(false);
+  };
+
+  // Afficher le dropdown si :
+  // - Grand écran ET survol
+  // - Petit écran ET clic
+  const showDropdown = isLargeScreen ? isHovered : isDropdownOpen;
 
   return (
     <Router>
@@ -67,16 +121,14 @@ function Header() {
 
         {/* BOUTON CONNEXION / ESPACE */}
         <div className="col">
-          <div
-            className="dropdown"
-            onMouseEnter={() => setIsDropdownHovered(true)}
-            onMouseLeave={() => setIsDropdownHovered(false)}
-          >
+          <div className="dropdown">
             {isAuthenticated ? (
               <div
                 className="button_espace"
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
+                onClick={toggleDropdown}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+                style={{ cursor: 'pointer' }}
               >
                 <img
                   className="bloc_titre_boutonespace_image"
@@ -87,10 +139,10 @@ function Header() {
               </div>
             ) : (
               <Link to="/connexion">
-                <div
+                <div 
                   className="button_espace"
-                  onMouseEnter={() => setIsHovered(true)}
-                  onMouseLeave={() => setIsHovered(false)}
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
                 >
                   <img
                     className="bloc_titre_boutonespace_image"
@@ -103,21 +155,27 @@ function Header() {
               </Link>
             )}
 
-            <div className="dropdown-content">
-  {isAuthenticated && (isHovered || isDropdownHovered) ? (
-    <div className="dropdown-content-deconnexion">
-      <button
-        onClick={handleLogout}
-        style={{ borderRadius: '7px', fontWeight: 'bold' }}
-      >
-        Déconnexion
-      </button>
-    </div>
-  ) : (
-    !isAuthenticated && <LoginHover />
-  )}
-</div>
-
+            {/* Dropdown content - LoginHover ou Déconnexion */}
+            {showDropdown && (
+              <div 
+                className="dropdown-content-wrapper"
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              >
+                {isAuthenticated ? (
+                  <div className="dropdown-content-deconnexion">
+                    <button
+                      onClick={handleLogout}
+                      style={{ borderRadius: '7px', fontWeight: 'bold' }}
+                    >
+                      Déconnexion
+                    </button>
+                  </div>
+                ) : (
+                  <LoginHover />
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>

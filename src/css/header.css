@@ -6,8 +6,8 @@
     border: 1px solid black;
     background-color: rgb(153, 102, 51);
     min-height: 40px;
-    height: auto; /* Changé de 80px à auto pour s'adapter au contenu */
-    padding: 10px; /* Simplifié le padding */
+    height: auto;
+    padding: 10px;
     margin: 0.6em;
     margin-bottom: 0;
     border-radius: 5px;
@@ -30,7 +30,7 @@
     .row {
         flex-direction: column;
         margin: auto;
-        width: 100%; /* Changé de 1000px à 100% */
+        width: 100%;
         background-color: rgb(153, 102, 51);
     }
 }
@@ -40,7 +40,7 @@
     .row {
         flex-direction: column;
         margin: auto;
-        width: 100%; /* Changé de 1000px à 100% */
+        width: 100%;
         background-color: rgb(153, 102, 51);
     }
 }
@@ -50,7 +50,7 @@
     .row {
         flex-direction: column;
         margin: auto;
-        width: 100%; /* Changé de 1000px à 100% */
+        width: 100%;
         background-color: rgb(153, 102, 51);
     }
 }
@@ -60,7 +60,7 @@
     .row {
         flex-direction: column;
         margin: auto;
-        width: 100%; /* Changé de 1000px à 100% */
+        width: 100%;
         background-color: rgb(153, 102, 51);
     }
 }
@@ -115,26 +115,26 @@
 /* LOGO - Styles identiques à bloc_titre_boutonespace_image */
 @media screen and (min-width: 1001px) and (max-width: 1024px) {
     .bloc_titre_logo {
-        width: 30px; /* Même logique que bloc_titre_boutonespace_image */
-        height: 40px; /* Ajustement de la hauteur pour correspondre au bouton de connexion */
+        width: 30px;
+        height: 40px;
         margin-left: -98%;
-        padding-top: 0;   /* Supprimer le padding supérieur */
-        padding-bottom: 0; /* Supprimer le padding inférieur */
-        margin-top: 0;    /* Supprimer la marge supérieure */
-        margin-bottom: 0; /* Supprimer la marge inférieure */
+        padding-top: 0;
+        padding-bottom: 0;
+        margin-top: 0;
+        margin-bottom: 0;
         border-radius: 10px;
     }
 }
 
 @media screen and (min-width: 1024px) {
     .bloc_titre_logo {
-        width: 30px; /* Même logique que bloc_titre_boutonespace_image */
-        height: 40px; /* Ajustement de la hauteur pour correspondre au bouton de connexion */
-        margin-left: -90%; /* Ajustement pour déplacer plus à gauche */
-        padding-top: 0;   /* Supprimer le padding supérieur */
-        padding-bottom: 0; /* Supprimer le padding inférieur */
-        margin-top: 0;    /* Supprimer la marge supérieure */
-        margin-bottom: 0; /* Supprimer la marge inférieure */
+        width: 30px;
+        height: 40px;
+        margin-left: -90%;
+        padding-top: 0;
+        padding-bottom: 0;
+        margin-top: 0;
+        margin-bottom: 0;
         border-radius: 10px;
     }
 }
@@ -143,12 +143,12 @@
     .bloc_titre_logo {
         margin-right: -52%;
         margin-left: -57%;
-        width: 30px; /* Même logique que bloc_titre_boutonespace_image */
-        height: 40px; /* Ajustement de la hauteur pour correspondre au bouton de connexion */
-        padding-top: 0;   /* Supprimer le padding supérieur */
-        padding-bottom: 0; /* Supprimer le padding inférieur */
-        margin-top: 0;    /* Supprimer la marge supérieure */
-        margin-bottom: 0; /* Supprimer la marge inférieure */
+        width: 30px;
+        height: 40px;
+        padding-top: 0;
+        padding-bottom: 0;
+        margin-top: 0;
+        margin-bottom: 0;
         border-radius: 10px;
     }
 }
@@ -157,39 +157,28 @@
     .bloc_titre_logo {
         margin-right: -52%;
         margin-left: -57%;
-        width: 30px; /* Même logique que bloc_titre_boutonespace_image */
-        height: 40px; /* Ajustement de la hauteur pour correspondre au bouton de connexion */
-        padding-top: 0;   /* Supprimer le padding supérieur */
-        padding-bottom: 0; /* Supprimer le padding inférieur */
-        margin-top: 0;    /* Supprimer la marge supérieure */
-        margin-bottom: 0; /* Supprimer la marge inférieure */
+        width: 30px;
+        height: 40px;
+        padding-top: 0;
+        padding-bottom: 0;
+        margin-top: 0;
+        margin-bottom: 0;
         border-radius: 10px;
-    }
-
-    .dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: rgb(153, 102, 51);
-        width: 100%;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-        padding: 12px 16px;
-        align-items: center;
-        z-index: 1;
     }
 }
 
 /* Règle générale pour l'image du logo - comportement identique aux autres éléments */
 .bloc_titre_logo img {
-    width: auto;  /* Permet à la largeur de s'ajuster selon la hauteur */
-    height: 100%; /* Remplit toute la hauteur du bloc */
-    object-fit: contain; /* Garde les proportions de l'image */
+    width: auto;
+    height: 100%;
+    object-fit: contain;
 }
 
 /* BOUTON ESPACE - Styles corrigés */
 @media screen and (min-width: 1001px) and (max-width: 1024px) {
     .bloc_titre_boutonespace_image {
         width: 30px;
-        height: auto; /* Changé de '4rem' à auto */
+        height: auto;
         border-radius: 10px;
     }
 }
@@ -197,7 +186,7 @@
 @media screen and (min-width: 1024px) {
     .bloc_titre_boutonespace_image {
         width: 30px;
-        height: auto; /* Changé de '2rem' à auto */
+        height: auto;
         border-radius: 10px;
     }
 }
@@ -228,17 +217,16 @@
         flex: 1;
         display: flex;
         white-space: nowrap;
-        min-height: 60px; /* Hauteur minimum au lieu de height fixe */
+        min-height: 60px;
         align-items: center;
         justify-content: center;
-
         font-weight: bold;
         color: black;
-        font-size: clamp(24px, 4vw, 45px); /* Taille responsive */
+        font-size: clamp(24px, 4vw, 45px);
         padding: 4px;
         text-decoration: none;
         margin: 5px 0;
-        overflow: visible; /* Assure que le texte reste visible */
+        overflow: visible;
     }
 }
 
@@ -249,10 +237,9 @@
         white-space: nowrap;
         align-items: center;
         justify-content: center;
-   
         font-weight: bold;
         color: black;
-        font-size: clamp(20px, 3.5vw, 30px); /* Taille responsive */
+        font-size: clamp(20px, 3.5vw, 30px);
         padding: 4px 8px;
         text-decoration: none;
         margin: 5px 0;
@@ -260,21 +247,33 @@
     }
 }
 
-@media screen and (max-width: 768px) {
+
     .titre {
         flex: 1;
         display: flex;
         align-items: center;
         justify-content: center;
-
         font-weight: bold;
         color: black;
-        font-size: clamp(18px, 3vw, 24px); /* Taille responsive */
+        font-size: clamp(18px, 3vw, 24px);
         padding: 4px 8px;
         text-decoration: none;
         margin: 5px 0;
         overflow: visible;
     }
+@media screen and (min-width: 1009px) {
+
+    .dropdown-content-wrapper {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    margin-top: 5px;
+    width:100%;
+    
+    
+}
 }
 
 .row, .presentation {
@@ -289,52 +288,72 @@
 
 .bloc_titre_boutonespace_image {
     width: 30px;
-    height: auto; /* Changé de '4rem' à auto */
+    height: auto;
     margin-right: 5px;
     border-radius: 10px;
 }
 
+/* DROPDOWN - Styles modifiés pour fonctionnement au clic ET survol */
 .dropdown {
     position: relative;
     display: inline-block;
 }
 
-.dropdown-content {
-    display: none;
+/* Wrapper pour empêcher le dropdown d'agrandir le header */
+.dropdown-content-wrapper {
     position: absolute;
-    background-color:transparent;
-    padding: 12px 16px;
-    z-index: 1;
-    width: 100%;
-    border:none ;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    margin-top: 5px;
+    
+    
 }
 
-
-
-.dropdown:hover .dropdown-content {
+/* Dropdown de déconnexion - Affiché/caché via React state */
+.dropdown-content-deconnexion {
     display: block;
-    background-color:transparent;
- 
-   
-  
-}
-
-.dropdown:hover  .dropdown-content-deconnexion {
-    display: block;
-    position: absolute;
+    position: relative;
     background-color: rgb(153, 102, 51);
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     padding: 12px 16px;
     z-index: 1;
-    width: 104%;
     border-radius: 15px;
-    margin-top: -3%;
-    margin-left: -5%;
- 
-   
-  
 }
 
+@media screen and (min-width: 1009px) and (max-width: 1920px) {
+    .dropdown-content-deconnexion {
+        width: 104%;
+    }
+
+
+    .dropdown-content-deconnexion {
+    display: block;
+    position: relative;
+    background-color: rgb(153, 102, 51);
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+    border-radius: 15px;
+}
+}
+
+.dropdown-content-deconnexion button {
+    width: 100%;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    color: black;
+    padding: 8px 16px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.dropdown-content-deconnexion button:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 7px;
+}
 
 .divexterne {
     background-color: rgba(199, 216, 67, 0.699);
@@ -377,22 +396,4 @@
     width: 100%;
     position: relative;
     z-index: 1;
-}
-
-@media screen and (min-width: 300px) and (max-width: 1444px) {
-    .dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: rgb(153, 102, 51);
-        width: 100%;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-        padding: 12px 16px;
-        align-items: center;
-        z-index: 1;
-    }
-    .dropdown:hover .dropdown-content {
-        display: none;
-        background-color: rgb(153, 102, 51);
-        width: 100%;
-    }
 }
