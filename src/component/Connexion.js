@@ -117,7 +117,7 @@ function Connexion() {
         </div>
         {isPseudoFocused && (
           <div id="pseudo-validation" className="validation-message">
-            <span style={{ color: pseudoValidation ? "RGB(51,204,51)" : "red", fontWeight: "normal" }}>
+            <span style={{ color: pseudoValidation ? "RGB(51,204,51)" : "red", fontWeight: "normal"}}>
               Au moins 5 caractères
             </span>
           </div>

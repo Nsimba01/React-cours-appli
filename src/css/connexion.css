@@ -319,7 +319,7 @@
 
 #password-validation{
 
-  margin-bottom: 10px;
+
   margin-top: 18px;
   font-family: 'Comic Sans MS';
   font-weight: normal;
@@ -426,14 +426,26 @@
     margin-top: -10px;
   }
 
+  /*
   #link_form_bottom {
     margin-bottom: -18px;
-  }
+  }   */
+
+
 
   #button-connexion {
-    margin-top: -10px;
-    margin-bottom: 15px;
+
+    margin-bottom: 25px;
+    margin-top: 25px;
   }
+
+
+  .input-container input[type="password"] {
+
+    margin-bottom: -40%;
+  
+  }
+
 
   .reset-pwd-form {
     margin-top: -58px;
@@ -456,6 +468,9 @@
 
     margin-top: 8%
   }
+
+
+
 
 } 
 
