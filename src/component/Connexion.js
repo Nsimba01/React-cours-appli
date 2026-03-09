@@ -30,10 +30,7 @@ function Connexion() {
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevState) => ({ ...prevState, [name]: value }));
-    
-    // Effacer le message d'erreur lors de la modification
     setErrorMessage(null);
-
     if (name === "password") {
       setPasswordValidation(validatePassword(value));
     } else if (name === "pseudo") {
@@ -43,15 +40,13 @@ function Connexion() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
-    // 1. Validation du pseudo EN PREMIER
+
     if (!pseudoValidation) {
       setErrorMessage("Ton pseudo n'est pas valide");
       setSuccessMessage(null);
       return;
     }
-    
-    // 2. Validation du mot de passe ENSUITE (seulement si le pseudo est valide)
+
     if (!Object.values(passwordValidation).every(value => value)) {
       setErrorMessage("Ton mot de passe n'est pas valide");
       setSuccessMessage(null);
@@ -69,7 +64,7 @@ function Connexion() {
         if (passwordMatch) {
           setSuccessMessage("Vous êtes connecté !");
           setErrorMessage(null);
-          login();
+          login(formData.pseudo); 
           navigate('/home');
         } else {
           setErrorMessage("Ton mot de passe est incorrect");
@@ -80,9 +75,9 @@ function Connexion() {
         setSuccessMessage(null);
       }
     } catch (error) {
-      setErrorMessage("Une erreur s'est produite lors de la connexion/inscription. Veuillez réessayer.");
+      setErrorMessage("Une erreur s'est produite lors de la connexion. Veuillez réessayer.");
       setSuccessMessage(null);
-      console.error("Erreur lors de l'enregistrement des données:", error);
+      console.error("Erreur lors de la connexion:", error);
     }
   };
 
@@ -90,7 +85,6 @@ function Connexion() {
     setShowPassword(prevState => !prevState);
   };
 
-  // Vérifie si le formulaire est prêt pour la soumission
   const isFormValid = pseudoValidation && Object.values(passwordValidation).every(v => v);
 
   return (
@@ -111,17 +105,17 @@ function Connexion() {
               aria-describedby="pseudo-validation"
               onFocus={() => setIsPseudoFocused(true)}
               onBlur={() => setIsPseudoFocused(false)}
-           
             />
           </div>
         </div>
         {isPseudoFocused && (
           <div id="pseudo-validation" className="validation-message">
-            <span style={{ color: pseudoValidation ? "RGB(51,204,51)" : "red", fontWeight: "normal"}}>
+            <span style={{ color: pseudoValidation ? "RGB(51,204,51)" : "red", fontWeight: "normal" }}>
               Au moins 5 caractères
             </span>
           </div>
         )}
+
         <div className="field-2">
           <label htmlFor="motdepasse">Mot de passe:</label>
           <div className="input-container">
@@ -136,10 +130,9 @@ function Connexion() {
               aria-describedby="password-validation"
               onFocus={() => setIsPasswordFocused(true)}
               onBlur={() => setIsPasswordFocused(false)}
-            
             />
-            <span 
-              className="toggle-password" 
+            <span
+              className="toggle-password"
               onClick={toggleShowPassword}
               aria-label={showPassword ? "Masquer le mot de passe" : "Afficher le mot de passe"}
             >
@@ -162,29 +155,32 @@ function Connexion() {
             </span>
           </div>
         )}
+
         <div className="form-row">
           <button
             type="submit"
             className="submit-btn"
             id="button-connexion"
-           
             style={{
-              backgroundColor: isFormValid ? 'rgb(146,208,80)' : ' rgb(211, 211, 211)',
+              backgroundColor: isFormValid ? 'rgb(146,208,80)' : 'rgb(211, 211, 211)',
               cursor: isFormValid ? 'pointer' : 'not-allowed',
-         
             }}
           >
             Connexion
           </button>
         </div>
-        <p onClick={() => navigate('/creation')} className="link"  id="link_form_top" style={{marginBottom:"0", cursor: 'pointer',fontWeight: "normal"}}>
+
+        <p onClick={() => navigate('/creation')} className="link" id="link_form_top"
+          style={{ marginBottom: "0", cursor: 'pointer', fontWeight: "normal" }}>
           Pas encore d'espace ?
         </p>
-        <p onClick={() => navigate('/reset_password')} className="link" id="link_form_bottom" style={{marginTop:"0", cursor: 'pointer',fontWeight: "normal"}}>
+        <p onClick={() => navigate('/reset_password')} className="link" id="link_form_bottom"
+          style={{ marginTop: "0", cursor: 'pointer', fontWeight: "normal" }}>
           Mot de passe oublié ?
         </p>
+
         {successMessage && <p className="success">{successMessage}</p>}
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
+        {errorMessage   && <p className="error-message">{errorMessage}</p>}
       </form>
     </div>
   );

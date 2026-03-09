@@ -34,7 +34,7 @@ function LoginHover() {
         const snapshot = await get(userRef);
         return snapshot.exists();
       } catch (error) {
-        console.error('Erreur lors de la vérification de l\'utilisateur :', error);
+        console.error('Erreur lors de la vérification :', error);
         return false;
       }
     }
@@ -44,11 +44,8 @@ function LoginHover() {
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-
-    // Réinitialiser les messages d'erreur et de succès lors de la modification
     setErrorMessage(null);
     setSuccessMessage(null);
-
     if (name === "password") {
       setPasswordValidation(validatePassword(value));
     } else if (name === "username") {
@@ -59,14 +56,12 @@ function LoginHover() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Vérifier d'abord le pseudo
     if (!pseudoValidation) {
       setErrorMessage("Ton pseudo n'est pas valide");
       setSuccessMessage(null);
       return;
     }
 
-    // Ensuite vérifier le mot de passe
     if (!Object.values(passwordValidation).every(v => v)) {
       setErrorMessage("Ton mot de passe n'est pas valide");
       setSuccessMessage(null);
@@ -83,32 +78,23 @@ function LoginHover() {
     handleLogin(
       formData.username,
       formData.password,
-      login,
+      (pseudo) => login(pseudo), 
       navigate,
       (error) => setErrorMessage(error),
       (message) => setSuccessMessage(message)
     );
   };
 
-  const handlePasswordBlur = () => {
-    setIsPasswordFocused(false);
-  };
-
   const toggleShowPassword = () => setShowPassword(prev => !prev);
   const handleCreateAccount = () => navigate('/creation');
-
-  // Vérifie si le formulaire est prêt pour la soumission
   const isFormValid = pseudoValidation && Object.values(passwordValidation).every(v => v);
 
   return (
     <div className="form-login">
       <form onSubmit={handleSubmit}>
         <div>
-          {/* Pseudo */}
           <p>
-            <label style={{ fontSize: '15px', marginBottom: "10px" }}>
-              Pseudo
-            </label>
+            <label style={{ fontSize: '15px', marginBottom: "10px" }}>Pseudo</label>
           </p>
           <input
             type="text"
@@ -118,21 +104,17 @@ function LoginHover() {
             onFocus={() => setIsPseudoFocused(true)}
             onBlur={() => setIsPseudoFocused(false)}
             aria-invalid={!pseudoValidation}
-            aria-describedby="pseudo-validation"
             style={{ marginTop: "-5px", width: "100%" }}
           />
           {isPseudoFocused && (
-            <div id="pseudo-validation">
-              <span style={{ color: pseudoValidation ? "RGB(51,204,51)" : "red", fontWeight: "normal",fontSize: '13px' }}>
+            <div>
+              <span style={{ color: pseudoValidation ? "RGB(51,204,51)" : "red", fontWeight: "normal", fontSize: '13px' }}>
                 Au moins 5 caractères
               </span>
             </div>
           )}
           <br />
-          {/* Mot de passe */}
-          <label style={{ fontSize: '15px', marginTop: "-5px" }}>
-            Mot de passe <br />
-          </label>
+          <label style={{ fontSize: '15px', marginTop: "-5px" }}>Mot de passe <br /></label>
           <div style={{ position: "relative", display: "inline-block", width: "100%" }}>
             <input
               type={showPassword ? "text" : "password"}
@@ -140,48 +122,44 @@ function LoginHover() {
               value={formData.password}
               onChange={handleChange}
               onFocus={() => setIsPasswordFocused(true)}
-              onBlur={handlePasswordBlur}
-              aria-invalid={!Object.values(passwordValidation).every(Boolean)}
-              aria-describedby="password-validation"
+              onBlur={() => setIsPasswordFocused(false)}
               style={{ width: "100%", paddingRight: "30px" }}
             />
             <span
               onClick={toggleShowPassword}
               style={{ position: "absolute", right: 10, top: "33%", transform: "translateY(-50%)", cursor: "pointer" }}
-              className="toggle-password-login-hover"
-              aria-label={showPassword ? "Masquer le mot de passe" : "Afficher le mot de passe"}
+              aria-label={showPassword ? "Masquer" : "Afficher"}
             >
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </span>
           </div>
           <br />
           {isPasswordFocused && (
-            <div id="password-validation">
-              <span style={{ color: passwordValidation.length ? "RGB(51,204,51) " : "red", fontWeight: "normal",fontSize: '13px' }}>
+            <div>
+              <span style={{ color: passwordValidation.length ? "RGB(51,204,51)" : "red", fontWeight: "normal", fontSize: '13px' }}>
                 Au moins 10 caractères
               </span>
               <br />
-              <span style={{ color: passwordValidation.uppercase ? "RGB(51,204,51)" : "red", fontWeight: "normal",fontSize: '13px' }}>
+              <span style={{ color: passwordValidation.uppercase ? "RGB(51,204,51)" : "red", fontWeight: "normal", fontSize: '13px' }}>
                 Au moins une majuscule
               </span>
               <br />
-              <span style={{ color: passwordValidation.number ? "RGB(51,204,51)" : "red", fontWeight: "normal",fontSize: '13px'}}>
+              <span style={{ color: passwordValidation.number ? "RGB(51,204,51)" : "red", fontWeight: "normal", fontSize: '13px' }}>
                 Au moins 1 chiffre
               </span>
             </div>
           )}
-          {/* Bouton Connexion */}
+
           <button
             type="submit"
             style={{
               backgroundColor: isFormValid ? 'rgb(146,208,80)' : 'rgb(211,211,211)',
               fontSize: '15px',
-            
               color: 'black',
               width: "130px",
               borderRadius: '7px',
               border: '1px solid black',
-              cursor:   isFormValid ? 'pointer' : 'not-allowed',
+              cursor: isFormValid ? 'pointer' : 'not-allowed',
               fontWeight: 'bold',
               marginTop: '15px'
             }}
@@ -195,10 +173,14 @@ function LoginHover() {
             Pas encore d'espace ?
           </p>
           <p onClick={() => navigate('/reset_password')} className="linkHoverForm"
-            style={{ cursor: 'pointer', marginTop: "0px",marginBottom:"-4px", textDecoration: 'underline' }}>
+            style={{ cursor: 'pointer', marginTop: "0px", marginBottom: "-4px", textDecoration: 'underline' }}>
             Mot de passe oublié ?
           </p>
-          {errorMessage && <p style={{ color: "red" ,fontSize: '15px',fontWeight: "normal",marginBottom:"10px",marginTop:"15px"}}>{errorMessage}</p>}
+          {errorMessage && (
+            <p style={{ color: "red", fontSize: '15px', fontWeight: "normal", marginBottom: "10px", marginTop: "15px" }}>
+              {errorMessage}
+            </p>
+          )}
         </div>
       </form>
       {successMessage && <p style={{ color: "white" }}>{successMessage}</p>}
