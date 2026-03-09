@@ -5,13 +5,17 @@ import btn_on_connexion from '../images/connexion_on.png';
 import '../css/ProfileModal.css';
 
 function ProfileModal({ onClose }) {
-  const { pseudo } = useContext(AuthContext); 
+  const { pseudo: pseudoContext } = useContext(AuthContext);
+
+  // ✅ fallback localStorage si le contexte n'est pas encore initialisé
+  const pseudo = pseudoContext || localStorage.getItem('pseudo') || '';
+
   const [userData, setUserData] = useState(null);
   const [loading,  setLoading]  = useState(true);
 
   useEffect(() => {
     if (!pseudo) {
-      setLoading(false); 
+      setLoading(false);
       return;
     }
 
