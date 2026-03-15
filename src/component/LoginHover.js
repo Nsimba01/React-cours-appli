@@ -1,10 +1,11 @@
 import React, { useState, useContext } from "react";
 import '../css/login_hover.css';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { validatePassword, validatePseudo, handleLogin } from './validationUtils';
+import { validatePassword, validatePseudo } from './validationUtils';
 import { AuthContext } from './AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { getDatabase, ref, get } from 'firebase/database';
+import bcrypt from 'bcryptjs';
 import '../css/button-width-height-global.css';
 
 function LoginHover() {
@@ -26,21 +27,6 @@ function LoginHover() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
 
-  const checkUserExists = async (username) => {
-    if (username) {
-      try {
-        const db = getDatabase();
-        const userRef = ref(db, `users/${username}`);
-        const snapshot = await get(userRef);
-        return snapshot.exists();
-      } catch (error) {
-        console.error('Erreur lors de la vérification :', error);
-        return false;
-      }
-    }
-    return false;
-  };
-
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -58,31 +44,38 @@ function LoginHover() {
 
     if (!pseudoValidation) {
       setErrorMessage("Ton pseudo n'est pas valide");
-      setSuccessMessage(null);
       return;
     }
 
     if (!Object.values(passwordValidation).every(v => v)) {
       setErrorMessage("Ton mot de passe n'est pas valide");
-      setSuccessMessage(null);
       return;
     }
 
-    const userExists = await checkUserExists(formData.username);
-    if (!userExists) {
-      setErrorMessage("Ton pseudo est incorrect");
-      setSuccessMessage(null);
-      return;
-    }
+    try {
+      const db = getDatabase();
+      const userRef = ref(db, `users/${formData.username}`);
+      const snapshot = await get(userRef);
 
-    handleLogin(
-      formData.username,
-      formData.password,
-      (pseudo) => login(pseudo), 
-      navigate,
-      (error) => setErrorMessage(error),
-      (message) => setSuccessMessage(message)
-    );
+      if (snapshot.exists()) {
+        const userData = snapshot.val();
+        const passwordMatch = await bcrypt.compare(formData.password, userData.password);
+
+        if (passwordMatch) {
+          setSuccessMessage("Vous êtes connecté !");
+          setErrorMessage(null);
+          login(formData.username); // ✅ pseudo transmis directement
+          navigate('/home');
+        } else {
+          setErrorMessage("Ton mot de passe est incorrect");
+        }
+      } else {
+        setErrorMessage("Ton pseudo est incorrect");
+      }
+    } catch (error) {
+      setErrorMessage("Une erreur s'est produite. Veuillez réessayer.");
+      console.error("Erreur lors de la connexion:", error);
+    }
   };
 
   const toggleShowPassword = () => setShowPassword(prev => !prev);
@@ -114,7 +107,9 @@ function LoginHover() {
             </div>
           )}
           <br />
-          <label style={{ fontSize: '15px', marginTop: "-5px" }}>Mot de passe <br /></label>
+          <label style={{ fontSize: '15px', marginTop: "-5px" }}>
+            Mot de passe <br />
+          </label>
           <div style={{ position: "relative", display: "inline-block", width: "100%" }}>
             <input
               type={showPassword ? "text" : "password"}

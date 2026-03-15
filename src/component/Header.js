@@ -7,6 +7,8 @@ import {
   Navigate
 } from 'react-router-dom';
 
+import { FaPowerOff } from "react-icons/fa";
+
 import MainContent   from './MainContent';
 import Connexion     from './Connexion';
 import LoginHover    from './LoginHover';
@@ -169,7 +171,14 @@ function Header() {
                       onClick={handleLogout}
                       style={{ borderRadius: '7px', fontWeight: 'bold' }}
                     >
-                      Déconnexion
+                         <FaPowerOff 
+                            size={22} 
+                            color="#161616" 
+                            title="Déconnexion" 
+                            style={{ cursor: "pointer" }}
+                          />
+
+
                     </button>
 
                   </div>
