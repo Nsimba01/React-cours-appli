@@ -15,8 +15,28 @@
   border-radius: 12px;
   padding: 28px 32px 24px;
   width: min(480px, 92vw);
+  max-height: 85vh;
+  overflow-y: auto;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
   animation: profileSlideDown 0.25s ease;
+}
+
+.profile-modal::-webkit-scrollbar {
+  width: 6px;
+}
+
+.profile-modal::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 0 12px 12px 0;
+}
+
+.profile-modal::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+}
+
+.profile-modal::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.5);
 }
 
 @keyframes profileSlideDown {
@@ -74,7 +94,7 @@
 .profile-avatar {
   flex-shrink: 0;
   display: flex;
-  flex-direction: column;  /*  empile l'image et l'icône verticalement */
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding-top: 4px;
@@ -91,6 +111,14 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+/* --- Ligne label + valeur + icône crayon --- */
+
+.profile-field-block {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .profile-row {
@@ -120,12 +148,134 @@
   font-size: 16px;
 }
 
-.profile-loading {
-  text-align: center;
-  color: rgba(23, 22, 22, 0.8);
-  font-size: 14px;
-  padding: 16px 0;
+.profile-edit-icon {
+  flex-shrink: 0;
+  cursor: pointer;
+  color: #121111;
+  opacity: 0.55;
+  transition: opacity 0.2s;
+  display: flex;
+  align-items: center;
 }
+
+.profile-edit-icon:hover {
+  opacity: 1;
+}
+
+/* --- Bloc d'édition (Actuel / Nouveau / Confirmer) --- */
+
+.profile-edit-block {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: rgba(0, 0, 0, 0.12);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
+.profile-edit-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.profile-edit-label {
+  flex: 0 0 76px;
+  font-size: 12px;
+  color: #121111;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  opacity: 0.75;
+}
+
+.profile-edit-input {
+  flex: 1;
+  height: 28px;
+  padding: 4px 8px;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  background: #fff;
+  font-size: 13px;
+  color: #121111;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.profile-edit-input:focus {
+  border-color: rgba(0, 0, 0, 0.55);
+}
+
+.profile-edit-input--disabled {
+  background: rgba(255, 255, 255, 0.45);
+  color: #555;
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+/* --- Messages de validation --- */
+
+.validation-message {
+  font-size: 12px;
+  line-height: 1.6;
+  padding-left: 84px;
+}
+
+/* --- Message de sauvegarde --- */
+
+.profile-save-message {
+  text-align: center;
+  font-size: 13px;
+  color: RGB(51, 204, 51);
+  margin-top: 10px;
+}
+
+/* --- Boutons Annuler / Valider --- */
+
+.profile-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.profile-btn-cancel,
+.profile-btn-save {
+  height: 32px;
+  padding: 0 16px;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.2s, opacity 0.2s;
+}
+
+.profile-btn-cancel {
+  background: rgba(255, 255, 255, 0.3);
+  color: #121111;
+}
+
+.profile-btn-cancel:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.profile-btn-save {
+  background: RGB(51, 204, 51);
+  color: #fff;
+  border-color: transparent;
+}
+
+.profile-btn-save:hover:not(:disabled) {
+  background: RGB(40, 180, 40);
+}
+
+.profile-btn-cancel:disabled,
+.profile-btn-save:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* --- Responsive --- */
 
 @media (max-width: 480px) {
   .profile-body {
@@ -139,5 +289,10 @@
   .profile-value {
     font-size: 13px;
   }
+  .profile-edit-label {
+    flex: 0 0 68px;
+  }
+  .validation-message {
+    padding-left: 76px;
+  }
 }
-
