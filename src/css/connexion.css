@@ -27,38 +27,48 @@
   border-radius: 5px;
   margin-top: 20px;
   margin-bottom: 30px;
-
   text-align: center;
   border: 1px solid black;
-
+  max-height: 85vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.3) rgba(0, 0, 0, 0.1);
 }
 
+.formulaire-reset-pwd::-webkit-scrollbar {
+  width: 6px;
+}
+
+.formulaire-reset-pwd::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 0 5px 5px 0;
+}
+
+.formulaire-reset-pwd::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+}
+
+.formulaire-reset-pwd::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.5);
+}
 
 @supports (-moz-appearance: none) {
-  .formulaire-reset-pwd{
+  .formulaire-reset-pwd {
     height: 210px;
-  }  
-
- 
-}  
+  }
+}
 
 /* Cible Chrome, Edge, Opera (navigateurs Chromium) */
 @supports (-webkit-appearance: none) and (not (-moz-appearance: none)) {
-   .formulaire-reset-pwd{
+  .formulaire-reset-pwd {
     height: 230px;
-  }  
-
+  }
 }
 
-.formulaire-reset-pwd h2{
-
-
-    margin-top: 10px;
-
-    margin-bottom: 30px;
-  
- 
-
+.formulaire-reset-pwd h2 {
+  margin-top: 10px;
+  margin-bottom: 30px;
 }
 
 /* Conteneur global du formulaire */
@@ -70,7 +80,6 @@
   margin-bottom: 10px;
   flex-wrap: wrap;
   margin-top: -30px;
-
 }
 
 /* Mode "reset" : colonne et éléments centrés par défaut */
@@ -106,12 +115,11 @@
   gap: 10px;
 }
 
-
 /* --- Variante inline : label et champ sur la même ligne --- */
 .inline-label {
-  flex-direction: row;        /* texte et champ sur une seule ligne */
-  justify-content: center;   /* centre l'ensemble horizontalement */
-  gap: 10px;                 /* espace entre texte et champ */
+  flex-direction: row;
+  justify-content: center;
+  gap: 10px;
   align-items: center;
 }
 
@@ -119,7 +127,7 @@
 .label-text {
   white-space: nowrap;
   font-size: 15px;
-  margin-left:-10px;
+  margin-left: -10px;
 }
 
 /* Champs input / select commun */
@@ -135,11 +143,7 @@
   font-size: 15px;
 }
 
-
-
-
-#mail_process_reset_pwd{
-
+#mail_process_reset_pwd {
   width: 40%;
   max-width: 360px;
   height: 28px;
@@ -150,16 +154,13 @@
   box-sizing: border-box;
   font-size: 15px;
   max-width: 340px;
-
-
-
-
 }
 
-#mail_process_reset_pwd:focus{
+#mail_process_reset_pwd:focus {
   border: 2px solid RGB(51,204,51);
   outline: none;
 }
+
 /* Overrides pour les inputs placés en inline (pas d'espacement vertical) */
 .inline-input {
   margin-top: 0;
@@ -173,12 +174,10 @@
   outline: none;
 }
 
-.input-container{
-
+.input-container {
   margin-bottom: 10px;
- 
-
 }
+
 /* Styles pour select afin qu'il ressemble à l'input */
 .select-pseudo {
   -webkit-appearance: none;
@@ -187,7 +186,6 @@
   background-image: none;
   padding-right: 10px;
 }
-
 
 /* Bouton centré sous le champ */
 #aligner-button {
@@ -201,9 +199,8 @@
   border: 1px solid black;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin-bottom:-70%;
-
-}   
+  margin-bottom: -70%;
+}
 
 /* Couleurs du bouton (enabled / disabled) */
 .formulaire-reset-pwd #aligner-button:enabled {
@@ -218,30 +215,24 @@
 
 /* Messages (success / error / info) */
 .message-success {
-  color:  RGB(51,204,51);
+  color: RGB(51,204,51);
   font-weight: normal;
   margin-top: -3px;
-
   margin-bottom: 10px;
   font-size: 13px;
   text-align: center;
 }
 
-
-
-
-
 .message-error {
   color: red;
   margin-top: 10px;
-  
   font-weight: normal;
   font-size: 15px;
   text-align: center;
 }
 
 #info-message-id {
-  color:  RGB(51,204,51);
+  color: RGB(51,204,51);
   margin-bottom: 38px;
   font-size: 15px;
   text-align: center;
@@ -261,7 +252,6 @@
   text-align: left;
   font-size: 15px;
 }
-
 
 .field-2 {
   display: flex;
@@ -292,12 +282,8 @@
   font-size: 15px;
 }
 
-#motdepasse{
-
+#motdepasse {
   padding-right: 35px;
-
- 
-  
 }
 
 .toggle-password {
@@ -317,15 +303,11 @@
   font-size: 13px;
 }
 
-#password-validation{
-
-
+#password-validation {
   margin-top: 18px;
   font-family: 'Comic Sans MS';
   font-weight: normal;
   font-size: 13px;
-
-
 }
 
 /* Ancien style d'erreur (si utilisé) */
@@ -338,8 +320,7 @@
   margin-bottom: 10px;
 }
 
-.formulaire p{
-  
+.formulaire p {
   margin-bottom: 30px;
   margin-top: 10px;
   font-size: 19px;
@@ -348,7 +329,6 @@
 
 /* Bouton générique (au cas où utilisé ailleurs) */
 .submit-btn {
-
   color: black;
   border: none;
   border-radius: 3px;
@@ -379,12 +359,9 @@
   margin-top: 6px;
   font-style: italic;
   text-decoration: underline;
-
-
 }
 
-
-@media screen and (min-width:0px) and (max-width:540px){
+@media screen and (min-width:0px) and (max-width:540px) {
 
   .message-success {
     font-size: 0.8125rem !important;
@@ -392,31 +369,29 @@
   }
 
   .formulaire {
-    height: 235px; /* Réduit pour forcer le scroll sur les 2 champs */
+    height: 235px;
     overflow-y: auto;
     overflow-x: hidden;
   }
-  
-  /* Style de la scrollbar (webkit - Chrome, Safari, Edge) */
+
   .formulaire::-webkit-scrollbar {
     width: 8px;
   }
-  
+
   .formulaire::-webkit-scrollbar-track {
     background: rgba(0, 0, 0, 0.1);
     border-radius: 10px;
   }
-  
+
   .formulaire::-webkit-scrollbar-thumb {
     background: rgba(51, 204, 51, 0.6);
     border-radius: 10px;
   }
-  
+
   .formulaire::-webkit-scrollbar-thumb:hover {
     background: rgba(51, 204, 51, 0.8);
   }
-  
-  /* Pour Firefox */
+
   .formulaire {
     scrollbar-width: thin;
     scrollbar-color: rgba(51, 204, 51, 0.6) rgba(0, 0, 0, 0.1);
@@ -426,26 +401,14 @@
     margin-top: -10px;
   }
 
-  /*
-  #link_form_bottom {
-    margin-bottom: -18px;
-  }   */
-
-
-
   #button-connexion {
-
     margin-bottom: 25px;
     margin-top: 25px;
   }
 
-
   .input-container input[type="password"] {
-
     margin-bottom: -40%;
-  
   }
-
 
   .reset-pwd-form {
     margin-top: -58px;
@@ -464,19 +427,12 @@
   }
 
   .formulaire p.error-message {
-
-
-    margin-top: 8%
+    margin-top: 8%;
   }
-
-
-
-
-} 
+}
 
 /* Responsive : adaptatif pour écrans étroits */
-@media screen and (min-width: 600px)  and (max-width: 600px) {
-
+@media screen and (min-width: 600px) and (max-width: 600px) {
 
   .form-row {
     flex-direction: column;
@@ -517,12 +473,10 @@
     margin-right: -25%;
   }
 
-  /* Inline input reduced width so label + input fit on small screens */
   .inline-input {
     max-width: 70%;
   }
 
-  /* Make button larger on small devices */
   #aligner-button {
     width: 90%;
     max-width: 320px;
@@ -535,9 +489,6 @@
   .centered-input {
     max-width: 100%;
   }
-
-
-  
 }
 
 /* Petits ajustements finaux */
@@ -547,5 +498,3 @@
 #aligner-button:active {
   transform: translateY(1px);
 }
-
-
