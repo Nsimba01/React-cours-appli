@@ -236,7 +236,9 @@ function ProfileModal({ onClose }) {
                   <div key={label} className="profile-field-block">
 
                     <div className="profile-row">
-                      <span className="profile-label">{label}</span>
+                      <span className="profile-label" >
+                        {label}
+                      </span>
                       <span className={`profile-value ${masked ? 'profile-value--masked' : ''}`}>{value}</span>
                       {fieldKey && (
                         <span
@@ -259,6 +261,7 @@ function ProfileModal({ onClose }) {
                             <input
                               type={masked ? (showCurrentPassword ? 'text' : 'password') : 'text'}
                               value={value === '—' ? '' : value}
+                              title= {label}
                               disabled
                               className="profile-edit-input profile-edit-input--disabled"
                               style={{ width: '100%', paddingRight: masked ? '32px' : '8px', boxSizing: 'border-box' }}

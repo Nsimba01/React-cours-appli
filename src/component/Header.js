@@ -162,6 +162,8 @@ function Header() {
 
                       id="MonProfilButton"
 
+                      title='Afficher mon profil'
+
                     >
                       Mon profil
                     </button>
@@ -170,11 +172,12 @@ function Header() {
                     <button
                       onClick={handleLogout}
                       style={{ borderRadius: '7px', fontWeight: 'bold' }}
+
+                       title="Déconnexion" 
                     >
                          <FaPowerOff 
                             size={22} 
                             color="#161616" 
-                            title="Déconnexion" 
                             style={{ cursor: "pointer" }}
                           />
 
