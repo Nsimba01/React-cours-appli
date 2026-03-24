@@ -261,7 +261,7 @@ function ProfileModal({ onClose }) {
                             <input
                               type={masked ? (showCurrentPassword ? 'text' : 'password') : 'text'}
                               value={value === '—' ? '' : value}
-                              title= {label}
+                              title= "Mot de passe actuel"
                               disabled
                               className="profile-edit-input profile-edit-input--disabled"
                               style={{ width: '100%', paddingRight: masked ? '32px' : '8px', boxSizing: 'border-box' }}
@@ -301,6 +301,7 @@ function ProfileModal({ onClose }) {
                                 onChange={e => handlePendingChange(fieldKey, e.target.value)}
                                 onFocus={() => setNewFieldFocused(fieldKey)}
                                 onBlur={() => setNewFieldFocused(null)}
+                                title="Nouveau mot de passe"
                                 style={{ width: '100%', paddingRight: masked ? '32px' : '8px', boxSizing: 'border-box' }}
                               />
                             )}
@@ -333,6 +334,7 @@ function ProfileModal({ onClose }) {
                                   onFocus={() => setConfirmPasswordFocused(true)}
                                   onBlur={() => setConfirmPasswordFocused(false)}
                                   style={{ width: '100%', paddingRight: '32px', boxSizing: 'border-box' }}
+                                  title="Confirmation du nouveau mot de passe"
                                 />
                                 <span
                                   onClick={() => setShowConfirmPassword(p => !p)}
