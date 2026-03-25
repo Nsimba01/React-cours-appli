@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { getDatabase, ref, set, get } from "firebase/database";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import bcrypt from "bcryptjs";
 import '../css/button-width-height-global.css';
 import '../css/creation.css';
 
@@ -421,13 +422,16 @@ function Creation() {
         return;
       }
 
+      // ✅ Hash du mot de passe avec bcrypt (salt rounds = 10)
+      const hashedPassword = await bcrypt.hash(formData.password, 10);
+
       const userData = {
         email: formData.email.trim(),
         nom: formData.nom,
         prenom: formData.prenom,
         sexe: formData.sexe,
         dateNaissance: formData.dateNaissance,
-        password: formData.password, // ⚠️ hash côté serveur en prod
+        password: hashedPassword, // ✅ mot de passe hashé, jamais en clair
       };
 
       await set(userRef, userData);
