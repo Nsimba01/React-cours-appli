@@ -104,7 +104,7 @@ function Header() {
         </div>
 
         {/* BOUTON CONNEXION */}
-        <div className="col">
+        <div className="col" style={{ position: 'relative' }}>
           <div
             className="dropdown"
             onMouseEnter={() => isLargeScreen && setIsHovered(true)}
@@ -139,7 +139,7 @@ function Header() {
 
             {/* DROPDOWN */}
             {showDropdown && (
-              <div className="dropdown-content-wrapper">
+              <div className={`dropdown-content-wrapper${isAuthenticated ? ' dropdown-content-wrapper--auth' : ''}`}>
                 {isAuthenticated ? (
                   <div className="dropdown-content-deconnexion">
 
@@ -152,18 +152,13 @@ function Header() {
                         marginBottom: '8px',
                         borderRadius: '7px',
                         fontWeight:   'bold',
-            
                         padding:      '5px 10px',
                         cursor:       'pointer',
                         textAlign:    'center',
                         fontSize:     '14px',
-
                       }}
-
                       id="MonProfilButton"
-
                       title='Afficher mon profil'
-
                     >
                       Mon profil
                     </button>
@@ -172,16 +167,13 @@ function Header() {
                     <button
                       onClick={handleLogout}
                       style={{ borderRadius: '7px', fontWeight: 'bold' }}
-
-                       title="Déconnexion" 
+                      title="Déconnexion"
                     >
-                         <FaPowerOff 
-                            size={22} 
-                            color="#161616" 
-                            style={{ cursor: "pointer" }}
-                          />
-
-
+                      <FaPowerOff
+                        size={22}
+                        color="#161616"
+                        style={{ cursor: "pointer" }}
+                      />
                     </button>
 
                   </div>

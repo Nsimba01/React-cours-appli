@@ -112,7 +112,7 @@
     order: 1;
 }
 
-/* LOGO - Styles identiques à bloc_titre_boutonespace_image */
+/* LOGO */
 @media screen and (min-width: 1001px) and (max-width: 1024px) {
     .bloc_titre_logo {
         width: 30px;
@@ -167,14 +167,13 @@
     }
 }
 
-/* Règle générale pour l'image du logo - comportement identique aux autres éléments */
 .bloc_titre_logo img {
     width: auto;
     height: 100%;
     object-fit: contain;
 }
 
-/* BOUTON ESPACE - Styles corrigés */
+/* BOUTON ESPACE */
 @media screen and (min-width: 1001px) and (max-width: 1024px) {
     .bloc_titre_boutonespace_image {
         width: 30px;
@@ -200,7 +199,6 @@
     }
 }
 
-/* TITRE - Styles corrigés pour éviter la disparition au zoom */
 .button_espace {
     flex: 1;
     display: flex;
@@ -212,6 +210,7 @@
     margin: 5px 0;
 }
 
+/* TITRE */
 @media screen and (min-width: 1024px) {
     .titre {
         flex: 1;
@@ -247,33 +246,18 @@
     }
 }
 
-
-    .titre {
-        flex: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: bold;
-        color: black;
-        font-size: clamp(18px, 3vw, 24px);
-        padding: 4px 8px;
-        text-decoration: none;
-        margin: 5px 0;
-        overflow: visible;
-    }
-@media screen and (min-width: 1009px) {
-
-    .dropdown-content-wrapper {
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1000;
-    margin-top: 5px;
-    width:100%;
-    
-    
-}
+.titre {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: black;
+    font-size: clamp(18px, 3vw, 24px);
+    padding: 4px 8px;
+    text-decoration: none;
+    margin: 5px 0;
+    overflow: visible;
 }
 
 .row, .presentation {
@@ -293,13 +277,12 @@
     border-radius: 10px;
 }
 
-/* DROPDOWN - Styles modifiés pour fonctionnement au clic ET survol */
+/* DROPDOWN - Styles généraux (inchangés) */
 .dropdown {
     position: relative;
     display: inline-block;
 }
 
-/* Wrapper pour empêcher le dropdown d'agrandir le header */
 .dropdown-content-wrapper {
     position: absolute;
     top: 100%;
@@ -307,11 +290,40 @@
     transform: translateX(-50%);
     z-index: 1000;
     margin-top: 5px;
-    
-    
 }
 
-/* Dropdown de déconnexion - Affiché/caché via React state */
+@media screen and (min-width: 1009px) {
+    .dropdown-content-wrapper {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1000;
+        margin-top: 5px;
+        width: 100%;
+    }
+}
+
+/* ================================================
+   NOUVEAU : wrapper spécifique au dropdown auth
+   Ne touche pas aux autres usages de dropdown-content-wrapper
+   ================================================ */
+@media screen and (min-width: 1009px) {
+    .dropdown-content-wrapper--auth {
+        right: -15px;
+        left: auto;
+        transform: none;
+        width: auto;
+    }
+}
+
+@media screen and (min-width: 1009px) and (max-width: 1920px) {
+    .dropdown-content-wrapper--auth .dropdown-content-deconnexion {
+        width: 140px;
+    }
+}
+
+/* DROPDOWN DÉCONNEXION */
 .dropdown-content-deconnexion {
     display: block;
     position: relative;
@@ -324,23 +336,15 @@
 
 @media screen and (min-width: 1009px) and (max-width: 1920px) {
     .dropdown-content-deconnexion {
-        width: 104%;
+        display: block;
+        position: relative;
+        background-color: rgb(153, 102, 51);
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        padding: 12px 16px;
+        z-index: 1;
+        margin-top: -10px;
+        border-radius: 15px;
     }
-
-
-    .dropdown-content-deconnexion {
-    display: block;
-    position: relative;
-    background-color: rgb(153, 102, 51);
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    padding: 12px 16px;
-    z-index: 1;
-    margin-top:-10px;
-    border-radius: 15px;
-}
-
-
-
 }
 
 .dropdown-content-deconnexion button {
@@ -362,8 +366,6 @@
 #MonProfilButton:hover {
     background-color: rgba(0, 0, 0, 0.1);
     border-radius: 7px;
-
-
 }
 
 .divexterne {
