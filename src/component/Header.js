@@ -151,7 +151,6 @@ function Header() {
                         width:        '100%',
                         marginBottom: '8px',
                         borderRadius: '7px',
-                        fontWeight:   'bold',
                         padding:      '5px 10px',
                         cursor:       'pointer',
                         textAlign:    'center',
@@ -164,17 +163,23 @@ function Header() {
                     </button>
 
                     {/* Bouton Déconnexion */}
-                    <button
-                      onClick={handleLogout}
-                      style={{ borderRadius: '7px', fontWeight: 'bold' }}
-                      title="Déconnexion"
-                    >
-                      <FaPowerOff
-                        size={22}
-                        color="#161616"
-                        style={{ cursor: "pointer" }}
-                      />
-                    </button>
+                 <button
+                          onClick={handleLogout}
+                          style={{ 
+                            borderRadius: '7px', 
+                           
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',  // optionnel, pour centrer aussi horizontalement
+                          }}
+                          title="Déconnexion"
+                        >
+                          <FaPowerOff
+                            size={16}
+                            color="#161616"
+                            style={{ cursor: "pointer" }}
+                          />
+                </button>
 
                   </div>
                 ) : (
