@@ -64,7 +64,7 @@ function LoginHover() {
         if (passwordMatch) {
           setSuccessMessage("Vous êtes connecté !");
           setErrorMessage(null);
-          login(formData.username); // ✅ pseudo transmis directement
+          login(formData.username); 
           navigate('/home');
         } else {
           setErrorMessage("Ton mot de passe est incorrect");

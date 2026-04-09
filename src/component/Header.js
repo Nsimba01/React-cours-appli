@@ -155,6 +155,9 @@ function Header() {
                         cursor:       'pointer',
                         textAlign:    'center',
                         fontSize:     '14px',
+                        height:   'auto',      // ← s'adapte au contenu
+                        overflow: 'visible'
+                        
                       }}
                       id="MonProfilButton"
                       title='Afficher mon profil'
