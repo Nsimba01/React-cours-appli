@@ -184,16 +184,19 @@ function ProfileModal({ onClose }) {
   };
 
   const passwordsMatch = confirmPassword === (pendingChanges['password'] || '');
+const age = userData?.dateNaissance
+  ? Math.floor((new Date() - new Date(userData.dateNaissance)) / (365.25 * 24 * 60 * 60 * 1000))
+  : null;
 
-  const fields = [
-    { label: 'Pseudo',            value: pseudo,                                                                                        fieldKey: 'pseudo',        masked: false, type: 'text'     },
-    { label: 'Mot de passe',      value: '••••••••••',                                                                                  fieldKey: 'password',      masked: true,  type: 'password' },
-    { label: 'Nom',               value: userData?.nom          || '—',                                                                 fieldKey: 'nom',                          type: 'text'     },
-    { label: 'Prénom',            value: userData?.prenom       || '—',                                                                 fieldKey: 'prenom',                       type: 'text'     },
-    { label: 'Sexe',              value: userData?.sexe         || '—',                                                                 fieldKey: 'sexe',                         type: 'select'   },
-    { label: 'Date de naissance', value: userData?.dateNaissance ? new Date(userData.dateNaissance).toLocaleDateString('fr-FR') : '—', fieldKey: 'dateNaissance',                type: 'date'     },
-    { label: 'Mail',              value: userData?.email        || '—',                                                                 fieldKey: 'email',                        type: 'email'    },
-  ];
+const fields = [
+  { label: 'Pseudo',            value: pseudo,                                                                                        fieldKey: 'pseudo',        masked: false, type: 'text'     },
+  { label: 'Mot de passe',      value: '••••••••••',                                                                                  fieldKey: 'password',      masked: true,  type: 'password' },
+  { label: 'Nom',               value: userData?.nom          || '—',                                                                 fieldKey: 'nom',                          type: 'text'     },
+  { label: 'Prénom',            value: userData?.prenom       || '—',                                                                 fieldKey: 'prenom',                       type: 'text'     },
+  { label: 'Sexe',              value: !userData?.sexe ? '—' : userData.sexe === 'homme' ? (age !== null && age >= 18 ? 'Homme' : 'Garçon') : (age !== null && age >= 18 ? 'Femme' : 'Fille'), fieldKey: 'sexe', type: 'select' },
+  { label: 'Date de naissance', value: userData?.dateNaissance ? new Date(userData.dateNaissance).toLocaleDateString('fr-FR') : '—', fieldKey: 'dateNaissance',                type: 'date'     },
+  { label: 'Mail',              value: userData?.email        || '—',                                                                 fieldKey: 'email',                        type: 'email'    },
+];
 
   const hasPendingChanges = Object.keys(pendingChanges).length > 0;
 
@@ -214,7 +217,9 @@ function ProfileModal({ onClose }) {
         ) : (
           <>
             <div className="profile-header">
-              <span className="profile-pseudo-title">{pseudo || '—'}</span>
+               <span className="profile-pseudo-title">
+                   {pseudo ? pseudo.charAt(0).toUpperCase() + pseudo.slice(1).toLowerCase() : '—'}
+              </span>
             </div>
 
             <div className="profile-divider" />

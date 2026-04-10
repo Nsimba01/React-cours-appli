@@ -9,6 +9,10 @@
   padding-top: 60px;
 }
 
+
+
+
+
 .profile-modal {
   position: relative;
   background-color: rgb(153, 102, 51);
@@ -77,7 +81,7 @@
   font-weight: bold;
   color: #121111;
   letter-spacing: 0.04em;
-  text-transform: uppercase;
+
 }
 
 .profile-divider {
@@ -101,8 +105,17 @@
   padding-top: 4px;
 }
 
+/* 
+
+minimum : 54px (petits écrans)
+idéal : 10% de la largeur de l'écran
+maximum : 80px (grands écrans)
+
+
+*/
+
 .profile-avatar-img {
-  width: 54px;
+  width: clamp(54px, 10vw, 80px);
   height: auto;
   filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
 }
@@ -132,7 +145,7 @@
   flex: 0 0 150px;
   font-size: 13px;
   color: #121111;
-  text-transform: uppercase;
+  text-transform: capitalize;
   letter-spacing: 0.03em;
 }
 
