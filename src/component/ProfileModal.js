@@ -187,9 +187,9 @@ function ProfileModal({ onClose }) {
 const age = userData?.dateNaissance
   ? Math.floor((new Date() - new Date(userData.dateNaissance)) / (365.25 * 24 * 60 * 60 * 1000))
   : null;
-
+  
 const fields = [
-  { label: 'Pseudo',            value: pseudo,                                                                                        fieldKey: 'pseudo',        masked: false, type: 'text'     },
+  { label: 'Pseudo',            value: pseudo ? pseudo.charAt(0).toUpperCase() + pseudo.slice(1).toLowerCase() : '—',                fieldKey: 'pseudo',        masked: false, type: 'text'     },
   { label: 'Mot de passe',      value: '••••••••••',                                                                                  fieldKey: 'password',      masked: true,  type: 'password' },
   { label: 'Nom',               value: userData?.nom          || '—',                                                                 fieldKey: 'nom',                          type: 'text'     },
   { label: 'Prénom',            value: userData?.prenom       || '—',                                                                 fieldKey: 'prenom',                       type: 'text'     },
@@ -294,8 +294,9 @@ const fields = [
                                 style={{ width: '100%', boxSizing: 'border-box' }}
                               >
                                 <option value="">(choisir)</option>
-                                <option value="homme">Garçon</option>
-                                <option value="femme">Fille</option>
+                                <option value="homme">{age !== null && age >= 18 ? 'Homme' : 'Garçon'}</option>
+                                <option value="femme">{age !== null && age >= 18 ? 'Femme' : 'Fille'}</option>
+                               
                               </select>
                             ) : (
                               <input
@@ -388,3 +389,5 @@ const fields = [
 }
 
 export default ProfileModal;
+
+
