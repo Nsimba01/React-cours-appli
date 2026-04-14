@@ -107,17 +107,17 @@
 
 /* 
 
-minimum : 54px (petits écrans)
-idéal : 10% de la largeur de l'écran
-maximum : 80px (grands écrans)
+
 
 
 */
 
 .profile-avatar-img {
-  width: clamp(54px, 10vw, 80px);
-  height: auto;
+  width: clamp(100px, 10vw, 140px);
+  height: clamp(100px, 13vw, 140px);
+  object-fit: contain;
   filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
+  margin-top:-6.8%;
 }
 
 .profile-info {
