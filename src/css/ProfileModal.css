@@ -16,7 +16,7 @@
 .profile-modal {
   position: relative;
   background-color: rgb(153, 102, 51);
-  border-radius: 12px;
+  border-radius: 5px;
   padding: 28px 32px 24px;
   width: min(600px, 92vw);
   max-height: 85vh;
@@ -32,12 +32,12 @@
 
 .profile-modal::-webkit-scrollbar-track {
   background: rgba(0, 0, 0, 0.1);
-  border-radius: 0 12px 12px 0;
+  border-radius: 5px;
 }
 
 .profile-modal::-webkit-scrollbar-thumb {
   background: rgba(0, 0, 0, 0.3);
-  border-radius: 3px;
+  border-radius: 5px;
 }
 
 .profile-modal::-webkit-scrollbar-thumb:hover {
@@ -197,7 +197,6 @@
   flex: 0 0 76px;
   font-size: 12px;
   color: #121111;
-  text-transform: uppercase;
   letter-spacing: 0.03em;
   opacity: 0.75;
 }

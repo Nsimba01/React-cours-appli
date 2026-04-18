@@ -261,7 +261,7 @@ const fields = [
 
                         {/* Actuel */}
                         <div className="profile-edit-row">
-                          <span className="profile-edit-label">Actuel :</span>
+                          <span className="profile-edit-label">Actuel </span>
                           <div style={{ position: 'relative', flex: 1 }}>
                             <input
                               type={masked ? (showCurrentPassword ? 'text' : 'password') : 'text'}
@@ -284,7 +284,7 @@ const fields = [
 
                         {/* Nouveau */}
                         <div className="profile-edit-row">
-                          <span className="profile-edit-label">Nouveau :</span>
+                          <span className="profile-edit-label">Nouveau </span>
                           <div style={{ position: 'relative', flex: 1 }}>
                             {type === 'select' ? (
                               <select
@@ -293,7 +293,7 @@ const fields = [
                                 onChange={e => handlePendingChange(fieldKey, e.target.value)}
                                 style={{ width: '100%', boxSizing: 'border-box' }}
                               >
-                                <option value="">(choisir)</option>
+                                <option value=""> </option>
                                 <option value="homme">{age !== null && age >= 18 ? 'Homme' : 'Garçon'}</option>
                                 <option value="femme">{age !== null && age >= 18 ? 'Femme' : 'Fille'}</option>
                                
@@ -302,8 +302,7 @@ const fields = [
                               <input
                                 type={masked ? (showNewPassword ? 'text' : 'password') : (type || 'text')}
                                 className="profile-edit-input"
-                                placeholder={`Nouveau ${label.toLowerCase()}`}
-                                value={pendingChanges[fieldKey] || ''}
+                                placeholder={['Pseudo', 'Prénom', 'Mail', 'Mot de passe', 'Nom'].includes(label) ? '' : `Nouveau ${label.toLowerCase()}`}
                                 onChange={e => handlePendingChange(fieldKey, e.target.value)}
                                 onFocus={() => setNewFieldFocused(fieldKey)}
                                 onBlur={() => setNewFieldFocused(null)}
@@ -329,12 +328,11 @@ const fields = [
                         {fieldKey === 'password' && (
                           <>
                             <div className="profile-edit-row">
-                              <span className="profile-edit-label">Confirmer :</span>
+                              <span className="profile-edit-label">Confirmer </span>
                               <div style={{ position: 'relative', flex: 1 }}>
                                 <input
                                   type={showConfirmPassword ? 'text' : 'password'}
                                   className="profile-edit-input"
-                                  placeholder="Confirmer le mot de passe"
                                   value={confirmPassword}
                                   onChange={e => setConfirmPassword(e.target.value)}
                                   onFocus={() => setConfirmPasswordFocused(true)}
