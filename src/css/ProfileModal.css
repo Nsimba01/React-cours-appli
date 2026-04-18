@@ -18,7 +18,7 @@
   background-color: rgb(153, 102, 51);
   border-radius: 12px;
   padding: 28px 32px 24px;
-  width: min(480px, 92vw);
+  width: min(600px, 92vw);
   max-height: 85vh;
   overflow-y: auto;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
@@ -145,7 +145,7 @@
   flex: 0 0 150px;
   font-size: 13px;
   color: #121111;
-  text-transform: capitalize;
+
   letter-spacing: 0.03em;
 }
 
@@ -305,6 +305,15 @@
   }
   .profile-edit-label {
     flex: 0 0 68px;
+    font-size: 11px;
+  }
+  .profile-edit-row {
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+  .profile-edit-input {
+    font-size: 12px;
+    min-width: 0;
   }
   .validation-message {
     padding-left: 76px;
