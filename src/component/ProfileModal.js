@@ -22,7 +22,6 @@ function ProfileModal({ onClose }) {
   const [confirmPassword,      setConfirmPassword]      = useState('');
   const [confirmPasswordFocused, setConfirmPasswordFocused] = useState(false);
 
-  // --- états de validation des champs "Nouveau"
   const [newFieldFocused,    setNewFieldFocused]    = useState(null);
   const [passwordValidation, setPasswordValidation] = useState({ length: false, uppercase: false, number: false });
   const [pseudoValidation,   setPseudoValidation]   = useState({ length: false, available: false, checking: false });
@@ -88,7 +87,6 @@ function ProfileModal({ onClose }) {
     // désactivé pour le moment
   };
 
-  // --- validation à la saisie du champ "Nouveau"
   const validateNewValue = (fieldKey, value) => {
     if (fieldKey === 'password') {
       setPasswordValidation({
@@ -126,7 +124,7 @@ function ProfileModal({ onClose }) {
     let formattedValue = value;
 
     if (fieldKey === 'nom') {
-      formattedValue = value.toUpperCase();
+      formattedValue = value.trim().toUpperCase(); // ✅ trim + majuscules
     }
 
     if (fieldKey === 'prenom') {
@@ -145,7 +143,6 @@ function ProfileModal({ onClose }) {
     validateNewValue(fieldKey, formattedValue);
   };
 
-  // --- messages de validation selon le champ
   const renderValidationMessage = (fieldKey) => {
     if (newFieldFocused !== fieldKey) return null;
 
@@ -184,19 +181,19 @@ function ProfileModal({ onClose }) {
   };
 
   const passwordsMatch = confirmPassword === (pendingChanges['password'] || '');
-const age = userData?.dateNaissance
-  ? Math.floor((new Date() - new Date(userData.dateNaissance)) / (365.25 * 24 * 60 * 60 * 1000))
-  : null;
-  
-const fields = [
-  { label: 'Pseudo',            value: pseudo || '—',                fieldKey: 'pseudo',        masked: false, type: 'text'     },
-  { label: 'Mot de passe',      value: '••••••••••',                                                                                  fieldKey: 'password',      masked: true,  type: 'password' },
-  { label: 'Nom',               value: userData?.nom          || '—',                                                                 fieldKey: 'nom',                          type: 'text'     },
-  { label: 'Prénom',            value: userData?.prenom       || '—',                                                                 fieldKey: 'prenom',                       type: 'text'     },
-  { label: 'Sexe',              value: !userData?.sexe ? '—' : userData.sexe === 'homme' ? (age !== null && age >= 18 ? 'Homme' : 'Garçon') : (age !== null && age >= 18 ? 'Femme' : 'Fille'), fieldKey: 'sexe', type: 'select' },
-  { label: 'Date de naissance', value: userData?.dateNaissance ? new Date(userData.dateNaissance).toLocaleDateString('fr-FR') : '—', fieldKey: 'dateNaissance',                type: 'date'     },
-  { label: 'Mail',              value: userData?.email        || '—',                                                                 fieldKey: 'email',                        type: 'email'    },
-];
+  const age = userData?.dateNaissance
+    ? Math.floor((new Date() - new Date(userData.dateNaissance)) / (365.25 * 24 * 60 * 60 * 1000))
+    : null;
+
+  const fields = [
+    { label: 'Pseudo',            value: pseudo || '—',                fieldKey: 'pseudo',        masked: false, type: 'text'     },
+    { label: 'Mot de passe',      value: '••••••••••',                 fieldKey: 'password',      masked: true,  type: 'password' },
+    { label: 'Nom',               value: userData?.nom          || '—', fieldKey: 'nom',                          type: 'text'     },
+    { label: 'Prénom',            value: userData?.prenom       || '—', fieldKey: 'prenom',                       type: 'text'     },
+    { label: 'Sexe',              value: !userData?.sexe ? '—' : userData.sexe === 'homme' ? (age !== null && age >= 18 ? 'Homme' : 'Garçon') : (age !== null && age >= 18 ? 'Femme' : 'Fille'), fieldKey: 'sexe', type: 'select' },
+    { label: 'Date de naissance', value: userData?.dateNaissance ? new Date(userData.dateNaissance).toLocaleDateString('fr-FR') : '—', fieldKey: 'dateNaissance', type: 'date' },
+    { label: 'Mail',              value: userData?.email        || '—', fieldKey: 'email',                        type: 'email'    },
+  ];
 
   const hasPendingChanges = Object.keys(pendingChanges).length > 0;
 
@@ -217,8 +214,8 @@ const fields = [
         ) : (
           <>
             <div className="profile-header">
-               <span className="profile-pseudo-title">
-                  {pseudo || '—'}
+              <span className="profile-pseudo-title">
+                {pseudo || '—'}
               </span>
             </div>
 
@@ -241,9 +238,7 @@ const fields = [
                   <div key={label} className="profile-field-block">
 
                     <div className="profile-row">
-                      <span className="profile-label" >
-                        {label}
-                      </span>
+                      <span className="profile-label">{label}</span>
                       <span className={`profile-value ${masked ? 'profile-value--masked' : ''}`}>{value}</span>
                       {fieldKey && (
                         <span
@@ -266,7 +261,7 @@ const fields = [
                             <input
                               type={masked ? (showCurrentPassword ? 'text' : 'password') : 'text'}
                               value={value === '—' ? '' : value}
-                              title= "Mot de passe actuel"
+                              title="Mot de passe actuel"
                               disabled
                               className="profile-edit-input profile-edit-input--disabled"
                               style={{ width: '100%', paddingRight: masked ? '32px' : '8px', boxSizing: 'border-box' }}
@@ -296,13 +291,13 @@ const fields = [
                                 <option value=""> </option>
                                 <option value="homme">{age !== null && age >= 18 ? 'Homme' : 'Garçon'}</option>
                                 <option value="femme">{age !== null && age >= 18 ? 'Femme' : 'Fille'}</option>
-                               
                               </select>
                             ) : (
                               <input
                                 type={masked ? (showNewPassword ? 'text' : 'password') : (type || 'text')}
                                 className="profile-edit-input"
                                 placeholder={['Pseudo', 'Prénom', 'Mail', 'Mot de passe', 'Nom'].includes(label) ? '' : `Nouveau ${label.toLowerCase()}`}
+                                value={pendingChanges[fieldKey] || ''} // ✅ input contrôlé
                                 onChange={e => handlePendingChange(fieldKey, e.target.value)}
                                 onFocus={() => setNewFieldFocused(fieldKey)}
                                 onBlur={() => setNewFieldFocused(null)}
@@ -321,7 +316,6 @@ const fields = [
                           </div>
                         </div>
 
-                        {/* Messages de validation du nouveau mot de passe */}
                         {renderValidationMessage(fieldKey)}
 
                         {/* Confirmation mot de passe */}
@@ -349,7 +343,6 @@ const fields = [
                               </div>
                             </div>
 
-                            {/* Message correspondance mots de passe */}
                             {confirmPasswordFocused && confirmPassword.length > 0 && (
                               <div className="validation-message" aria-live="polite">
                                 <span style={{ color: passwordsMatch ? 'RGB(51,204,51)' : 'red' }}>
@@ -387,5 +380,3 @@ const fields = [
 }
 
 export default ProfileModal;
-
-
