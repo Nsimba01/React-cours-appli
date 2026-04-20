@@ -189,7 +189,7 @@ const age = userData?.dateNaissance
   : null;
   
 const fields = [
-  { label: 'Pseudo',            value: pseudo ? pseudo.charAt(0).toUpperCase() + pseudo.slice(1).toLowerCase() : '—',                fieldKey: 'pseudo',        masked: false, type: 'text'     },
+  { label: 'Pseudo',            value: pseudo || '—',                fieldKey: 'pseudo',        masked: false, type: 'text'     },
   { label: 'Mot de passe',      value: '••••••••••',                                                                                  fieldKey: 'password',      masked: true,  type: 'password' },
   { label: 'Nom',               value: userData?.nom          || '—',                                                                 fieldKey: 'nom',                          type: 'text'     },
   { label: 'Prénom',            value: userData?.prenom       || '—',                                                                 fieldKey: 'prenom',                       type: 'text'     },
@@ -218,7 +218,7 @@ const fields = [
           <>
             <div className="profile-header">
                <span className="profile-pseudo-title">
-                   {pseudo ? pseudo.charAt(0).toUpperCase() + pseudo.slice(1).toLowerCase() : '—'}
+                  {pseudo || '—'}
               </span>
             </div>
 
