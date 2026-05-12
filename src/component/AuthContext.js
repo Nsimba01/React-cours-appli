@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
     setIsAuthenticated(true);
     setPseudo(userPseudo);
     localStorage.setItem('isAuthenticated', 'true');
-    localStorage.setItem('pseudo', userPseudo);
+    localStorage.setItem('pseudo', userPseudo); 
   };
 
   const logout = () => {
