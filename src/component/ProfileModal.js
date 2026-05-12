@@ -1,13 +1,14 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { getDatabase, ref, get, update } from 'firebase/database';
+import { getDatabase, ref, get, update, set, remove } from 'firebase/database';
 import { AuthContext } from './AuthContext';
+import bcrypt from 'bcryptjs';
 import btn_on_connexion from '../images/connexion_on.png';
 import { HiPencil } from 'react-icons/hi';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import '../css/ProfileModal.css';
 
 function ProfileModal({ onClose }) {
-  const { pseudo: pseudoContext } = useContext(AuthContext);
+  const { pseudo: pseudoContext, login } = useContext(AuthContext);
   const pseudo = pseudoContext || localStorage.getItem('pseudo') || '';
 
   const [userData,       setUserData]       = useState(null);
@@ -84,7 +85,58 @@ function ProfileModal({ onClose }) {
   };
 
   const handleSave = async () => {
-    // désactivé pour le moment
+    setIsSaving(true);
+    setSaveMessage('');
+    try {
+      const db = getDatabase();
+      const updates = {};
+
+      if (pendingChanges['nom'])           updates['nom']           = pendingChanges['nom'];
+      if (pendingChanges['prenom'])        updates['prenom']        = pendingChanges['prenom'];
+      if (pendingChanges['email'])         updates['email']         = pendingChanges['email'];
+      if (pendingChanges['sexe'])          updates['sexe']          = pendingChanges['sexe'];
+      if (pendingChanges['dateNaissance']) updates['dateNaissance'] = pendingChanges['dateNaissance'];
+
+      // --- Changement de mot de passe
+      if (pendingChanges['password']) {
+        const hashedPassword = await bcrypt.hash(pendingChanges['password'], 10);
+        updates['password'] = hashedPassword;
+      }
+
+      // --- Changement de pseudo
+      if (pendingChanges['pseudo']) {
+        const newPseudo = pendingChanges['pseudo'];
+
+        const snapshot = await get(ref(db, `users/${newPseudo}`));
+        if (snapshot.exists()) {
+          setSaveMessage('Ce pseudo est déjà pris !');
+          setIsSaving(false);
+          return;
+        }
+
+        const currentData = { ...userData, ...updates };
+        await set(ref(db, `users/${newPseudo}`), currentData);
+        await remove(ref(db, `users/${pseudo}`));
+        login(newPseudo);
+
+        setSaveMessage('Modifications enregistrées avec succès !');
+        handleCancel();
+        setIsSaving(false);
+        return;
+      }
+
+      // --- Autres champs sans changement de pseudo
+      await update(ref(db, `users/${pseudo}`), updates);
+      setSaveMessage('Modifications enregistrées avec succès !');
+      setUserData(prev => ({ ...prev, ...updates }));
+      handleCancel();
+
+    } catch (err) {
+      console.error('Erreur enregistrement :', err);
+      setSaveMessage('Erreur lors de l\'enregistrement.');
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   const validateNewValue = (fieldKey, value) => {
@@ -124,7 +176,7 @@ function ProfileModal({ onClose }) {
     let formattedValue = value;
 
     if (fieldKey === 'nom') {
-      formattedValue = value.trim().toUpperCase(); // ✅ trim + majuscules
+      formattedValue = value.trim().toUpperCase();
     }
 
     if (fieldKey === 'prenom') {
@@ -186,13 +238,13 @@ function ProfileModal({ onClose }) {
     : null;
 
   const fields = [
-    { label: 'Pseudo',            value: pseudo || '—',                fieldKey: 'pseudo',        masked: false, type: 'text'     },
-    { label: 'Mot de passe',      value: '••••••••••',                 fieldKey: 'password',      masked: true,  type: 'password' },
-    { label: 'Nom',               value: userData?.nom          || '—', fieldKey: 'nom',                          type: 'text'     },
-    { label: 'Prénom',            value: userData?.prenom       || '—', fieldKey: 'prenom',                       type: 'text'     },
+    { label: 'Pseudo',            value: pseudo || '—',                                                                                fieldKey: 'pseudo',        masked: false, type: 'text'     },
+    { label: 'Mot de passe',      value: '••••••••••',                                                                                  fieldKey: 'password',      masked: true,  type: 'password' },
+    { label: 'Nom',               value: userData?.nom          || '—',                                                                 fieldKey: 'nom',                          type: 'text'     },
+    { label: 'Prénom',            value: userData?.prenom       || '—',                                                                 fieldKey: 'prenom',                       type: 'text'     },
     { label: 'Sexe',              value: !userData?.sexe ? '—' : userData.sexe === 'homme' ? (age !== null && age >= 18 ? 'Homme' : 'Garçon') : (age !== null && age >= 18 ? 'Femme' : 'Fille'), fieldKey: 'sexe', type: 'select' },
-    { label: 'Date de naissance', value: userData?.dateNaissance ? new Date(userData.dateNaissance).toLocaleDateString('fr-FR') : '—', fieldKey: 'dateNaissance', type: 'date' },
-    { label: 'Mail',              value: userData?.email        || '—', fieldKey: 'email',                        type: 'email'    },
+    { label: 'Date de naissance', value: userData?.dateNaissance ? new Date(userData.dateNaissance).toLocaleDateString('fr-FR') : '—', fieldKey: 'dateNaissance',                type: 'date'     },
+    { label: 'Mail',              value: userData?.email        || '—',                                                                 fieldKey: 'email',                        type: 'email'    },
   ];
 
   const hasPendingChanges = Object.keys(pendingChanges).length > 0;
@@ -297,7 +349,7 @@ function ProfileModal({ onClose }) {
                                 type={masked ? (showNewPassword ? 'text' : 'password') : (type || 'text')}
                                 className="profile-edit-input"
                                 placeholder={['Pseudo', 'Prénom', 'Mail', 'Mot de passe', 'Nom'].includes(label) ? '' : `Nouveau ${label.toLowerCase()}`}
-                                value={pendingChanges[fieldKey] || ''} // ✅ input contrôlé
+                                value={pendingChanges[fieldKey] || ''}
                                 onChange={e => handlePendingChange(fieldKey, e.target.value)}
                                 onFocus={() => setNewFieldFocused(fieldKey)}
                                 onBlur={() => setNewFieldFocused(null)}
@@ -367,7 +419,7 @@ function ProfileModal({ onClose }) {
                 <button className="profile-btn-cancel" onClick={handleCancel} disabled={isSaving}>
                   Annuler
                 </button>
-                <button className="profile-btn-save" disabled={isSaving}>
+                <button className="profile-btn-save" onClick={handleSave} disabled={isSaving}>
                   {isSaving ? 'Enregistrement...' : 'Valider'}
                 </button>
               </div>
