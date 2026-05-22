@@ -97,43 +97,41 @@ function ProfileModal({ onClose }) {
       if (pendingChanges['sexe'])          updates['sexe']          = pendingChanges['sexe'];
       if (pendingChanges['dateNaissance']) updates['dateNaissance'] = pendingChanges['dateNaissance'];
 
-      // --- Changement de mot de passe
       if (pendingChanges['password']) {
         const hashedPassword = await bcrypt.hash(pendingChanges['password'], 10);
         updates['password'] = hashedPassword;
       }
 
-      // --- Changement de pseudo
       if (pendingChanges['pseudo']) {
         const newPseudo = pendingChanges['pseudo'];
-
         const snapshot = await get(ref(db, `users/${newPseudo}`));
         if (snapshot.exists()) {
           setSaveMessage('Ce pseudo est déjà pris !');
           setIsSaving(false);
           return;
         }
-
         const currentData = { ...userData, ...updates };
         await set(ref(db, `users/${newPseudo}`), currentData);
         await remove(ref(db, `users/${pseudo}`));
         login(newPseudo);
 
-        setSaveMessage('Modifications enregistrées avec succès !');
+        //  MODIFICATION 1 : handleCancel() en premier, setSaveMessage() en dernier
         handleCancel();
+        setSaveMessage('La mise à jour de ton profil a bien été effectuée');
         setIsSaving(false);
         return;
       }
 
-      // --- Autres champs sans changement de pseudo
       await update(ref(db, `users/${pseudo}`), updates);
-      setSaveMessage('Modifications enregistrées avec succès !');
       setUserData(prev => ({ ...prev, ...updates }));
+
+      //  MODIFICATION 1 : handleCancel() en premier, setSaveMessage() en dernier
       handleCancel();
+      setSaveMessage('La mise à jour de ton profil a bien été effectuée');
 
     } catch (err) {
       console.error('Erreur enregistrement :', err);
-      setSaveMessage('Erreur lors de l\'enregistrement.');
+      setSaveMessage("Erreur lors de l'enregistrement.");
     } finally {
       setIsSaving(false);
     }
@@ -269,6 +267,18 @@ function ProfileModal({ onClose }) {
               <span className="profile-pseudo-title">
                 {pseudo || '—'}
               </span>
+
+              {/*  MODIFICATION 2 : message affiché sous le titre en vert */}
+              {saveMessage && (
+                <p style={{
+                  color: saveMessage.startsWith('La mise à jour') ? 'RGB(51,204,51)' : 'red',
+                  margin: '8px 0 0',
+                  fontSize: '0.85rem',
+                  textAlign: 'center'
+                }}>
+                  {saveMessage}
+                </p>
+              )}
             </div>
 
             <div className="profile-divider" />
@@ -306,7 +316,6 @@ function ProfileModal({ onClose }) {
                     {fieldKey && openFields[fieldKey] && (
                       <div className="profile-edit-block">
 
-                        {/* Actuel */}
                         <div className="profile-edit-row">
                           <span className="profile-edit-label">Actuel </span>
                           <div style={{ position: 'relative', flex: 1 }}>
@@ -329,7 +338,6 @@ function ProfileModal({ onClose }) {
                           </div>
                         </div>
 
-                        {/* Nouveau */}
                         <div className="profile-edit-row">
                           <span className="profile-edit-label">Nouveau </span>
                           <div style={{ position: 'relative', flex: 1 }}>
@@ -370,7 +378,6 @@ function ProfileModal({ onClose }) {
 
                         {renderValidationMessage(fieldKey)}
 
-                        {/* Confirmation mot de passe */}
                         {fieldKey === 'password' && (
                           <>
                             <div className="profile-edit-row">
@@ -412,7 +419,7 @@ function ProfileModal({ onClose }) {
               </div>
             </div>
 
-            {saveMessage && <p className="profile-save-message">{saveMessage}</p>}
+            {/*  MODIFICATION 3 : ancienne ligne supprimée, remplacée par l'affichage sous le titre */}
 
             {hasPendingChanges && (
               <div className="profile-actions">
