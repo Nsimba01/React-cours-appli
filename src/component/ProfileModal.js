@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { getDatabase, ref, get, update, set, remove } from 'firebase/database';
 import { AuthContext } from './AuthContext';
 import bcrypt from 'bcryptjs';
+import emailjs from 'emailjs-com';
 import btn_on_connexion from '../images/connexion_on.png';
 import { HiPencil } from 'react-icons/hi';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
@@ -84,48 +85,101 @@ function ProfileModal({ onClose }) {
     setEmailValidation(false);
   };
 
+  const fieldLabels = {
+    nom:           'Nom',
+    prenom:        'Prénom',
+    email:         'Adresse mail',
+    sexe:          'Sexe',
+    dateNaissance: 'Date de naissance',
+    password:      'Mot de passe',
+    pseudo:        'Pseudo',
+  };
+
+  const sendProfileUpdateEmail = async (targetEmail, targetPseudo, changedFields) => {
+    try {
+      const modifiedList = changedFields
+        .map(field => `- ${fieldLabels[field] || field}`)
+        .join('\n');
+
+      const templateParams = {
+        to_email:      targetEmail,
+        pseudo:        targetPseudo,
+        modified_list: modifiedList,
+      };
+
+      console.log('templateParams:', templateParams); // 👈 ajouté
+
+      await emailjs.send(
+        process.env.REACT_APP_EMAILJS_SERVICE || 'service_z2vqh5i',
+        process.env.REACT_APP_EMAILJS_PROFILE_TEMPLATE || 'template_1jmiuso',
+        templateParams,
+        process.env.REACT_APP_EMAILJS_USER || 'k9E-hi9Gv6XCXnZWM'
+      );
+
+      console.log('Email de confirmation de modification envoyé.');
+    } catch (err) {
+      console.error('Erreur envoi email modification profil :', err);
+    }
+  };
+
   const handleSave = async () => {
     setIsSaving(true);
     setSaveMessage('');
     try {
       const db = getDatabase();
       const updates = {};
+      const changedFields = [];
 
-      if (pendingChanges['nom'])           updates['nom']           = pendingChanges['nom'];
-      if (pendingChanges['prenom'])        updates['prenom']        = pendingChanges['prenom'];
-      if (pendingChanges['email'])         updates['email']         = pendingChanges['email'];
-      if (pendingChanges['sexe'])          updates['sexe']          = pendingChanges['sexe'];
-      if (pendingChanges['dateNaissance']) updates['dateNaissance'] = pendingChanges['dateNaissance'];
+      if (pendingChanges['nom'])           { updates['nom']           = pendingChanges['nom'];           changedFields.push('nom');           }
+      if (pendingChanges['prenom'])        { updates['prenom']        = pendingChanges['prenom'];        changedFields.push('prenom');        }
+      if (pendingChanges['email'])         { updates['email']         = pendingChanges['email'];         changedFields.push('email');         }
+      if (pendingChanges['sexe'])          { updates['sexe']          = pendingChanges['sexe'];          changedFields.push('sexe');          }
+      if (pendingChanges['dateNaissance']) { updates['dateNaissance'] = pendingChanges['dateNaissance']; changedFields.push('dateNaissance'); }
 
       if (pendingChanges['password']) {
         const hashedPassword = await bcrypt.hash(pendingChanges['password'], 10);
         updates['password'] = hashedPassword;
+        changedFields.push('password');
       }
 
+      // --- Changement de pseudo
       if (pendingChanges['pseudo']) {
         const newPseudo = pendingChanges['pseudo'];
+
         const snapshot = await get(ref(db, `users/${newPseudo}`));
         if (snapshot.exists()) {
           setSaveMessage('Ce pseudo est déjà pris !');
           setIsSaving(false);
           return;
         }
+
         const currentData = { ...userData, ...updates };
         await set(ref(db, `users/${newPseudo}`), currentData);
         await remove(ref(db, `users/${pseudo}`));
         login(newPseudo);
 
-        //  MODIFICATION 1 : handleCancel() en premier, setSaveMessage() en dernier
+        changedFields.push('pseudo');
+
+        const targetEmail = pendingChanges['email'] || userData?.email;
+        if (targetEmail) {
+          await sendProfileUpdateEmail(targetEmail, newPseudo, changedFields);
+        }
+
         handleCancel();
         setSaveMessage('La mise à jour de ton profil a bien été effectuée');
         setIsSaving(false);
         return;
       }
 
+      // --- Autres champs sans changement de pseudo
       await update(ref(db, `users/${pseudo}`), updates);
       setUserData(prev => ({ ...prev, ...updates }));
 
-      //  MODIFICATION 1 : handleCancel() en premier, setSaveMessage() en dernier
+      const targetEmail = pendingChanges['email'] || userData?.email;
+      if (targetEmail) {
+        await sendProfileUpdateEmail(targetEmail, pseudo, changedFields);
+      }
+
       handleCancel();
       setSaveMessage('La mise à jour de ton profil a bien été effectuée');
 
@@ -268,7 +322,6 @@ function ProfileModal({ onClose }) {
                 {pseudo || '—'}
               </span>
 
-              {/*  MODIFICATION 2 : message affiché sous le titre en vert */}
               {saveMessage && (
                 <p style={{
                   color: saveMessage.startsWith('La mise à jour') ? 'RGB(51,204,51)' : 'red',
@@ -418,8 +471,6 @@ function ProfileModal({ onClose }) {
                 ))}
               </div>
             </div>
-
-            {/*  MODIFICATION 3 : ancienne ligne supprimée, remplacée par l'affichage sous le titre */}
 
             {hasPendingChanges && (
               <div className="profile-actions">
