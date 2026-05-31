@@ -269,14 +269,14 @@ function ProfileModal({ onClose }) {
 
     if (fieldKey === 'email') return (
       <div className="validation-message" aria-live="polite">
-        <span style={{ color: emailValidation ? 'RGB(51,204,51)' : 'red' }}>Une adresse email valide</span>
+        <span style={{ color: emailValidation ? 'RGB(51,204,51)' : 'red' }}>Une adresse mail</span>
       </div>
     );
 
     if (fieldKey === 'nom' || fieldKey === 'prenom') return (
       <div className="validation-message" aria-live="polite">
         <span style={{ color: (pendingChanges[fieldKey] || '').trim().length > 0 ? 'RGB(51,204,51)' : 'red' }}>
-          Ce champ ne peut pas être vide
+          
         </span>
       </div>
     );
@@ -458,7 +458,7 @@ function ProfileModal({ onClose }) {
                             {confirmPasswordFocused && confirmPassword.length > 0 && (
                               <div className="validation-message" aria-live="polite">
                                 <span style={{ color: passwordsMatch ? 'RGB(51,204,51)' : 'red' }}>
-                                  {passwordsMatch ? 'Les mots de passe correspondent' : 'Les mots de passe ne correspondent pas'}
+                                  {passwordsMatch ? 'Les mots de passe correspondent' : 'Identique au nouveau mot de passe'}
                                 </span>
                               </div>
                             )}
