@@ -88,7 +88,7 @@ function ProfileModal({ onClose }) {
   const fieldLabels = {
     nom:           'Nom',
     prenom:        'Prénom',
-    email:         'Adresse mail',
+    email:         'Mail',
     sexe:          'Sexe',
     dateNaissance: 'Date de naissance',
     password:      'Mot de passe',
@@ -107,7 +107,7 @@ function ProfileModal({ onClose }) {
         modified_list: modifiedList,
       };
 
-      console.log('templateParams:', templateParams); // 👈 ajouté
+     
 
       await emailjs.send(
         process.env.REACT_APP_EMAILJS_SERVICE || 'service_z2vqh5i',
