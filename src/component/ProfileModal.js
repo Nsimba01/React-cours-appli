@@ -12,29 +12,29 @@ function ProfileModal({ onClose }) {
   const { pseudo: pseudoContext, login } = useContext(AuthContext);
   const pseudo = pseudoContext || localStorage.getItem('pseudo') || '';
 
-  const [userData,       setUserData]       = useState(null);
-  const [loading,        setLoading]        = useState(true);
-  const [openFields,     setOpenFields]     = useState({});
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [openFields, setOpenFields] = useState({});
   const [pendingChanges, setPendingChanges] = useState({});
-  const [saveMessage,    setSaveMessage]    = useState('');
-  const [isSaving,       setIsSaving]       = useState(false);
-  const [showCurrentPassword,  setShowCurrentPassword]  = useState(false);
-  const [showNewPassword,      setShowNewPassword]      = useState(false);
-  const [showConfirmPassword,  setShowConfirmPassword]  = useState(false);
-  const [confirmPassword,      setConfirmPassword]      = useState('');
+  const [saveMessage, setSaveMessage] = useState('');
+  const [isSaving, setIsSaving] = useState(false);
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [confirmPasswordFocused, setConfirmPasswordFocused] = useState(false);
 
-  const [newFieldFocused,    setNewFieldFocused]    = useState(null);
+  const [newFieldFocused, setNewFieldFocused] = useState(null);
   const [passwordValidation, setPasswordValidation] = useState({ length: false, uppercase: false, number: false });
-  const [pseudoValidation,   setPseudoValidation]   = useState({ length: false, available: false, checking: false });
-  const [emailValidation,    setEmailValidation]    = useState(false);
+  const [pseudoValidation, setPseudoValidation] = useState({ length: false, available: false, checking: false });
+  const [emailValidation, setEmailValidation] = useState(false);
   const pseudoTimeoutRef = React.useRef(null);
 
   useEffect(() => {
     if (!pseudo) { setLoading(false); return; }
     const fetchUser = async () => {
       try {
-        const db       = getDatabase();
+        const db = getDatabase();
         const snapshot = await get(ref(db, `users/${pseudo}`));
         if (snapshot.exists()) setUserData(snapshot.val());
       } catch (err) {
@@ -86,28 +86,23 @@ function ProfileModal({ onClose }) {
   };
 
   const fieldLabels = {
-    nom:           'Nom',
-    prenom:        'Prénom',
-    email:         'Mail',
-    sexe:          'Sexe',
+    nom: 'Nom',
+    prenom: 'Prénom',
+    email: 'Mail',
+    sexe: 'Sexe',
     dateNaissance: 'Date de naissance',
-    password:      'Mot de passe',
-    pseudo:        'Pseudo',
+    password: 'Mot de passe',
+    pseudo: 'Pseudo',
   };
 
   const sendProfileUpdateEmail = async (targetEmail, targetPseudo, changedFields) => {
     try {
-      const modifiedList = changedFields
-        .map(field => `- ${fieldLabels[field] || field}`)
-        .join('\n');
-
+      const modifiedList = changedFields.map(field => `- ${fieldLabels[field] || field}`).join('\n');
       const templateParams = {
-        to_email:      targetEmail,
-        pseudo:        targetPseudo,
+        to_email: targetEmail,
+        pseudo: targetPseudo,
         modified_list: modifiedList,
       };
-
-     
 
       await emailjs.send(
         process.env.REACT_APP_EMAILJS_SERVICE || 'service_z2vqh5i',
@@ -115,8 +110,6 @@ function ProfileModal({ onClose }) {
         templateParams,
         process.env.REACT_APP_EMAILJS_USER || 'k9E-hi9Gv6XCXnZWM'
       );
-
-      console.log('Email de confirmation de modification envoyé.');
     } catch (err) {
       console.error('Erreur envoi email modification profil :', err);
     }
@@ -130,10 +123,10 @@ function ProfileModal({ onClose }) {
       const updates = {};
       const changedFields = [];
 
-      if (pendingChanges['nom'])           { updates['nom']           = pendingChanges['nom'];           changedFields.push('nom');           }
-      if (pendingChanges['prenom'])        { updates['prenom']        = pendingChanges['prenom'];        changedFields.push('prenom');        }
-      if (pendingChanges['email'])         { updates['email']         = pendingChanges['email'];         changedFields.push('email');         }
-      if (pendingChanges['sexe'])          { updates['sexe']          = pendingChanges['sexe'];          changedFields.push('sexe');          }
+      if (pendingChanges['nom']) { updates['nom'] = pendingChanges['nom']; changedFields.push('nom'); }
+      if (pendingChanges['prenom']) { updates['prenom'] = pendingChanges['prenom']; changedFields.push('prenom'); }
+      if (pendingChanges['email']) { updates['email'] = pendingChanges['email']; changedFields.push('email'); }
+      if (pendingChanges['sexe']) { updates['sexe'] = pendingChanges['sexe']; changedFields.push('sexe'); }
       if (pendingChanges['dateNaissance']) { updates['dateNaissance'] = pendingChanges['dateNaissance']; changedFields.push('dateNaissance'); }
 
       if (pendingChanges['password']) {
@@ -142,10 +135,25 @@ function ProfileModal({ onClose }) {
         changedFields.push('password');
       }
 
-      // --- Changement de pseudo
+      // Logique email : Déterminer où envoyer
+      const oldEmail = userData?.email;
+      const newEmail = pendingChanges['email'];
+      const isEmailChanging = newEmail && newEmail !== oldEmail;
+
+      const notifyEmails = async (targetPseudo) => {
+        const promises = [];
+        if (isEmailChanging) {
+          if (oldEmail) promises.push(sendProfileUpdateEmail(oldEmail, targetPseudo, changedFields));
+          if (newEmail) promises.push(sendProfileUpdateEmail(newEmail, targetPseudo, changedFields));
+        } else if (oldEmail) {
+          promises.push(sendProfileUpdateEmail(oldEmail, targetPseudo, changedFields));
+        }
+        await Promise.all(promises);
+      };
+
+      // --- Changement de pseudo ---
       if (pendingChanges['pseudo']) {
         const newPseudo = pendingChanges['pseudo'];
-
         const snapshot = await get(ref(db, `users/${newPseudo}`));
         if (snapshot.exists()) {
           setSaveMessage('Ce pseudo est déjà pris !');
@@ -157,28 +165,20 @@ function ProfileModal({ onClose }) {
         await set(ref(db, `users/${newPseudo}`), currentData);
         await remove(ref(db, `users/${pseudo}`));
         login(newPseudo);
-
         changedFields.push('pseudo');
 
-        const targetEmail = pendingChanges['email'] || userData?.email;
-        if (targetEmail) {
-          await sendProfileUpdateEmail(targetEmail, newPseudo, changedFields);
-        }
-
+        await notifyEmails(newPseudo);
         handleCancel();
         setSaveMessage('La mise à jour de ton profil a bien été effectuée');
         setIsSaving(false);
         return;
       }
 
-      // --- Autres champs sans changement de pseudo
+      // --- Autres champs sans changement de pseudo ---
       await update(ref(db, `users/${pseudo}`), updates);
       setUserData(prev => ({ ...prev, ...updates }));
-
-      const targetEmail = pendingChanges['email'] || userData?.email;
-      if (targetEmail) {
-        await sendProfileUpdateEmail(targetEmail, pseudo, changedFields);
-      }
+      
+      await notifyEmails(pseudo);
 
       handleCancel();
       setSaveMessage('La mise à jour de ton profil a bien été effectuée');
@@ -194,12 +194,11 @@ function ProfileModal({ onClose }) {
   const validateNewValue = (fieldKey, value) => {
     if (fieldKey === 'password') {
       setPasswordValidation({
-        length:    value.length >= 10,
+        length: value.length >= 10,
         uppercase: /[A-Z]/.test(value),
-        number:    /[0-9]/.test(value),
+        number: /[0-9]/.test(value),
       });
     }
-
     if (fieldKey === 'pseudo') {
       const p = value.trim();
       if (p.length < 5) {
@@ -210,7 +209,7 @@ function ProfileModal({ onClose }) {
       if (pseudoTimeoutRef.current) clearTimeout(pseudoTimeoutRef.current);
       pseudoTimeoutRef.current = setTimeout(async () => {
         try {
-          const db       = getDatabase();
+          const db = getDatabase();
           const snapshot = await get(ref(db, `users/${p}`));
           setPseudoValidation({ length: true, available: !snapshot.exists(), checking: false });
         } catch {
@@ -218,7 +217,6 @@ function ProfileModal({ onClose }) {
         }
       }, 500);
     }
-
     if (fieldKey === 'email') {
       setEmailValidation(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value));
     }
@@ -226,258 +224,168 @@ function ProfileModal({ onClose }) {
 
   const handlePendingChange = (fieldKey, value) => {
     let formattedValue = value;
-
-    if (fieldKey === 'nom') {
-      formattedValue = value.trim().toUpperCase();
-    }
-
+    if (fieldKey === 'nom') formattedValue = value.trim().toUpperCase();
     if (fieldKey === 'prenom') {
-      formattedValue = value
-        .split(/([\s-])/)
-        .map((part) => {
-          if (part.trim().length > 0 && !/[\s-]/.test(part)) {
-            return part.charAt(0).toUpperCase() + part.slice(1).toLowerCase();
-          }
-          return part;
-        })
-        .join('');
+      formattedValue = value.split(/([\s-])/).map((part) => {
+        if (part.trim().length > 0 && !/[\s-]/.test(part)) {
+          return part.charAt(0).toUpperCase() + part.slice(1).toLowerCase();
+        }
+        return part;
+      }).join('');
     }
-
     setPendingChanges(prev => ({ ...prev, [fieldKey]: formattedValue }));
     validateNewValue(fieldKey, formattedValue);
   };
 
   const renderValidationMessage = (fieldKey) => {
     if (newFieldFocused !== fieldKey) return null;
-
     if (fieldKey === 'password') return (
       <div className="validation-message" aria-live="polite">
-        <span style={{ color: passwordValidation.length    ? 'RGB(51,204,51)' : 'red' }}>Au moins 10 caractères</span><br />
+        <span style={{ color: passwordValidation.length ? 'RGB(51,204,51)' : 'red' }}>Au moins 10 caractères</span><br />
         <span style={{ color: passwordValidation.uppercase ? 'RGB(51,204,51)' : 'red' }}>Au moins une majuscule</span><br />
-        <span style={{ color: passwordValidation.number    ? 'RGB(51,204,51)' : 'red' }}>Au moins 1 chiffre</span>
+        <span style={{ color: passwordValidation.number ? 'RGB(51,204,51)' : 'red' }}>Au moins 1 chiffre</span>
       </div>
     );
-
     if (fieldKey === 'pseudo') return (
       <div className="validation-message" aria-live="polite">
-        <span style={{ color: pseudoValidation.length    ? 'RGB(51,204,51)' : 'red' }}>Au moins 5 caractères</span><br />
+        <span style={{ color: pseudoValidation.length ? 'RGB(51,204,51)' : 'red' }}>Au moins 5 caractères</span><br />
         <span style={{ color: pseudoValidation.available ? 'RGB(51,204,51)' : pseudoValidation.checking ? 'orange' : 'red' }}>
           {pseudoValidation.checking ? 'Vérification en cours...' : pseudoValidation.available ? 'Pseudo disponible' : 'Pseudo indisponible'}
         </span>
       </div>
     );
-
     if (fieldKey === 'email') return (
       <div className="validation-message" aria-live="polite">
         <span style={{ color: emailValidation ? 'RGB(51,204,51)' : 'red' }}>Une adresse mail</span>
       </div>
     );
-
-    if (fieldKey === 'nom' || fieldKey === 'prenom') return (
-      <div className="validation-message" aria-live="polite">
-        <span style={{ color: (pendingChanges[fieldKey] || '').trim().length > 0 ? 'RGB(51,204,51)' : 'red' }}>
-          
-        </span>
-      </div>
-    );
-
     return null;
   };
 
   const passwordsMatch = confirmPassword === (pendingChanges['password'] || '');
-  const age = userData?.dateNaissance
-    ? Math.floor((new Date() - new Date(userData.dateNaissance)) / (365.25 * 24 * 60 * 60 * 1000))
-    : null;
+  const age = userData?.dateNaissance ? Math.floor((new Date() - new Date(userData.dateNaissance)) / (365.25 * 24 * 60 * 60 * 1000)) : null;
 
   const fields = [
-    { label: 'Pseudo',            value: pseudo || '—',                                                                                fieldKey: 'pseudo',        masked: false, type: 'text'     },
-    { label: 'Mot de passe',      value: '••••••••••',                                                                                  fieldKey: 'password',      masked: true,  type: 'password' },
-    { label: 'Nom',               value: userData?.nom          || '—',                                                                 fieldKey: 'nom',                          type: 'text'     },
-    { label: 'Prénom',            value: userData?.prenom       || '—',                                                                 fieldKey: 'prenom',                       type: 'text'     },
-    { label: 'Sexe',              value: !userData?.sexe ? '—' : userData.sexe === 'homme' ? (age !== null && age >= 18 ? 'Homme' : 'Garçon') : (age !== null && age >= 18 ? 'Femme' : 'Fille'), fieldKey: 'sexe', type: 'select' },
-    { label: 'Date de naissance', value: userData?.dateNaissance ? new Date(userData.dateNaissance).toLocaleDateString('fr-FR') : '—', fieldKey: 'dateNaissance',                type: 'date'     },
-    { label: 'Mail',              value: userData?.email        || '—',                                                                 fieldKey: 'email',                        type: 'email'    },
+    { label: 'Pseudo', value: pseudo || '—', fieldKey: 'pseudo', masked: false, type: 'text' },
+    { label: 'Mot de passe', value: '••••••••••', fieldKey: 'password', masked: true, type: 'password' },
+    { label: 'Nom', value: userData?.nom || '—', fieldKey: 'nom', type: 'text' },
+    { label: 'Prénom', value: userData?.prenom || '—', fieldKey: 'prenom', type: 'text' },
+    { label: 'Sexe', value: !userData?.sexe ? '—' : userData.sexe === 'homme' ? (age !== null && age >= 18 ? 'Homme' : 'Garçon') : (age !== null && age >= 18 ? 'Femme' : 'Fille'), fieldKey: 'sexe', type: 'select' },
+    { label: 'Date de naissance', value: userData?.dateNaissance ? new Date(userData.dateNaissance).toLocaleDateString('fr-FR') : '—', fieldKey: 'dateNaissance', type: 'date' },
+    { label: 'Mail', value: userData?.email || '—', fieldKey: 'email', type: 'email' },
   ];
 
   const hasPendingChanges = Object.keys(pendingChanges).length > 0;
 
   return (
-    <div
-      className="profile-overlay"
-      onClick={handleOverlayClick}
-      role="dialog"
-      aria-modal="true"
-      aria-label="Profil utilisateur"
-    >
+    <div className="profile-overlay" onClick={handleOverlayClick} role="dialog" aria-modal="true" aria-label="Profil utilisateur">
       <div className="profile-modal">
-
         <button className="profile-close-btn" onClick={onClose} aria-label="Fermer">✕</button>
-
         {loading ? (
           <p className="profile-loading">Chargement...</p>
         ) : (
           <>
             <div className="profile-header">
-              <span className="profile-pseudo-title">
-                {pseudo || '—'}
+              <span className="profile-pseudo-title">{pseudo || '—'}</span>
+             
+             {saveMessage && (
+                  <p style={{ color: saveMessage.startsWith('La mise à jour') ? 'RGB(51,204,51)' : 'red', margin: '8px 0 0', fontSize: '0.85rem', textAlign: 'center' }}>
+                    {saveMessage}
+                    <span
+                      onClick={() => setSaveMessage('')}
+                      style={{
+                        marginLeft: '6px',
+                        cursor: 'pointer',
+                        fontWeight: 'bold',
+                        color: saveMessage.startsWith('La mise à jour') ? 'RGB(51,204,51)' : 'red',
+                      }}
+                    >
+                      ✕
               </span>
+  </p>
+)}
 
-              {saveMessage && (
-                <p style={{
-                  color: saveMessage.startsWith('La mise à jour') ? 'RGB(51,204,51)' : 'red',
-                  margin: '8px 0 0',
-                  fontSize: '0.85rem',
-                  textAlign: 'center'
-                }}>
-                  {saveMessage}
-                </p>
-              )}
+
             </div>
-
             <div className="profile-divider" />
-
             <div className="profile-body">
-
               <div className="profile-avatar">
-                <img
-                  src={btn_on_connexion}
-                  alt="Profil connecté"
-                  className="profile-avatar-img"
-                  onContextMenu={e => e.preventDefault()}
-                />
+                <img src={btn_on_connexion} alt="Profil connecté" className="profile-avatar-img" onContextMenu={e => e.preventDefault()} />
                 <HiPencil size={14} color="black" style={{ display: 'block', margin: '6px auto 0' }} />
               </div>
-
               <div className="profile-info">
                 {fields.map(({ label, value, fieldKey, masked, type }) => (
                   <div key={label} className="profile-field-block">
-
                     <div className="profile-row">
                       <span className="profile-label">{label}</span>
                       <span className={`profile-value ${masked ? 'profile-value--masked' : ''}`}>{value}</span>
                       {fieldKey && (
-                        <span
-                          className="profile-edit-icon"
-                          onClick={() => toggleField(fieldKey)}
-                          title={`Modifier ${label}`}
-                        >
+                        <span className="profile-edit-icon" onClick={() => toggleField(fieldKey)} title={`Modifier ${label}`}>
                           <HiPencil size={14} />
                         </span>
                       )}
                     </div>
-
                     {fieldKey && openFields[fieldKey] && (
                       <div className="profile-edit-block">
-
                         <div className="profile-edit-row">
                           <span className="profile-edit-label">Actuel </span>
                           <div style={{ position: 'relative', flex: 1 }}>
-                            <input
-                              type={masked ? (showCurrentPassword ? 'text' : 'password') : 'text'}
-                              value={value === '—' ? '' : value}
-                              title={`${label} actuel`}
-                              disabled
-                              className="profile-edit-input profile-edit-input--disabled"
-                              style={{ width: '100%', paddingRight: masked ? '32px' : '8px', boxSizing: 'border-box' }}
-                            />
+                            <input type={masked ? (showCurrentPassword ? 'text' : 'password') : 'text'} value={value === '—' ? '' : value} disabled className="profile-edit-input profile-edit-input--disabled" style={{ width: '100%', paddingRight: masked ? '32px' : '8px', boxSizing: 'border-box' }} />
                             {masked && (
-                              <span
-                                onClick={() => setShowCurrentPassword(p => !p)}
-                                style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', cursor: 'pointer', fontSize: '15px' }}
-                              >
+                              <span onClick={() => setShowCurrentPassword(p => !p)} style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', cursor: 'pointer', fontSize: '15px' }}>
                                 {showCurrentPassword ? <FaEyeSlash /> : <FaEye />}
                               </span>
                             )}
                           </div>
                         </div>
-
                         <div className="profile-edit-row">
                           <span className="profile-edit-label">Nouveau </span>
                           <div style={{ position: 'relative', flex: 1 }}>
                             {type === 'select' ? (
-                              <select
-                                className="profile-edit-input"
-                                value={pendingChanges[fieldKey] || ''}
-                                onChange={e => handlePendingChange(fieldKey, e.target.value)}
-                                style={{ width: '100%', boxSizing: 'border-box' }}
-                              >
+                              <select className="profile-edit-input" value={pendingChanges[fieldKey] || ''} onChange={e => handlePendingChange(fieldKey, e.target.value)} style={{ width: '100%', boxSizing: 'border-box' }}>
                                 <option value=""> </option>
                                 <option value="homme">{age !== null && age >= 18 ? 'Homme' : 'Garçon'}</option>
                                 <option value="femme">{age !== null && age >= 18 ? 'Femme' : 'Fille'}</option>
                               </select>
                             ) : (
-                              <input
-                                type={masked ? (showNewPassword ? 'text' : 'password') : (type || 'text')}
-                                className="profile-edit-input"
-                                placeholder={['Pseudo', 'Prénom', 'Mail', 'Mot de passe', 'Nom'].includes(label) ? '' : `Nouveau ${label.toLowerCase()}`}
-                                value={pendingChanges[fieldKey] || ''}
-                                onChange={e => handlePendingChange(fieldKey, e.target.value)}
-                                onFocus={() => setNewFieldFocused(fieldKey)}
-                                onBlur={() => setNewFieldFocused(null)}
-                                title={`Nouveau ${label.toLowerCase()}`}
-                                style={{ width: '100%', paddingRight: masked ? '32px' : '8px', boxSizing: 'border-box' }}
-                              />
+                              <input type={masked ? (showNewPassword ? 'text' : 'password') : (type || 'text')} className="profile-edit-input" placeholder={['Pseudo', 'Prénom', 'Mail', 'Mot de passe', 'Nom'].includes(label) ? '' : `Nouveau ${label.toLowerCase()}`} value={pendingChanges[fieldKey] || ''} onChange={e => handlePendingChange(fieldKey, e.target.value)} onFocus={() => setNewFieldFocused(fieldKey)} onBlur={() => setNewFieldFocused(null)} style={{ width: '100%', paddingRight: masked ? '32px' : '8px', boxSizing: 'border-box' }} />
                             )}
                             {masked && (
-                              <span
-                                onClick={() => setShowNewPassword(p => !p)}
-                                style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', cursor: 'pointer', fontSize: '15px' }}
-                              >
+                              <span onClick={() => setShowNewPassword(p => !p)} style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', cursor: 'pointer', fontSize: '15px' }}>
                                 {showNewPassword ? <FaEyeSlash /> : <FaEye />}
                               </span>
                             )}
                           </div>
                         </div>
-
                         {renderValidationMessage(fieldKey)}
-
                         {fieldKey === 'password' && (
                           <>
                             <div className="profile-edit-row">
                               <span className="profile-edit-label">Confirmation </span>
                               <div style={{ position: 'relative', flex: 1 }}>
-                                <input
-                                  type={showConfirmPassword ? 'text' : 'password'}
-                                  className="profile-edit-input"
-                                  value={confirmPassword}
-                                  onChange={e => setConfirmPassword(e.target.value)}
-                                  onFocus={() => setConfirmPasswordFocused(true)}
-                                  onBlur={() => setConfirmPasswordFocused(false)}
-                                  style={{ width: '100%', paddingRight: '32px', boxSizing: 'border-box' }}
-                                  title="Confirmation du nouveau mot de passe"
-                                />
-                                <span
-                                  onClick={() => setShowConfirmPassword(p => !p)}
-                                  style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', cursor: 'pointer', fontSize: '15px' }}
-                                >
+                                <input type={showConfirmPassword ? 'text' : 'password'} className="profile-edit-input" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} onFocus={() => setConfirmPasswordFocused(true)} onBlur={() => setConfirmPasswordFocused(false)} style={{ width: '100%', paddingRight: '32px', boxSizing: 'border-box' }} />
+                                <span onClick={() => setShowConfirmPassword(p => !p)} style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', cursor: 'pointer', fontSize: '15px' }}>
                                   {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
                                 </span>
                               </div>
                             </div>
-
                             {confirmPasswordFocused && confirmPassword.length > 0 && (
                               <div className="validation-message" aria-live="polite">
-                                <span style={{ color: passwordsMatch ? 'RGB(51,204,51)' : 'red' }}>
-                                  {passwordsMatch ? 'Les mots de passe correspondent' : 'Identique au nouveau mot de passe'}
-                                </span>
+                                <span style={{ color: passwordsMatch ? 'RGB(51,204,51)' : 'red' }}>{passwordsMatch ? 'Les mots de passe correspondent' : 'Identique au nouveau mot de passe'}</span>
                               </div>
                             )}
                           </>
                         )}
-
                       </div>
                     )}
                   </div>
                 ))}
               </div>
             </div>
-
             {hasPendingChanges && (
               <div className="profile-actions">
-                <button className="profile-btn-cancel" onClick={handleCancel} disabled={isSaving}>
-                  Annuler
-                </button>
-                <button className="profile-btn-save" onClick={handleSave} disabled={isSaving}>
+                <button className="profile-btn-cancel" onClick={handleCancel} disabled={isSaving}>Annuler</button>
+                <button className="profile-btn-save" onClick={handleSave} disabled={isSaving || (pendingChanges['password'] && !passwordsMatch) || (pendingChanges['pseudo'] && !pseudoValidation.available)}>
                   {isSaving ? 'Enregistrement...' : 'Valider'}
                 </button>
               </div>
