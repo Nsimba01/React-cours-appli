@@ -255,19 +255,31 @@ function ProfileModal({ onClose }) {
             </div>
           );
         }
-    if (fieldKey === 'pseudo') return (
-      <div className="validation-message" aria-live="polite">
-        <span style={{ color: pseudoValidation.length ? 'RGB(51,204,51)' : 'red' }}>Au moins 5 caractères</span><br />
-        <span style={{ color: pseudoValidation.available ? 'RGB(51,204,51)' : pseudoValidation.checking ? 'orange' : 'red' }}>
-          {pseudoValidation.checking ? 'Vérification en cours...' : pseudoValidation.available ? 'Pseudo disponible' : 'Pseudo indisponible'}
-        </span>
-      </div>
-    );
-    if (fieldKey === 'email') return (
-      <div className="validation-message" aria-live="polite">
-        <span style={{ color: emailValidation ? 'RGB(51,204,51)' : 'red' }}>Une adresse mail</span>
-      </div>
-    );
+   if (fieldKey === 'pseudo') {
+  const dot = (color) => <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', backgroundColor: color, marginRight: '6px' }} />;
+  const pseudoEmpty    = (pendingChanges['pseudo'] || '').length === 0;
+  const lengthColor    = pseudoValidation.length    ? 'RGB(51,204,51)' : pseudoEmpty ? 'black' : 'red';
+  const availableColor = pseudoValidation.available ? 'RGB(51,204,51)' : pseudoEmpty ? 'black' : 'red';
+  return (
+    <div className="validation-message" aria-live="polite">
+      <span style={{ color: lengthColor }}>{dot(lengthColor)}Au moins 5 caractères</span><br />
+      <span style={{ color: availableColor }}>
+        {dot(availableColor)}
+        {pseudoValidation.checking ? 'Vérification en cours...' : pseudoValidation.available ? 'Pseudo disponible' : 'Pseudo indisponible'}
+      </span>
+    </div>
+  );
+}
+if (fieldKey === 'email') {
+  const dot = (color) => <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', backgroundColor: color, marginRight: '6px' }} />;
+  const emailEmpty = (pendingChanges['email'] || '').length === 0;
+  const emailColor = emailValidation ? 'RGB(51,204,51)' : emailEmpty ? 'black' : 'red';
+  return (
+    <div className="validation-message" aria-live="polite">
+      <span style={{ color: emailColor }}>{dot(emailColor)}Une adresse mail</span>
+    </div>
+  );
+}
     return null;
   };
 

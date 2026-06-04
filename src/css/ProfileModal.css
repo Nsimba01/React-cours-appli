@@ -216,9 +216,9 @@
 }
 
 .profile-edit-input:focus {
+  border: 2px solid RGB(51,204,51);
   outline: none;
-  border-color: rgb(146, 208, 80);
-  box-shadow: 0 0 0 2px rgba(146, 208, 80, 0.3);
+  
 }
 
 .profile-edit-input--disabled {
