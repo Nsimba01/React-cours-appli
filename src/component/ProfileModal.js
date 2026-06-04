@@ -239,13 +239,22 @@ function ProfileModal({ onClose }) {
 
   const renderValidationMessage = (fieldKey) => {
     if (newFieldFocused !== fieldKey) return null;
-    if (fieldKey === 'password') return (
-      <div className="validation-message" aria-live="polite">
-        <span style={{ color: passwordValidation.length ? 'RGB(51,204,51)' : 'red' }}>Au moins 10 caractères</span><br />
-        <span style={{ color: passwordValidation.uppercase ? 'RGB(51,204,51)' : 'red' }}>Au moins une majuscule</span><br />
-        <span style={{ color: passwordValidation.number ? 'RGB(51,204,51)' : 'red' }}>Au moins 1 chiffre</span>
-      </div>
-    );
+  
+
+    if (fieldKey === 'password') {
+          const pwdEmpty = (pendingChanges['password'] || '').length === 0;
+          const dot = (color) => <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', backgroundColor: color, marginRight: '6px' }} />;
+          const lengthColor   = passwordValidation.length    ? 'RGB(51,204,51)' : pwdEmpty ? 'black' : 'red';
+          const upperColor    = passwordValidation.uppercase ? 'RGB(51,204,51)' : pwdEmpty ? 'black' : 'red';
+          const numberColor   = passwordValidation.number    ? 'RGB(51,204,51)' : pwdEmpty ? 'black' : 'red';
+          return (
+            <div className="validation-message" aria-live="polite">
+              <span style={{ color: lengthColor }}>{dot(lengthColor)}Au moins 10 caractères</span><br />
+              <span style={{ color: upperColor }}>{dot(upperColor)}Au moins une majuscule</span><br />
+              <span style={{ color: numberColor }}>{dot(numberColor)}Au moins 1 chiffre</span>
+            </div>
+          );
+        }
     if (fieldKey === 'pseudo') return (
       <div className="validation-message" aria-live="polite">
         <span style={{ color: pseudoValidation.length ? 'RGB(51,204,51)' : 'red' }}>Au moins 5 caractères</span><br />
