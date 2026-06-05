@@ -351,8 +351,9 @@ if (fieldKey === 'email') {
                         <div className="profile-edit-row">
                           <span className="profile-edit-label">Actuel </span>
                           <div style={{ position: 'relative', flex: 1 }}>
-                            <input type={masked ? (showCurrentPassword ? 'text' : 'password') : 'text'} value={value === '—' ? '' : value} disabled className="profile-edit-input profile-edit-input--disabled" style={{ width: '100%', paddingRight: masked ? '32px' : '8px', boxSizing: 'border-box' }} />
-                            {masked && (
+
+                          <input type={masked ? (showCurrentPassword ? 'text' : 'password') : 'text'} value={value === '—' ? '' : value} disabled title={label} className="profile-edit-input profile-edit-input--disabled" style={{ width: '100%', paddingRight: masked ? '32px' : '8px', boxSizing: 'border-box' }} />                           
+                           {masked && (
                               <span onClick={() => setShowCurrentPassword(p => !p)} style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', cursor: 'pointer', fontSize: '15px' }}>
                                 {showCurrentPassword ? <FaEyeSlash /> : <FaEye />}
                               </span>
@@ -369,8 +370,11 @@ if (fieldKey === 'email') {
                                 <option value="femme">{age !== null && age >= 18 ? 'Femme' : 'Fille'}</option>
                               </select>
                             ) : (
-                              <input type={masked ? (showNewPassword ? 'text' : 'password') : (type || 'text')} className="profile-edit-input" placeholder={['Pseudo', 'Prénom', 'Mail', 'Mot de passe', 'Nom'].includes(label) ? '' : `Nouveau ${label.toLowerCase()}`} value={pendingChanges[fieldKey] || ''} onChange={e => handlePendingChange(fieldKey, e.target.value)} onFocus={() => setNewFieldFocused(fieldKey)} onBlur={() => setNewFieldFocused(null)} style={{ width: '100%', paddingRight: masked ? '32px' : '8px', boxSizing: 'border-box' }} />
-                            )}
+
+                              <input type={masked ? (showNewPassword ? 'text' : 'password') : (type || 'text')} className="profile-edit-input" placeholder={['Pseudo', 'Prénom', 'Mail', 'Mot de passe', 'Nom'].includes(label) ? '' : `Nouveau ${label.toLowerCase()}`} value={pendingChanges[fieldKey] || ''} onChange={e => handlePendingChange(fieldKey, e.target.value)} onFocus={() => setNewFieldFocused(fieldKey)} onBlur={() => setNewFieldFocused(null)} title={label} style={{ width: '100%', paddingRight: masked ? '32px' : '8px', boxSizing: 'border-box' }} />
+
+                           
+                           )}
                             {masked && (
                               <span onClick={() => setShowNewPassword(p => !p)} style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', cursor: 'pointer', fontSize: '15px' }}>
                                 {showNewPassword ? <FaEyeSlash /> : <FaEye />}
@@ -384,7 +388,8 @@ if (fieldKey === 'email') {
                             <div className="profile-edit-row">
                               <span className="profile-edit-label">Confirmation </span>
                               <div style={{ position: 'relative', flex: 1 }}>
-                                <input type={showConfirmPassword ? 'text' : 'password'} className="profile-edit-input" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} onFocus={() => setConfirmPasswordFocused(true)} onBlur={() => setConfirmPasswordFocused(false)} style={{ width: '100%', paddingRight: '32px', boxSizing: 'border-box' }} />
+
+                                <input type={showConfirmPassword ? 'text' : 'password'} className="profile-edit-input" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} onFocus={() => setConfirmPasswordFocused(true)} onBlur={() => setConfirmPasswordFocused(false)} title="Confirmation du mot de passe" style={{ width: '100%', paddingRight: '32px', boxSizing: 'border-box' }} />                                
                                 <span onClick={() => setShowConfirmPassword(p => !p)} style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', cursor: 'pointer', fontSize: '15px' }}>
                                   {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
                                 </span>
