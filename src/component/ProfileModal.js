@@ -250,7 +250,7 @@ function ProfileModal({ onClose }) {
           return (
             <div className="validation-message" aria-live="polite">
               <span style={{ color: lengthColor }}>{dot(lengthColor)}Au moins 10 caractères</span><br />
-              <span style={{ color: upperColor }}>{dot(upperColor)}Au moins une majuscule</span><br />
+              <span style={{ color: upperColor }}>{dot(upperColor)}Au moins 1 majuscule</span><br />
               <span style={{ color: numberColor }}>{dot(numberColor)}Au moins 1 chiffre</span>
             </div>
           );
@@ -301,7 +301,7 @@ if (fieldKey === 'email') {
   return (
     <div className="profile-overlay" onClick={handleOverlayClick} role="dialog" aria-modal="true" aria-label="Profil utilisateur">
       <div className="profile-modal">
-        <button className="profile-close-btn" onClick={onClose} aria-label="Fermer">✕</button>
+        <button className="profile-close-btn" onClick={onClose} aria-label="Fermer" title="Fermer">✕</button>
         {loading ? (
           <p className="profile-loading">Chargement...</p>
         ) : (
@@ -320,6 +320,8 @@ if (fieldKey === 'email') {
                         fontWeight: 'bold',
                         color: saveMessage.startsWith('La mise à jour') ? 'RGB(51,204,51)' : 'red',
                       }}
+
+                       title="Masquer le message d'information"
                     >
                       ✕
               </span>
@@ -395,11 +397,16 @@ if (fieldKey === 'email') {
                                 </span>
                               </div>
                             </div>
-                            {confirmPasswordFocused && confirmPassword.length > 0 && (
-                              <div className="validation-message" aria-live="polite">
-                                <span style={{ color: passwordsMatch ? 'RGB(51,204,51)' : 'red' }}>{passwordsMatch ? 'Les mots de passe correspondent' : 'Identique au nouveau mot de passe'}</span>
-                              </div>
-                            )}
+
+                              {confirmPasswordFocused && (
+                                <div className="validation-message" aria-live="polite">
+                                  <span style={{ color: confirmPassword.length === 0 ? 'black' : passwordsMatch ? 'RGB(51,204,51)' : 'red' }}>
+                                    <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', backgroundColor: confirmPassword.length === 0 ? 'black' : passwordsMatch ? 'RGB(51,204,51)' : 'red', marginRight: '6px' }} />
+                                    {passwordsMatch && confirmPassword.length > 0 ? 'Les mots de passe correspondent' : 'Identique au nouveau mot de passe'}
+                                  </span>
+                                </div>
+                              )}
+
                           </>
                         )}
                       </div>
