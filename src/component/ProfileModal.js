@@ -263,10 +263,12 @@ function ProfileModal({ onClose }) {
   return (
     <div className="validation-message" aria-live="polite">
       <span style={{ color: lengthColor }}>{dot(lengthColor)}Au moins 5 caractères</span><br />
-      <span style={{ color: availableColor }}>
-        {dot(availableColor)}
-        {pseudoValidation.checking ? 'Vérification en cours...' : pseudoValidation.available ? 'Pseudo disponible' : 'Pseudo indisponible'}
-      </span>
+
+            <span style={{ color: availableColor }}>
+                  {dot(availableColor)}
+                  {pseudoValidation.checking ? 'Vérification en cours...' : 'Pseudo disponible'}
+            </span>
+
     </div>
   );
 }
@@ -366,7 +368,7 @@ if (fieldKey === 'email') {
                           <span className="profile-edit-label">Nouveau </span>
                           <div style={{ position: 'relative', flex: 1 }}>
                             {type === 'select' ? (
-                              <select className="profile-edit-input" value={pendingChanges[fieldKey] || ''} onChange={e => handlePendingChange(fieldKey, e.target.value)} style={{ width: '100%', boxSizing: 'border-box' }}>
+                              <select className="profile-edit-input" value={pendingChanges[fieldKey] || ''} onChange={e => handlePendingChange(fieldKey, e.target.value)} title={label} style={{ width: '100%', boxSizing: 'border-box' }}>
                                 <option value=""> </option>
                                 <option value="homme">{age !== null && age >= 18 ? 'Homme' : 'Garçon'}</option>
                                 <option value="femme">{age !== null && age >= 18 ? 'Femme' : 'Fille'}</option>
